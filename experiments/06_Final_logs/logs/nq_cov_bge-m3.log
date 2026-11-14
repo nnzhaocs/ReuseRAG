@@ -1,0 +1,14 @@
+documents: memmap (100000, 1024) float32
+  512/1000 queries  (2s)
+
+ K-prime      covered  coverage  ceiling  if indep  concentr
+      10         9103    0.0910   0.9090    0.0952    0.0041
+      25        19981    0.1998   0.8002    0.2212    0.0214
+      50        33154    0.3315   0.6685    0.3935    0.0620
+     100        49556    0.4956   0.5044    0.6323    0.1367
+     200        67014    0.6701   0.3299    0.8649    0.1948
+     500        85650    0.8565   0.1435    0.9933    0.1368
+    1000        93879    0.9388   0.0612    1.0000    0.0612
+
+1000 queries over N=100000. 'ceiling' is the largest share of the encoding work any window strategy can save against a full rebuild at that depth.
+wrote coverage_nq/bge-m3.json

@@ -1,0 +1,32 @@
+
+=== P2f  N=4000000  n_eval=3490  n_servable=6980  kappa=0.0361  M_S=0.6700  M_T=0.7356
+ K-prime      rho         G  coverage  ceiling  G<=0.005  G<=0.01  G<=0.02
+      10   0.4760   +0.0657    0.0170   0.9830   False   False   False
+      25   0.2802   +0.0170    0.0413   0.9587   False   False    True
+      50   0.1843   +0.0047    0.0793   0.9207    True    True    True
+     100   0.1213   +0.0012    0.1481   0.8519    True    True    True
+     200   0.0799   +0.0004    0.2635   0.7365    True    True    True
+     350   0.0568   -0.0004    0.3975   0.6025    True    True    True
+     500   0.0460   -0.0009    0.4997   0.5003    True    True    True
+    1000   0.0297   -0.0011    0.7094   0.2906    True    True    True
+  timing: precompute 1450.6s  rho 0.2s  G 5.8s  coverage 2.4s  total 1459.2s
+
+
+=== frontier: smallest admissible depth per pair, and what it would save ===
+pair           eps   K* (min K: G<=eps)  ceiling at K*   G at K*  rho at K*
+P2f          0.005                   50         0.9207   +0.0047     0.1843
+P2f           0.01                   50         0.9207   +0.0047     0.1843
+P2f           0.02                   25         0.9587   +0.0170     0.2802
+
+=== cross-pair rho spread per depth (a result, NOT a criterion for picking K') ===
+ K-prime  n_pairs   rho min   rho max   spread     G max  all admissible at eps=0.005
+      10        1    0.4760    0.4760   0.0000   +0.0657                        False
+      25        1    0.2802    0.2802   0.0000   +0.0170                        False
+      50        1    0.1843    0.1843   0.0000   +0.0047                         True
+     100        1    0.1213    0.1213   0.0000   +0.0012                         True
+     200        1    0.0799    0.0799   0.0000   +0.0004                         True
+     350        1    0.0568    0.0568   0.0000   -0.0004                         True
+     500        1    0.0460    0.0460   0.0000   -0.0009                         True
+    1000        1    0.0297    0.0297   0.0000   -0.0011                         True
+
+wrote 1 sweep file(s) and frontier.json to sweeps_s4m

@@ -1,0 +1,135 @@
+{
+ "pair": "P11",
+ "pair_dir": "/root/reusemap_v3n/pairs/P11",
+ "N": 1000000,
+ "Q": 7077,
+ "pilot_extrapolation": null,
+ "n_eval": 3490,
+ "n_servable": 6980,
+ "window_in_config": 500,
+ "retrieval_depth": 2000,
+ "kappa": -0.08991718292236328,
+ "cka": 0.608353316783905,
+ "M_S": 0.8334527220630202,
+ "M_T": 0.8796084049665589,
+ "M_A": 0.04914040114612832,
+ "eps_list": [
+  0.005,
+  0.01,
+  0.02
+ ],
+ "pilot": false,
+ "meta": {
+  "source": "sentence-transformers/all-MiniLM-L6-v2",
+  "target": "intfloat/e5-base-v2"
+ },
+ "depths": [
+  {
+   "kprime": 25,
+   "rho": 0.3010028653295127,
+   "rho_mapped": 0.9568194842406876,
+   "G": 0.01368194842407,
+   "coverage": 0.148564,
+   "ceiling_frac": 0.851436,
+   "covered": 148564,
+   "admissible": {
+    "0.005": false,
+    "0.01": false,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 50,
+   "rho": 0.21063037249283656,
+   "rho_mapped": 0.935214899713467,
+   "G": 0.0036532951289403037,
+   "coverage": 0.264274,
+   "ceiling_frac": 0.735726,
+   "covered": 264274,
+   "admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 100,
+   "rho": 0.14392550143266458,
+   "rho_mapped": 0.904297994269341,
+   "G": 0.0011461318051578795,
+   "coverage": 0.435261,
+   "ceiling_frac": 0.564739,
+   "covered": 435261,
+   "admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 200,
+   "rho": 0.10126074498567328,
+   "rho_mapped": 0.8606590257879656,
+   "G": -0.00021489971346710934,
+   "coverage": 0.643776,
+   "ceiling_frac": 0.356224,
+   "covered": 643776,
+   "admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 350,
+   "rho": 0.07415472779369625,
+   "rho_mapped": 0.8167335243553009,
+   "G": -0.001934097421203651,
+   "coverage": 0.800671,
+   "ceiling_frac": 0.19932899999999998,
+   "covered": 800671,
+   "admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 500,
+   "rho": 0.060085959885386675,
+   "rho_mapped": 0.7838681948424069,
+   "G": -0.000644699140401106,
+   "coverage": 0.877932,
+   "ceiling_frac": 0.12206799999999995,
+   "covered": 877932,
+   "admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 1000,
+   "rho": 0.04014326647564459,
+   "rho_mapped": 0.7087392550143266,
+   "G": -0.000644699140401106,
+   "coverage": 0.96471,
+   "ceiling_frac": 0.035290000000000044,
+   "covered": 964710,
+   "admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  }
+ ],
+ "seconds": {
+  "load": 0.6020500659942627,
+  "precompute": 466.5490210056305,
+  "reference": 0.03337240219116211,
+  "rho": 0.21654391288757324,
+  "G": 29.103676080703735,
+  "coverage": 0.8576810359954834,
+  "total": 497.3624937534332
+ }
+}

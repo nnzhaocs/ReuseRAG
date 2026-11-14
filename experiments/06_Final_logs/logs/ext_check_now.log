@@ -1,0 +1,21 @@
+[2026-11-10T01:23:01+08:00] checks (NQ)
+| pair | planned | K' | verdict | timing | family | cost (bound) | quality |
+|---|---|---|---|---|---|---|---|
+| N0 | S0 | - | PASS | pre-committed | match |  |  |
+| N10 | S2 | 50 | FAIL | pre-committed | match | 0.388040 vs cov 0.388040 | debt +0.0000 vs G -0.0050 x |
+| N11 | S2 | 50 | PASS | pre-committed | match | 0.388040 vs cov 0.388040 | debt -0.0050 vs G -0.0030 |
+| N12 | S0 | - | PASS | pre-committed | match |  |  |
+| N13 | S2 | 25 | PASS | pre-committed | match | 0.213630 vs cov 0.213630 | debt -0.0090 vs G -0.0120 |
+| N14 | S0 | - | FAIL | pre-committed | MISS (S2/demand_then_rand) |  |  |
+| N2 | S2 | 50 | PASS | pre-committed | match | 0.388040 vs cov 0.388040 | debt +0.0040 vs G +0.0070 |
+| N3 | S2 | 25 | PASS | pre-committed | excluded by D2 (S4/demand_then_rand) | 0.213630 vs cov 0.213630 | debt +0.0040 vs G +0.0040 |
+| N4 | S0 | - | PASS | pre-committed | match |  |  |
+| N5 | S0 | - | PASS | pre-committed | match |  |  |
+| N9 | S2 | 25 | FAIL | pre-committed | match | 0.224250 vs cov 0.224250 | debt -0.0013 vs G +0.0047 x |
+
+11 pairs scorable, 11 pre-committed; 3 pre-committed claims failed
+[2026-11-10T01:23:01+08:00] NQ planner check reported failures: read planner_check_nq.md (report them, do not re-plan)
+
+all 5 tables describe these results
+K* = 50
+[2026-11-10T01:23:02+08:00] checks done

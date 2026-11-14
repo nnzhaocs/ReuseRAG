@@ -1,0 +1,14 @@
+[P2f] N=2000000 Q=7077 eval=3490 traffic_pool=3490 window=50 kappa=0.037 cka=0.615 (543.2s)
+[P2f] secondary (97 deeply-judged queries, ndcg@10): M_T=0.6733 G={25: 0.0033, 50: 0.0062, 100: 0.0036}
+[P2f] NOTE G < 0 at 1 depth(s) on the sparse primary set but at none on the deeply-judged set -- consistent with judgment sparsity rather than a cascade effect. This is the comparison the paper turns on.
+[P2f] M_S=0.7606 M_T=0.8151 M_A=0.3264 rho={25: 0.28862464183381076, 50: 0.1955587392550142, 100: 0.13303724928366756}
+[P2f] ratio=64 stream_len=25600: ~2 rounds to serve 99% of the workload weight over 3490 evaluation queries (~2 rounds for that share of the query COUNT); max_rounds=800, background completes at round 100
+[P2f] ratio=64 S0/rand            debt=0.0545 served=0.7606 C_serve/N=1.000 completed=True repairs/q=0.0
+[P2f] ratio=64 S1/rand            debt=0.4887 served=0.3264 C_serve/N=1.000 completed=True repairs/q=0.0
+[P2f] ratio=64 S2/demand_then_rand debt=0.0037 served=0.8115 C_serve/N=0.148 completed=True repairs/q=42.5
+[P2f] ratio=64 S2/rand            debt=0.0037 served=0.8115 C_serve/N=0.158 completed=True repairs/q=42.5
+[P2f] ratio=64 winner=S2/demand_then_rand band=2 tied=2 non_completing=[]
+[P2f] winner=S2/demand_then_rand band=2  (577.0s)
+   I2 rho non-increasing: ok
+   I4'/I5'/I7/I8/I9 (replay v3): ok
+   I6 evaluation queries are measured at first service only, never re-scored after their own repair: ok (enforced in run_arrivals)

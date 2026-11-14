@@ -1,0 +1,594 @@
+% =====================================================================
+%  DRAFT -- Re-embed, Map, or Window?
+%  Characterizing Reuse Strategies for Embedding Model Upgrades
+%
+%  Status: skeleton + method + experimental protocol.
+%  NO RESULTS ARE REAL. Every number to be filled is marked \todo{}.
+%  Target: Experiments, Analysis & Benchmarks track (ICDE / VLDB / SIGMOD).
+%  Anonymity: Thaw is cited as anonymous concurrent work; adjust to venue rules.
+% =====================================================================
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\newcommand{\note}[1]{\textcolor{blue}{[NOTE: #1]}}
+\newcommand{\topk}{\mathrm{Top}}
+\newcommand{\win}{W}
+\newcommand{\Gk}{G(K')}
+
+\begin{document}
+
+\title{Re-embed, Map, or Window? Characterizing Reuse Strategies\\for Embedding Model Upgrades}
+
+\author{\IEEEauthorblockN{Anonymous Authors}
+\IEEEauthorblockA{\textit{Under double-blind review}}}
+
+\maketitle
+
+% ---------------------------------------------------------------------
+\begin{abstract}
+Upgrading the embedding model behind a vector index normally means re-encoding the
+whole corpus before the new model can serve. Several reuse strategies avoid or defer
+that cost: mapping new-model queries into the old space with a learned adapter,
+re-ranking a window of candidates nominated by the old index with the new model, and
+combinations of these with model-independent lexical nomination and background
+migration. Each has been evaluated in isolation, on its own metric, and mostly on
+text. We do not propose another strategy. Instead, we evaluate all of them under a
+single cost model --- recall along the path to the \emph{target} model as a function of
+encoding work --- across \todo{N} model pairs spanning same-family, cross-family,
+quantization, and code-specialized upgrades, on text and code corpora.
+We ask three questions: which strategy wins where; whether two cheap pair-level
+measurements (space compatibility and window residual miss) predict the winner on a
+held-out model pair; and whether that prediction can be made \emph{before} migration
+at bounded encoding cost. We additionally test, under a pre-registered gate, whether a
+document-level signal can order background migration better than random.
+\todo{One-sentence headline findings once the regime map is measured.}
+All code, encodings, and per-pair measurements are released.
+\end{abstract}
+
+\begin{IEEEkeywords}
+vector search, embedding models, index maintenance, model migration, benchmark
+\end{IEEEkeywords}
+
+% =====================================================================
+\section{Introduction}
+% =====================================================================
+
+Dense retrieval systems tie their index to a specific embedding model. When a better
+model appears, the vectors in the index become incompatible with the new query
+encoder, and the standard practice is a blue--green rebuild: re-encode the corpus,
+build a second index, validate it, and switch traffic~\cite{zilliz-migration}. At the
+scale of hundreds of millions of documents this costs days to weeks of accelerator
+time before the new model serves a single query.
+
+Three families of reuse strategies have emerged to avoid that up-front cost.
+\emph{Space mapping} learns a light transformation that maps new-model queries into the
+old space so the existing index keeps serving~\cite{drift-adapter}.
+\emph{Window re-ranking} retrieves a bounded candidate window from the old index,
+scores it with the new model, and materializes new vectors progressively in the
+background~\cite{embedflow,thaw-anon}. \emph{Structure reuse} exploits the observation
+that old-model neighborhoods remain partially informative under the new model, for
+instance to accelerate building the new graph index~\cite{dgm}.
+
+These strategies were evaluated on different metrics, different model pairs, and
+almost exclusively on text. A practitioner facing a concrete upgrade --- say a
+general-purpose encoder to a code-specialized one --- has no basis for choosing among
+them, and the published numbers cannot be compared. Moreover, space mapping does not
+upgrade stored vectors: it bounds retrieval by what the old model encoded, so it is a
+bridge, not a destination. Any fair comparison must therefore measure the cost of
+\emph{reaching the new model} while keeping recall acceptable along the way, not only
+the quality of a frozen intermediate state.
+
+\textbf{Research questions.}
+\begin{itemize}
+\item \textbf{RQ1 (Regime map).} For each model pair, which reuse strategy achieves the
+best recall-versus-encoding-cost trajectory toward the target model, and how does the
+winner vary across pair types and corpora?
+\item \textbf{RQ2 (Predictability).} Do two pair-level measurements --- space
+compatibility and window residual miss --- predict the winning strategy on a model
+pair that was not used to build the map?
+\item \textbf{RQ3 (Bounded-cost probe).} Can those measurements be estimated before
+migration while encoding only a small, bounded fraction of the corpus, and how large
+is the estimation error relative to the full offline measurement?
+\item \textbf{RQ4 (Document-level ordering, gated).} Within a chosen strategy, does a
+pre-embedding document signal order background migration better than random, size,
+or demand-only order at equal encoding budget?
+\end{itemize}
+
+\textbf{Contributions.}
+\begin{enumerate}
+\item \textbf{A unified evaluation frame} that scores every reuse strategy by its
+recall trajectory toward the target model per unit of encoding work, compatible with
+the window gap $G(K')$ of~\cite{embedflow} (Section~\ref{sec:frame}).
+\item \textbf{A measured regime map} over \todo{N} model pairs on text and code, with
+a falsifiable claim tested by leave-one-pair-out winner prediction
+(Sections~\ref{sec:rq1}--\ref{sec:rq2}).
+\item \textbf{A bounded-cost probe} that estimates window residual miss before
+migration via an intruder-count estimator, validated against full offline
+measurements (Section~\ref{sec:rq3}).
+\item \textbf{A pre-registered test of document-level migration ordering}, reported
+whether positive or negative (Section~\ref{sec:rq4}).
+\end{enumerate}
+
+\textbf{Scope.} We study which existing strategy wins where and how to tell cheaply in
+advance. We make no exactness guarantees for mixed-state retrieval and propose no new
+serving mechanism; those questions are treated in concurrent
+work~\cite{thaw-anon}.
+
+\todo{Summary of findings paragraph (3--4 bullets) after RQ1--RQ4 are run.}
+
+% =====================================================================
+\section{Problem Setting and Evaluation Frame}\label{sec:frame}
+% =====================================================================
+
+\subsection{Setting}
+Let $D$ be a corpus of $N$ documents, $f_s$ the source (old) encoder, and $f_t$ the
+target (new) encoder. An index $I_s$ over $\{f_s(d)\}_{d\in D}$ is serving. A query
+workload $Q$ arrives over time, possibly with repeated queries. Let
+$\topk_K^{t}(q)$ denote the native top-$K$ of $q$ under $f_t$ over all of $D$, and
+$\topk_{K'}^{s}(q)$ the top-$K'$ window returned by $I_s$.
+
+\subsection{Cost model}
+The dominant cost of migration is encoding documents with $f_t$. We count
+\emph{document encodings} $C$ as the primary cost unit and report wall-clock and
+accelerator time as secondary units. Query encoding, ANN search, and adapter
+application are measured but are orders of magnitude cheaper per call;
+\todo{confirm with measurements and report the ratio}.
+
+\subsection{Metrics}
+
+\textbf{Reference qualities.} Let $M_T$ be retrieval quality (Recall@10 or nDCG@10
+against qrels) of exact native $f_t$ retrieval over all of $D$, and $M_S$ the same for
+the source model $f_s$ --- the quality the system serves before migration starts. For a
+strategy $\sigma$ after $C$ encodings, $M_\sigma(C)$ is the quality it serves at that point.
+
+\textbf{Window gap.} Following~\cite{embedflow}, for window depth $K'$,
+\[
+G(K') = M_T - M_{T\mid S_{K'}},
+\]
+where $M_{T\mid S_{K'}}$ is the quality of $f_t$ re-ranking the source window only.
+
+\textbf{Residual miss.} The qrels-free counterpart, measured against the native target
+ranking:
+\[
+\rho(K') = 1 - \mathbb{E}_{q\in Q}\,
+\frac{\lvert \topk_K^{t}(q) \cap \topk_{K'}^{s}(q)\rvert}{K}.
+\]
+Because $\rho$ depends on $K'/N$, we always report $K'$ as a fraction of $N$.
+All windows of different depths are prefixes of a single retrieval at the largest depth,
+so $\rho(K')$ is non-increasing in $K'$ by construction; measurements use exact search,
+and the approximate-search noise floor is reported separately (pair P0).
+
+\textbf{Trajectory metrics.} For each strategy we report (i) the curve
+$C \mapsto M_\sigma(C)$ from $C{=}0$ to full migration; (ii) the \emph{cost-to-$\varepsilon$},
+$C_\varepsilon(\sigma) = \min\{C : M_\sigma(C) \ge M_T - \varepsilon\}$; and (iii) the
+\emph{floor} $\min_C M_\sigma(C)$, the worst quality served during migration.
+Space mapping alone never reaches $M_T$; it is evaluated as a bridge combined with a
+background rebuild.
+
+\textbf{Pre-registered winner rule.} A strategy--order combination is \emph{admissible}
+on a pair if it never serves worse than the system it replaces,
+$\min_C M_\sigma(C) \ge M_S - \delta$. The \emph{winner} is the admissible combination
+with the smallest $C_{\varepsilon}$, ties broken by the area under the trajectory. We fix
+$\varepsilon = 0.01$ and $\delta = \todo{0.01}$ on MS MARCO dev Recall@10 before any
+pair is run; nDCG@10 on TREC-DL and the other trajectory metrics are secondary. The
+floor is anchored to $M_S$, not $M_T$: at $C{=}0$ every strategy serves roughly $M_S$,
+so a target-anchored floor would exclude all strategies whenever the upgrade is worth doing.
+
+\textbf{Pair-level measurements.} \emph{Compatibility} $\kappa = 1 - r$, where $r$ is the
+relative residual $\lVert A(X_t) - X_s\rVert_F / \lVert X_s\rVert_F$ of a map $A$ from $f_t$ to
+$f_s$ embeddings (semi-orthogonal Procrustes, or ridge-regularized affine), fit on one
+document sample and evaluated on a disjoint one; larger $\kappa$ means more compatible.
+We also report linear CKA~\cite{cka} on the same sample.
+\emph{Window reliability}: $\rho(K')$ and $G(K')$ at fixed $K'/N$.
+
+% =====================================================================
+\section{Strategies Under Study}\label{sec:strategies}
+% =====================================================================
+
+Table~\ref{tab:strategies} lists the strategies. Every strategy that does not reach
+the target model on its own is paired with a background migration that re-encodes the
+corpus at a fixed rate, so all trajectories end at $M_T$.
+
+\begin{table*}[t]
+\centering
+\caption{Strategies evaluated. ``Nominator'' is what proposes candidates; ``Ranker''
+is what orders them.}
+\label{tab:strategies}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+ID & Strategy & Nominator & Ranker \\
+\midrule
+S0 & Blue--green rebuild & --- (old index until switch) & $f_s$, then $f_t$ \\
+S1 & Space mapping~\cite{drift-adapter} & $I_s$ via $A(f_t(q))$ & $f_s$ \\
+S2 & Window re-rank~\cite{embedflow,thaw-anon} & $I_s$ via $f_s(q)$ & $f_t$ \\
+S3 & Mapped window & $I_s$ via $A(f_t(q))$ & $f_t$ \\
+S4 & Window $\cup$ lexical & $I_s \cup$ BM25~\cite{bm25} & $f_t$ \\
+S5 & Window $\cup$ mapped $\cup$ lexical & all three & $f_t$ \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\textbf{New writes.} Documents inserted during migration have no source vector and can
+never be nominated by $I_s$. All window strategies therefore also search a small
+target-space index over migrated and newly written documents and merge results.
+
+\textbf{Background migration orders.} For S2--S5 the background re-encoder follows one
+of: \emph{O-rand} (uniform random), \emph{O-size} (shortest documents first, maximizing
+documents per GPU-second), \emph{O-demand} (no background work: only documents surfaced
+by queries are encoded, i.e.\ pure lazy materialization, which need not ever complete),
+and \emph{O-signal} (Section~\ref{sec:rq4}). Window documents missing a target vector are
+either encoded synchronously when a query is served (\emph{sync}) or queued ahead of
+background work (\emph{async}, as in~\cite{embedflow}).
+
+\textbf{What a checkpoint measures.} Quality along the trajectory is measured from the
+migration state, not from hypothetical encodings. A query whose window is fully encoded
+(\emph{warm}) is ranked by target scores over its window and the target index; a query
+with any unencoded window document (\emph{cold}) is served its nomination-order answer.
+Scoring unencoded window documents at a checkpoint would let window strategies reach
+target quality at $C{=}0$ without paying for those encodings, and mixing target-scored
+with unscored documents in one ranking compares scores across spaces. For sync strategies
+we separately report the number of encodings performed per served query, a latency proxy.
+
+% =====================================================================
+\section{Experimental Setup}\label{sec:setup}
+% =====================================================================
+
+\subsection{Corpora and queries}
+\begin{itemize}
+\item \textbf{Text:} MS MARCO passages~\cite{msmarco}. The full-encoding experiments use
+a \todo{1M}-passage subsample built as \emph{every judged passage} (MS MARCO dev and
+TREC-DL 2019/2020 qrels) plus a uniform random fill; a random subsample would drop most
+judged passages and make $M_T$ and $G(K')$ meaningless. Recall@10 is computed on MS MARCO
+dev (\todo{$\approx$7k} queries, sparse labels; primary) and nDCG@10 on TREC-DL 2019+2020
+(\todo{$\approx$100} queries, dense labels; secondary). Full-collection runs provide scale points.
+\item \textbf{Text with real heat:} the MS MARCO document collection with ORCAS click
+logs~\cite{orcas}, used to construct query workloads with empirical repetition.
+\note{ORCAS clicks are document-level; map to passages if passages are used.}
+\item \textbf{Code:} CodeSearchNet~\cite{codesearchnet} (Python, Go, JavaScript) and the
+repositories of CIPBench~\cite{cipbench} as small real-evolution sanity checks.
+\end{itemize}
+
+\textbf{Workloads.} Uniform over the query set; ORCAS empirical frequency (text); and a
+Zipf$(\alpha)$ resampling with $\alpha\in\{0, 0.6, 0.9, 1.2\}$ (code), so that every
+skew-dependent claim is reported as a function of $\alpha$ rather than assumed.
+
+\textbf{Query roles.} A seeded fraction \todo{0.5} of the judged queries is held out for
+evaluation and TREC-DL is evaluation-only; all other queries form the traffic that is
+served during migration. Evaluated queries enter the traffic only as explicit repeats, at
+rate $r\in$\todo{$\{0, 0.3\}$}. Without this split, on-demand repair warms exactly the
+windows being evaluated and wins by construction; an earlier version of our replay had
+this flaw. \textbf{Traffic intensity.} With background budget $b = N/R$ encodings per round,
+each round serves $\lambda$ queries, set by the ratio
+$\tau = \lambda K'/b \in$\todo{$\{0.25, 1, 4\}$}: the on-demand encodings a fully cold
+round could trigger, relative to the background budget. We report the winner at every
+$(\tau, r)$ and pre-register one setting, \todo{$(\tau{=}1, r{=}0)$}, as the label RQ2 predicts.
+
+\subsection{Model pairs}
+Table~\ref{tab:pairs} lists the planned pairs. P0 is the control: the same model
+with its approximate index rebuilt under a different seed, so its $\rho(K')$ measures
+pure ANN noise and serves as the noise floor for every other pair. P6 (fp32$\to$int8)
+is only a sanity check: it transforms stored vectors and needs no re-encoding, so every
+strategy wins trivially and it is excluded from winner prediction.
+
+\begin{table*}[t]
+\centering
+\caption{Planned model pairs (source $\rightarrow$ target). \todo{verify dims and
+availability; add pairs to reach 8--10.}}
+\label{tab:pairs}
+\small
+\begin{tabular}{@{}lllc@{}}
+\toprule
+ID & Source & Target & Type \\
+\midrule
+P0 & bge-base-en-v1.5 & same, ANN rebuilt & control \\
+P1 & all-MiniLM-L6-v2 & all-mpnet-base-v2 & cross-arch \\
+P2 & all-MiniLM-L6-v2 & bge-base-en-v1.5 & cross-family \\
+P3 & bge-small-en-v1.5 & bge-base-en-v1.5 & same family \\
+P4 & e5-base-v2 & bge-base-en-v1.5 & cross-family \\
+P5 & Qwen3-Emb-0.6B & Qwen3-Emb-4B & same family$^\dagger$ \\
+P6 & bge-base (fp32) & bge-base (int8) & sanity only \\
+P7 & all-MiniLM-L6-v2 & \todo{code encoder} & general$\to$code \\
+P8 & \todo{code encoder A} & \todo{code encoder B} & code$\to$code \\
+\bottomrule
+\multicolumn{4}{@{}l}{\footnotesize $^\dagger$Overlaps the public registry of~\cite{embedflow}; used for calibration.}
+\end{tabular}
+\end{table*}
+
+\subsection{Implementation}
+Window, residual-miss and quality measurements use exact inner-product search, so
+they are free of ANN error; HNSW~\cite{hnsw} with identical build parameters is used only
+for P0 and for latency figures. BM25 uses \todo{Pyserini or bm25s} with Anserini's default
+parameters ($k_1{=}0.9$, $b{=}0.4$). Adapter families and training-set size follow the
+setup reported in~\cite{drift-adapter} \todo{copy exact families and $n$ from the paper}.
+Hardware: \todo{GPU type, count}. Every encoding is computed once and cached, so all
+strategies are replayed over identical vectors.
+
+\subsection{Pipeline invariants}
+Before any pair is interpreted, the replay pipeline must satisfy properties that hold
+by construction: (i) P0 with exact search gives $\rho(K'){=}0$; (ii) $\rho(K')$ is
+non-increasing in $K'$; (iii) re-ranking a window equal to the corpus gives $G{=}0$;
+(iv) every trajectory with a completing background order ends at $M_T$ with $C{=}N$;
+(v) S0 serves exactly $M_S$ until it switches. A violation is a pipeline bug; an
+unexpected value on a real pair is a finding.
+
+\subsection{Pre-registered hypotheses}
+Fixed before running RQ1--RQ4; each with its falsification condition.
+\begin{itemize}
+\item \textbf{H1.} $G(K')$ at fixed $K'/N$ increases as compatibility $\kappa$
+decreases. \emph{Falsified if} the Spearman correlation $r_s < 0.5$ across pairs.
+\item \textbf{H2.} With the winner defined by the pre-registered rule of
+Section~\ref{sec:frame} at the pre-registered $(\tau, r)$ setting, leave-one-pair-out prediction from $(\kappa, \rho(K'))$ beats the
+majority-class baseline in mean regret. \emph{Falsified if} its mean regret $\ge$ that of
+the majority baseline.
+\item \textbf{H3 (exploratory).} At least one non-control pair has low compatibility
+but low residual miss.
+\item \textbf{H4.} The bounded-cost probe estimates $\rho(K')$ within $\pm$\todo{0.05}
+of the full measurement at a \emph{total} encoding cost (probe windows, shared sample and
+strata, deduplicated) of $\le$\todo{2\%} of $N$; the probe windows alone cost
+$|Q_\text{probe}|\cdot K'$, about 1\% of $N$ for 20 queries at $K'/N = 5\cdot10^{-4}$. \emph{Falsified if} the error
+exceeds the bound on more than one pair.
+\item \textbf{H5.} The document signal of Section~\ref{sec:rq4} has AUC significantly
+above 0.5 (bootstrap 95\% CI excludes 0.5) on at least half of the cross-family pairs,
+and O-signal beats O-rand at equal budget. \emph{Otherwise} reported as a negative result.
+\end{itemize}
+
+% =====================================================================
+\section{RQ1: Which Strategy Wins Where?}\label{sec:rq1}
+% =====================================================================
+
+\textbf{Protocol.} For every pair we encode the full corpus with both models (offline
+evaluation only), replay each strategy--order combination along the migration, and
+record $M_\sigma(C)$, $C_\varepsilon$, and the floor.
+
+\begin{table}[t]
+\centering
+\caption{Per-pair measurements and the winner under the pre-registered rule (admissible: floor $\ge M_S-\delta$). \todo{fill}.}
+\label{tab:map}
+\small
+\begin{tabular}{@{}lcccccl@{}}
+\toprule
+Pair & $\kappa$ & CKA & $\rho(K')$ & $G(K')$ & $C_{0.01}$ & Winner \\
+\midrule
+P1 & -- & -- & -- & -- & -- & -- \\
+P2 & -- & -- & -- & -- & -- & -- \\
+P3 & -- & -- & -- & -- & -- & -- \\
+P4 & -- & -- & -- & -- & -- & -- \\
+P5 & -- & -- & -- & -- & -- & -- \\
+P6 & -- & -- & -- & -- & -- & -- \\
+P7 & -- & -- & -- & -- & -- & -- \\
+P8 & -- & -- & -- & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\todo{Figure: scatter of pairs on ($\kappa$, $\rho(K')$), points labeled by winning
+strategy, one panel per corpus.}
+
+\todo{Figure: recall-vs-encodings trajectories for two contrasting pairs (e.g.\ P3 vs P2).}
+
+\textbf{The empty-cell check.} \todo{Report whether any non-control pair falls in the
+low-compatibility / low-residual-miss region (H3). If none does, state that window
+re-ranking wins only where mapping also works, and discuss what that implies.}
+
+\textbf{Text versus code.} \todo{Compare the position of code pairs on the map with text
+pairs; test whether lexical nomination (S4) closes the gap on code, where identifiers
+carry much of the relevance signal.}
+
+% =====================================================================
+\section{RQ2: Is the Winner Predictable?}\label{sec:rq2}
+% =====================================================================
+
+A map is a method only if its axes predict the winner on an unseen pair. We hold out
+each pair in turn, fit a decision rule (a depth-2 tree and a nearest-neighbor rule) on
+the remaining pairs' $(\kappa, \rho(K'))$, and predict the held-out winner. We compare
+with a majority-class baseline and with each single axis.
+
+\todo{Table: LOPO accuracy and regret (cost-to-$\varepsilon$ of predicted vs.\ true
+winner) for: both axes, $\kappa$ only, $\rho$ only, majority.}
+
+\note{With 8--10 pairs, report regret, not only accuracy: a wrong but near-tied
+prediction costs little.}
+
+% =====================================================================
+\section{RQ3: A Bounded-Cost Probe}\label{sec:rq3}
+% =====================================================================
+
+Measuring $\rho(K')$ directly requires the native target top-$K$, i.e.\ encoding all of
+$D$ with $f_t$ --- the very cost migration seeks to avoid. We estimate it instead.
+
+\textbf{Intruder-count estimator.} For a probe query $q$, encode the window
+$\win_q = \topk_{K'}^{s}(q)$ with $f_t$ and let $\tau_q$ be the $K$-th highest target
+score in $\win_q$. A document outside the window can displace a window document from
+the target top-$K$ only if its target score exceeds $\tau_q$. Define the intruder count
+\[
+I_q = \lvert\{d \notin \win_q : s_t(q,d) > \tau_q\}\rvert .
+\]
+$\min(I_q, K)$ is an \emph{upper bound} on the number of target top-$K$ documents missing
+from the window, not its value: two intruders that beat only the weakest window
+documents may displace just one of them. The exact count follows from intruder counts
+at every window score. Let $w_1 \ge \dots \ge w_K$ be the top-$K$ target scores in
+$\win_q$ and $I_q(w) = \lvert\{d\notin\win_q : s_t(q,d) > w\}\rvert$. The overall top-$K$
+contains $j$ outside documents iff the $j$-th best outside score exceeds $w_{K-j+1}$, so
+\[
+\mathrm{miss}_q = \bigl\lvert\{\, j \in 1..K : I_q(w_{K-j+1}) \ge j \,\}\bigr\rvert .
+\]
+Drawing a uniform sample $S\subset D$ of size $m$ and encoding it with $f_t$ gives the
+unbiased count estimate
+\begin{gather*}
+\hat I_q(w) = \frac{N}{m}\,\lvert\{d \in S\setminus \win_q : s_t(q,d) > w\}\rvert ,
+\end{gather*}
+which we plug into $\mathrm{miss}_q$; we also report the conservative bound
+$\min(\hat I_q(w_K), K)/K$.
+One sample serves every probe query, so the cost is
+$\lvert\bigcup_q \win_q \cup S\rvert \le |Q_{\text{probe}}|\cdot K' + m$ encodings; all of them
+count toward migration, so none are wasted. The window term dominates at scale: with
+$N{=}10^6$ and $K'{=}500$, twenty probe queries already cost 1\% of $N$, so the number of
+probe queries, not only $m$, is the budget to tune.
+
+\textbf{The difficulty.} Intruders are rare tail events, so a uniform sample has high
+variance when $I_q$ is small relative to $N$. We evaluate (i) the uniform estimator,
+(ii) a stratified estimator that oversamples documents near $q$ in the \emph{source}
+space (deeper source ranks $K' < r \le cK'$), with importance weights, and (iii) a
+qrels-based variant that encodes only judged-relevant documents outside $\win_q$.
+\note{Compare against EmbedFlow's finite-tail T2-v1 diagnostic, which avoids native
+target rankings by design~\cite{embedflow}.}
+
+\todo{Table: estimation error of $\hat\rho$ vs.\ full $\rho$ per pair, per estimator,
+at encoding budgets of 0.1\%, 0.5\%, 1\% of $N$.}
+
+\todo{Does the probe place each pair in the same map region as the full measurement,
+and does LOPO prediction from probe estimates match RQ2?}
+
+% =====================================================================
+\section{RQ4: Document-Level Migration Ordering (Gated)}\label{sec:rq4}
+% =====================================================================
+
+\textbf{Signal.} Some documents are hot under the source model because of lexical
+evidence (shared identifiers, rare terms); others are hot only because of the source
+model's semantics. We hypothesize the latter are the ones whose exposure changes under
+the target model. Let $\mathrm{kocc}_s(d)$ be the number of workload queries for which
+$d\in\topk_K^{s}(q)$. The \emph{dense-only heat} of $d$ is
+\[
+h(d) = \bigl\lvert\{q : d\in\topk_K^{s}(q) \wedge d\notin\topk_{K_b}^{\mathrm{BM25}}(q)\}\bigr\rvert ,
+\]
+computable from the old index and a BM25 index, before any target encoding.
+
+\textbf{Gate.} Documents with large source exposure mechanically show large absolute
+exposure change, so the gate uses ratios: the signal is the dense-only share
+$h(d)/\mathrm{kocc}_s(d)$ and the label is whether the relative change
+$\lvert\mathrm{kocc}_t(d)-\mathrm{kocc}_s(d)\rvert/\mathrm{kocc}_s(d)$ exceeds its median, over
+documents with $\mathrm{kocc}_s(d)>0$ (on the probe sample in deployment).
+O-signal is enabled for a pair only if the bootstrap 95\% CI of the AUC excludes 0.5.
+
+\textbf{Head-to-head.} At equal encoding budget we compare O-signal, O-rand, O-size,
+and O-demand on the trajectory metrics, under ORCAS workloads (text) and the Zipf
+sweep (code).
+
+\todo{Table: AUC with CI per pair; gate decision.}
+\todo{Figure: trajectory difference O-signal $-$ O-demand vs.\ Zipf $\alpha$.}
+
+\note{Prior evidence is cautionary: in content-change maintenance, an exposure signal
+added nothing over change history~\cite{cipbench}. If H5 fails, this section reports a
+negative result with the measured AUCs.}
+
+% =====================================================================
+\section{Discussion}\label{sec:discussion}
+% =====================================================================
+
+\todo{Practitioner guidance distilled from the map: a short decision procedure
+derived from RQ2/RQ3, with the regret it incurs.}
+
+\todo{Where mapping and window strategies disagree, which one fails first and why
+(hubness~\cite{hubness}, query--document asymmetry, instruction-prefixed encoders).}
+
+\todo{Interaction with index-level reuse~\cite{dgm}: whether old-graph structure that
+accelerates new-index construction also predicts window reliability.}
+
+\textbf{Threats to validity.}
+\begin{itemize}
+\item \emph{Pair coverage:} \todo{N} pairs cannot represent all upgrades; winner prediction is
+evidence about these pair types, not a universal law.
+\item \emph{Subsampled corpora:} $\rho$ depends on $K'/N$; we report it as a fraction and
+include full-scale points to check extrapolation.
+\item \emph{Workloads:} ORCAS heat is real for text only; code skew is parametric.
+\item \emph{Encoding cost as the cost unit} understates query-time latency for window
+strategies; we report both.
+\item \emph{Encoder correctness:} every model is encoded under an explicit contract (prompt,
+pooling, padding side, EOS, revision) that is checked against the model card's worked
+example and for batched-versus-single agreement; models that fail are excluded, not tuned.
+\end{itemize}
+
+% =====================================================================
+\section{Related Work}\label{sec:related}
+% =====================================================================
+
+\textbf{Embedding model upgrades.} Drift-Adapter maps new queries into the legacy
+space to defer re-encoding~\cite{drift-adapter}. EmbedFlow serves a target model over
+source-index candidates while materializing target vectors, with an empirical
+window diagnostic and a registry of measured pairs~\cite{embedflow}. Residual
+reachability reuses old graph structure to accelerate new-index construction~\cite{dgm}.
+Concurrent work studies exactness conditions and the economics of incomplete
+migration~\cite{thaw-anon}. Our contribution is orthogonal: a common frame and a
+cross-strategy, cross-domain map with predictive validation.
+
+\textbf{Representation alignment.} Linear and orthogonal alignment of embedding
+spaces~\cite{procrustes}, representation similarity~\cite{cka}, and relative
+representations~\cite{relrep} motivate our compatibility axis.
+
+\textbf{Dynamic vector indexes.} SPFresh, FreshDiskANN, and Quake update indexes as
+vectors change~\cite{spfresh,freshdiskann,quake}; they assume the new vector exists,
+which is the cost studied here. LEANN recomputes embeddings at query time to save
+storage~\cite{leann}, a mechanism related to window re-ranking but with a different goal.
+
+\textbf{Stale representations.} Corrector networks reduce re-encoding of stale
+embeddings during retriever training~\cite{corrector}; CIPBench studies which content
+changes require re-embedding under a fixed encoder~\cite{cipbench}.
+
+% =====================================================================
+\section{Conclusion}
+% =====================================================================
+\todo{Write after results.}
+
+\section*{Artifacts}
+\todo{Repository URL (anonymized): replay framework, cached encodings or scripts to
+regenerate them, probe estimators, all per-pair tables.}
+
+% =====================================================================
+\begin{thebibliography}{99}
+\bibitem{drift-adapter} H.~Vejendla, ``Drift-Adapter: A practical approach to near
+zero-downtime embedding model upgrades in vector databases,'' in \emph{Proc. EMNLP},
+2025, pp.~15938--15949.
+\bibitem{embedflow} A.~Srivastav, ``EmbedFlow: Progressive embedding-model migration
+over existing vector indexes,'' software, v0.8.0, 2026.
+\url{https://github.com/arnsri33/embedflow}
+\bibitem{dgm} \todo{authors}, ``Exploiting residual reachability for cross-model
+migration of graph-based indexes in approximate nearest neighbor search,''
+arXiv:2609.23036, 2026.
+\bibitem{thaw-anon} Anonymous, ``\todo{Thaw title},'' under submission, 2026.
+\bibitem{cipbench} N.~Zhao, J.~Zhang, T.~Zhong, H.~Wang, and B.~Wang, ``Which code
+changes need re-embedding? CIPBench and the limits of multi-signal index
+maintenance,'' \emph{ACM TOSEM} (submitted), 2026.
+\bibitem{zilliz-migration} Zilliz, ``Migrate to a new embedding model,'' documentation,
+2026.
+\bibitem{msmarco} T.~Nguyen \emph{et al.}, ``MS MARCO: A human generated machine reading
+comprehension dataset,'' arXiv:1611.09268, 2016.
+\bibitem{orcas} N.~Craswell \emph{et al.}, ``ORCAS: 18 million clicked query-document
+pairs for modeling search,'' in \emph{Proc. CIKM}, 2020.
+\bibitem{codesearchnet} H.~Husain \emph{et al.}, ``CodeSearchNet challenge: Evaluating
+the state of semantic code search,'' arXiv:1909.09436, 2019.
+\bibitem{bm25} S.~Robertson and H.~Zaragoza, ``The probabilistic relevance framework:
+BM25 and beyond,'' \emph{Found. Trends Inf. Retr.}, vol.~3, no.~4, 2009.
+\bibitem{hnsw} Y.~Malkov and D.~Yashunin, ``Efficient and robust approximate nearest
+neighbor search using hierarchical navigable small world graphs,'' \emph{IEEE TPAMI},
+vol.~42, no.~4, 2018.
+\bibitem{cka} S.~Kornblith, M.~Norouzi, H.~Lee, and G.~Hinton, ``Similarity of neural
+network representations revisited,'' in \emph{Proc. ICML}, 2019.
+\bibitem{procrustes} P.~Sch\"onemann, ``A generalized solution of the orthogonal
+Procrustes problem,'' \emph{Psychometrika}, vol.~31, 1966.
+\bibitem{relrep} L.~Moschella \emph{et al.}, ``Relative representations enable zero-shot
+latent space communication,'' in \emph{Proc. ICLR}, 2023.
+\bibitem{hubness} M.~Radovanovi\'c, A.~Nanopoulos, and M.~Ivanovi\'c, ``Hubs in space:
+Popular nearest neighbors in high-dimensional data,'' \emph{JMLR}, vol.~11, 2010.
+\bibitem{spfresh} Y.~Xu \emph{et al.}, ``SPFresh: Incremental in-place update for
+billion-scale vector search,'' in \emph{Proc. SOSP}, 2023.
+\bibitem{freshdiskann} A.~Singh \emph{et al.}, ``FreshDiskANN: A fast and accurate
+graph-based ANN index for streaming similarity search,'' arXiv, 2021.
+\bibitem{quake} J.~Mohoney \emph{et al.}, ``Quake: Adaptive indexing for vector search,''
+in \emph{Proc. OSDI}, 2025.
+\bibitem{leann} \todo{authors}, ``LEANN: A low-storage vector index,'' arXiv, 2025.
+\bibitem{corrector} N.~Monath \emph{et al.}, ``A fresh take on stale embeddings:
+Improving dense retriever training with corrector networks,'' in \emph{Proc. ICML},
+2024.
+\end{thebibliography}
+
+\end{document}

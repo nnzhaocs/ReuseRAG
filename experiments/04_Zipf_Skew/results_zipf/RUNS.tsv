@@ -1,0 +1,5 @@
+date	name	run_key	git	config_hash	data_fp	status	out
+2026-11-10T02:44:20	P2	7d1b31cd97652e98	a0d2eec90e40	e7d9e4dfc43ca102	01c373877f239344	ok	/root/sub13run/results_zipf/P2.json
+2026-11-10T02:47:17	P13	e955a07e8e1522fc	a0d2eec90e40	e7d9e4dfc43ca102	3fa4d5de235eb521	ok	/root/sub13run/results_zipf/P13.json
+2026-11-10T03:03:24	P11	ba87e97b0b845fe4	a0d2eec90e40	e7d9e4dfc43ca102	467b3ac2a36d8de2	ok	/root/sub13run/results_zipf/P11.json
+2026-11-10T11:27:18	P5	69433c87c540cca4	a0d2eec90e40	e7d9e4dfc43ca102	4213b35689f95e94	ok	/root/sub13run/results_zipf/P5.json

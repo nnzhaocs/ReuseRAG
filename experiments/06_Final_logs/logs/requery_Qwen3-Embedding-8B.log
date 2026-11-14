@@ -1,0 +1,7 @@
+WARNING: contract for Qwen/Qwen3-Embedding-8B is 'unverified' (model card (to confirm); revision from the team's NQ runs); the sidecar records this
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 6824.24it/s]
+contract: padding_side enforced: tokenizer had 'right', contract 'left'
+contract: pooling: no Pooling module found, could not compare
+model input for the first text: 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:how many years did william bradford serve as governor of plymouth colony?'
+padding check: min cos 0.9997203350067139 over 64 texts -> ok
+wrote /root/reusemap_v3n/enc_qwen/Qwen3-Embedding-8B/q.npy (7077, 4096)

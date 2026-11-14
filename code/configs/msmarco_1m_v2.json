@@ -1,0 +1,79 @@
+{
+  "_status_2026_11_08": "2026-11-08: SUPERSEDED by msmarco_1m_v3.json (pre-registered 2026-11-06). Never used for a reported number.",
+  "_status": "DRAFT - NOT PRE-REGISTERED. Choose the values marked DECIDE, commit this file as the new pre-registration, and only then run real pairs. The 2026-10-23 pre-registration (msmarco_1m.json) is superseded: its replay leaked evaluation queries into traffic.",
+  "K": 10,
+  "kprime_frac": [
+    0.0005,
+    0.001,
+    0.002,
+    0.005
+  ],
+  "window_frac": 0.0005,
+  "primary": {
+    "metric": "recall",
+    "thr": 1
+  },
+  "secondary": [
+    {
+      "metric": "ndcg",
+      "thr": 1
+    }
+  ],
+  "secondary_eval_qids": "sub1m/query_sets/trecdl.txt",
+  "eps": 0.01,
+  "delta": 0.01,
+  "workload": "uniform",
+  "eval_frac": 0.5,
+  "repeat_rate": [
+    0.0,
+    0.3
+  ],
+  "traffic_ratio": [
+    0.25,
+    1.0,
+    4.0
+  ],
+  "primary_setting": {
+    "traffic_ratio": 1.0,
+    "repeat_rate": 0.0
+  },
+  "_DECIDE": "eval_frac, the repeat_rate and traffic_ratio grids, and primary_setting are proposals. repeat_rate 0 = no evaluated query is served before evaluation; ORCAS gives a measured repeat rate for the text workload.",
+  "rounds": 100,
+  "max_rounds_factor": 2,
+  "stream_len": null,
+  "orders": [
+    "rand",
+    "size",
+    "demand",
+    "signal"
+  ],
+  "strategies": [
+    "S0",
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S5"
+  ],
+  "bm25_depth": 500,
+  "_bm25_depth": "BM25 candidates added by S4/S5 = window depth (500), so the lexical nominator gets the same budget as the dense window; bm25.npy keeps 1000 columns for sensitivity runs.",
+  "mode": "sync",
+  "checkpoint": "state",
+  "adapter": "procrustes",
+  "adapter_fit": "docs",
+  "adapter_n_fit": 10000,
+  "adapter_n_eval": 5000,
+  "mapped_query_margin": 0.05,
+  "tgt_depth": 1000,
+  "probe_c": 4,
+  "probe_budgets_frac": [
+    0.0025,
+    0.005,
+    0.01
+  ],
+  "probe_queries": 20,
+  "n_eval_queries": null,
+  "seed": 0,
+  "_probe_budget": "probe_budgets_frac is the SHARED SAMPLE size m/N, not the total. Total probe cost = |union of probe windows| + m (+ strata): 20 probe queries x 500-doc windows is already ~1% of N, so totals are ~1.25-2% here. H4 must be stated on the TOTAL (reported as total_encodings_frac). DECIDE: more probe queries = better estimate, higher cost (40 queries ~ 2% in windows alone).",
+  "_traffic_ratio": "traffic_ratio 0.25 serves ~5 queries per round (~1000 over 2x100 rounds) out of a ~3.5k-query traffic pool: low traffic is the scenario being modelled, not a defect."
+}

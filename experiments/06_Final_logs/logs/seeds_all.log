@@ -1,0 +1,4 @@
+[2026-11-11T02:21:33+08:00] seeds: P2 P3 P4 P5 P9 P10 P12 P13 at seeds 1 2 3 4, 4 at a time (per-run logs: logs/seed_<P>_<s>.log)
+[2026-11-11T02:21:33+08:00] threads: 4 replay(s) x 3 of 16 cores
+[2026-11-11T02:21:33+08:00] seeds: 32 of 32 replays present (0 started now)
+[2026-11-11T02:21:33+08:00] seeds done

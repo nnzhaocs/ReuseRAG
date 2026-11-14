@@ -1,0 +1,30 @@
+
+=== N13  N=100000  n_eval=500  n_servable=1000  kappa=0.4066  M_S=0.8607  M_T=0.9023
+ K-prime      rho         G  coverage  ceiling  G<=0.005  G<=0.01  G<=0.02
+      10   0.3908   +0.0417    0.0950   0.9051   False   False   False
+      25   0.1756   -0.0120    0.2136   0.7864    True    True    True
+      50   0.0976   +0.0000    0.3598   0.6402    True    True    True
+     100   0.0652   -0.0040    0.5496   0.4504    True    True    True
+     200   0.0436   -0.0020    0.7373   0.2627    True    True    True
+     500   0.0208   -0.0020    0.9105   0.0895    True    True    True
+    1000   0.0098   +0.0000    0.9717   0.0283    True    True    True
+  timing: precompute 14.5s  rho 0.0s  G 0.7s  coverage 0.1s  total 15.9s
+
+
+=== frontier: smallest admissible depth per pair, and what it would save ===
+pair           eps   K* (min K: G<=eps)  ceiling at K*   G at K*  rho at K*
+N13          0.005                   25         0.7864   -0.0120     0.1756
+N13           0.01                   25         0.7864   -0.0120     0.1756
+N13           0.02                   25         0.7864   -0.0120     0.1756
+
+=== cross-pair rho spread per depth (a result, NOT a criterion for picking K') ===
+ K-prime  n_pairs   rho min   rho max   spread     G max  all admissible at eps=0.005
+      10        1    0.3908    0.3908   0.0000   +0.0417                        False
+      25        1    0.1756    0.1756   0.0000   -0.0120                         True
+      50        1    0.0976    0.0976   0.0000   +0.0000                         True
+     100        1    0.0652    0.0652   0.0000   -0.0040                         True
+     200        1    0.0436    0.0436   0.0000   -0.0020                         True
+     500        1    0.0208    0.0208   0.0000   -0.0020                         True
+    1000        1    0.0098    0.0098   0.0000   +0.0000                         True
+
+wrote 1 sweep file(s) and frontier.json to sweeps_nq/N13

@@ -1,0 +1,926 @@
+% =====================================================================
+%  DRAFT -- Re-embed, Map, or Window?
+%  The Economics of Embedding Model Upgrades
+%
+%  Rewritten 2026-11-05 for framing B (RUNBOOK Phase 5.9, DECISIONS.md).
+%  The A-framing original is kept beside this file as
+%  reuse_strategies_draft_A_original.tex for diffing.
+%
+%  NUMBERS: every figure in this draft is tier PAPER in ../PAPER_NUMBERS.md,
+%  recomputed from the result JSONs of the 2026-11-04 1M run. \todo{} now marks
+%  only what is genuinely unmeasured -- chiefly the K' = 10/25 frontier
+%  (RUNBOOK Phase 11.1), which is the one open item that moves a headline number.
+%  Target: see paper/OUTLINE.md. ICDE 2027 offers Research, DEFT and PhD Symposium only --
+%  there is no experiments-and-analysis track there, so the framing cannot lean on one.
+% =====================================================================
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\newcommand{\note}[1]{\textcolor{blue}{[NOTE: #1]}}
+\newcommand{\topk}{\mathrm{Top}}
+\newcommand{\win}{W}
+\newcommand{\Gk}{G(K')}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\debt}{\mathrm{debt}}
+
+\begin{document}
+
+\title{Re-embed, Map, or Window?\\The Economics of Embedding Model Upgrades}
+
+\author{\IEEEauthorblockN{Anonymous Authors}
+\IEEEauthorblockA{\textit{Under double-blind review}}}
+
+\maketitle
+
+% ---------------------------------------------------------------------
+\begin{abstract}
+Upgrading the embedding model behind a vector index normally means re-encoding the
+whole corpus before the new model can serve. Several reuse strategies avoid or defer
+that cost: mapping new-model queries into the old space with a learned adapter,
+re-ranking a window of candidates nominated by the old index with the new model, and
+combinations of these with lexical nomination and background migration. Each has been
+evaluated in isolation, on its own metric, and mostly on text. We do not propose
+another strategy. We evaluate all of them under one cost model across twelve model
+pairs on a 1M-passage text corpus and a 45K-document code corpus, charging each
+strategy for the work it has done at the moment it first serves each query.
+
+We set out to build a \emph{regime map}: two cheap pair-level measurements --- space
+compatibility $\kappa$ and window residual miss $\rho(K')$ --- predicting which
+strategy to use. That hypothesis was pre-registered with a falsification condition, and
+it failed. No selector built on those axes beats a constant predictor; the constant's
+mean regret, $0.0019$ Recall@10, falls inside the equivalence band we fixed before
+running anything; and at the traffic intensity we pre-registered, the background migration
+order leaves served quality unchanged. Three of our five pre-registered hypotheses were
+falsified on their own stated criteria, and we report each as it stands.
+
+What the measurements do support is an economic account. Mapping never wins: across
+336 pair\,$\times$\,setting\,$\times$\,tolerance configurations no adapter-bridge
+strategy is ever selected, and bridging costs between $0.12$ and $0.82$ Recall@10
+against the target model. And the cost of windowed reuse can be bounded in advance without
+simulation. A closed form assuming independent windows, $1 - (1 - K'/N)^{|Q|}$, overstates
+that cost by $10$--$24\%$ across the operating range; the union of the windows a workload
+actually touches, obtained by retrieval alone, is tighter, and the gap between them is exactly
+the window concentration. The practical upgrade decision is therefore not \emph{which}
+reuse strategy, but \emph{whether} the corpus and workload sit in the regime where
+windowed reuse pays at all --- a question answerable in advance, in closed form, from
+one static measurement.
+All code, configurations, and per-pair measurements are released.
+\end{abstract}
+
+\begin{IEEEkeywords}
+vector search, embedding models, index maintenance, model migration, benchmark,
+negative results
+\end{IEEEkeywords}
+
+% =====================================================================
+\section{Introduction}
+% =====================================================================
+
+Dense retrieval systems tie their index to a specific embedding model. When a better
+model appears, the vectors in the index become incompatible with the new query
+encoder, and the standard practice is a blue--green rebuild: re-encode the corpus,
+build a second index, validate it, and switch traffic~\cite{zilliz-migration}. At the
+scale of hundreds of millions of documents this costs days to weeks of accelerator
+time before the new model serves a single query.
+
+Three families of reuse strategies have emerged to avoid that up-front cost.
+\emph{Space mapping} learns a light transformation that maps new-model queries into the
+old space so the existing index keeps serving~\cite{drift-adapter}.
+\emph{Window re-ranking} retrieves a bounded candidate window from the old index,
+scores it with the new model, and materializes new vectors progressively in the
+background~\cite{embedflow,thaw-anon}. \emph{Structure reuse} exploits the observation
+that old-model neighborhoods remain partially informative under the new model, for
+instance to accelerate building the new graph index~\cite{dgm}.
+
+These strategies were evaluated on different metrics, different model pairs, and
+almost exclusively on text. A practitioner facing a concrete upgrade has no basis for
+choosing among them, and the published numbers cannot be compared. Moreover, space
+mapping does not upgrade stored vectors: it bounds retrieval by what the old model
+encoded, so it is a bridge, not a destination. Any fair comparison must measure the
+cost of \emph{reaching the new model} while keeping quality acceptable along the way.
+
+\textbf{What we expected, and what we found.} We designed this study around a regime
+map: if $\kappa$ and $\rho(K')$ predict the winning strategy on a held-out pair, a
+practitioner can measure two cheap quantities and read off an answer. We pre-registered
+that hypothesis with an explicit falsification condition --- the $(\kappa,\rho)$ rule's
+leave-one-pair-out mean regret must beat a majority-class baseline's --- and ran it.
+The baseline won. Two further pre-registered hypotheses also failed on their stated
+criteria. Rather than retune, we report the design as it was registered and the
+outcomes as they came out; Section~\ref{sec:hyp} is a table of all five with their
+verdicts.
+
+The same measurements, however, settle the practitioner's question by a different
+route. The reason no selector helps is that there is almost nothing to select: one
+strategy family dominates everywhere we measured, the variants within it are
+statistically indistinguishable, and the quantity that actually varies --- what the
+migration costs --- can be bounded from the source index alone, with no replay and no target
+encoding.
+
+\textbf{Findings.}
+\begin{itemize}
+\item \textbf{F1 (mapping does not work).} Across 336
+pair\,$\times$\,setting\,$\times$\,tolerance configurations, no adapter-bridge strategy
+(S1) and no mapped-window strategy (S3) is ever selected. Bridged retrieval serves
+between $0.05$ and $0.76$ Recall@10 where the target model serves $0.83$--$0.88$, a
+shortfall of $0.12$ to $0.82$ (Section~\ref{sec:cost}).
+\item \textbf{F2 (window cost admits a tight static bound).} Encoding the union of the
+served windows is a lower bound on what windowed reuse must pay, by construction. The
+question is how tight it is, and against what. A closed form needing no retrieval
+($1 - (1 - K'/N)^{|Q|}$) overstates cost by $10.6$--$15.5\%$ at $K' = 50$ and
+$16.6$--$24.3\%$ at $K' = 200$, because real windows overlap more than independent draws;
+the measured union closes that gap, and the replay confirms the bound is attained rather
+than exceeded by background work (Section~\ref{sec:econ}). This is the result we would hand
+a practitioner --- as a provisioning bound, not a prediction.
+\item \textbf{F3 (selection is moot).} No feature-based rule beats a constant
+predictor; the two rules that match its accuracy reproduce its regret to every digit;
+and the constant's mean regret falls inside the pre-registered equivalence band
+(Section~\ref{sec:select}).
+\item \textbf{F4 (the regime boundary is the real decision).} Windowed reuse needs
+$|Q|\,K'$ small against $N$. On our code corpus, whose query set approaches its
+document count, window coverage is $1.0000$ at every depth and the ceiling on savings
+is exactly zero (Section~\ref{sec:regime}).
+\end{itemize}
+
+\textbf{Contributions.} (i) A unified evaluation frame that charges every reuse
+strategy for the encoding work it has done when it first serves each query, with
+completion of the migration as an admissibility constraint rather than a cost
+(Section~\ref{sec:frame}). (ii) A closed-form, replay-free cost model for windowed
+reuse, validated to four decimal places (Section~\ref{sec:econ}). (iii) A measured
+comparison of all three strategy families over twelve pairs on text and code
+(Section~\ref{sec:cost}). (iv) Three pre-registered negative results, reported with
+their criteria and their sensitivity analyses (Sections~\ref{sec:select}--\ref{sec:order}).
+
+\textbf{Scope.} We study the \emph{complete-migration} regime: every strategy we admit
+ends with the corpus encoded under the target model. We make no exactness guarantees
+for mixed-state retrieval, propose no new serving mechanism, and do not study the
+economics of deliberately incomplete migration; those are treated in concurrent
+work~\cite{thaw-anon}. Section~\ref{sec:disc} states what this scope costs us.
+
+% =====================================================================
+\section{Problem Setting and Evaluation Frame}\label{sec:frame}
+% =====================================================================
+
+\subsection{Setting}
+Let $D$ be a corpus of $N$ documents, $f_s$ the source (old) encoder, and $f_t$ the
+target (new) encoder. An index $I_s$ over $\{f_s(d)\}_{d\in D}$ is serving. A query
+workload $Q$ arrives over time, possibly with repeats. Let $\topk_K^{t}(q)$ denote the
+native top-$K$ of $q$ under $f_t$ over all of $D$, and $\topk_{K'}^{s}(q)$ the
+top-$K'$ window returned by $I_s$.
+
+\subsection{Cost model}
+The dominant cost of migration is encoding documents with $f_t$. We count
+\emph{document encodings} $C$ as the primary cost unit. Query encoding, ANN search and
+adapter application are orders of magnitude cheaper per call.
+
+\textbf{Completion is a constraint, not a cost.} Every strategy we admit must end with
+all $N$ documents encoded under $f_t$, so that the source index can be retired. This
+has a consequence worth stating plainly, because it determines what the cost column can
+mean: \emph{every admissible strategy encodes exactly $N$ documents}. We verified this
+rather than assuming it --- of 828 completing strategy--order combinations in our runs,
+none encodes fewer than $N$. Total encoding work therefore cannot separate strategies,
+and any apparent saving in a reuse strategy is a matter of \emph{when} the work is
+paid, not whether. What strategies do differ in is the quality they serve while the
+migration runs, and that is what our objective measures.
+
+\subsection{First-arrival measurement}
+Quality is measured once per evaluation query, at the moment that query is first
+served. A window strategy repairs its query's window inline and is charged for those
+encodings at that moment; a blue--green rebuild serves the source index and is charged
+for whatever background progress has been made. This avoids two errors that a
+checkpoint-based replay invites: scoring unencoded window documents would let window
+strategies reach target quality at $C{=}0$ without paying for the encodings, and
+re-measuring the same query at successive checkpoints rewards strategies for being
+measured late.
+
+\textbf{Reference qualities.} $M_T$ is the quality (Recall@10 against qrels) of exact
+native $f_t$ retrieval over all of $D$; $M_S$ is the same for $f_s$ --- what the system
+serves before migration starts.
+
+\textbf{Objective: debt.} For strategy $\sigma$, let $\bar M_\sigma$ be the mean quality
+served over the evaluation population under first-arrival measurement. The objective is
+\[
+\debt(\sigma) = M_T - \bar M_\sigma ,
+\]
+the quality forgone during the migration. Lower is better; it can be negative, and is
+on most of our pairs, because restricting the candidate set to a source window and
+re-ranking it with the target model is a cascade that can exclude documents the target
+model would itself have over-ranked.
+
+\textbf{Admissibility.} A strategy--order combination is admissible on a pair if
+(i) its background order completes, so the corpus reaches the target model;
+(ii) it reaches target quality, $\bar M_\sigma \ge M_T - \varepsilon$; and (iii) it never
+serves below the system it replaces, $\bar M_\sigma \ge M_S$. The floor is anchored to
+$M_S$, not $M_T$: at $C{=}0$ every strategy serves roughly $M_S$, so a target-anchored
+floor would exclude all strategies whenever the upgrade is worth doing.
+
+\textbf{Winner rule, as pre-registered.} Among admissible combinations, those within an
+equivalence band $\tau$ of the best $\debt$ are considered indistinguishable; within the
+band we order by cost-at-service and then by a fixed simplicity ranking. We fixed
+$\varepsilon = 0.01$, $\delta = 0.01$ and $\tau = 0.005$ on MS MARCO dev Recall@10
+before any pair was run. Section~\ref{sec:select} reports the sensitivity of every
+reported winner to $\tau$, because that parameter turns out to be load-bearing.
+
+\textbf{Reporting cost.} We report two cost columns and they measure different things.
+$C_{\text{total}}$ is the work a strategy ever does; as established above it is $N$ for
+everything admissible. $C_{\text{serve}}$ is the work done by the time the strategy is
+serving the evaluated population, and it is the quantity Section~\ref{sec:econ}
+predicts. $C_{\text{serve}}$ is not a saving, and it is not one quantity: a strategy that
+repaired windows reports work it did, whereas a strategy that reached target quality
+having repaired nothing reports how far its background happened to get --- a number that
+shrinks as traffic intensity rises while nothing about the strategy changes. Every
+$C_{\text{serve}}$ we report carries a label saying which case produced it, and the two
+are never compared with each other.
+
+\subsection{Pair-level and workload-level measurements}
+\emph{Compatibility} $\kappa = 1 - r$, where $r$ is the relative residual
+$\lVert A(X_t) - X_s\rVert_F / \lVert X_s\rVert_F$ of a map $A$ from $f_t$ to $f_s$
+embeddings (semi-orthogonal Procrustes), fit on one document sample and evaluated on a
+disjoint one; larger $\kappa$ means more compatible. We also report linear
+CKA~\cite{cka} on the same sample. \emph{Window gap}, following~\cite{embedflow},
+$G(K') = M_T - M_{T\mid S_{K'}}$, where $M_{T\mid S_{K'}}$ is the quality of $f_t$
+re-ranking the source window only. \emph{Residual miss}, its qrels-free counterpart,
+\[
+\rho(K') = 1 - \mathbb{E}_{q\in Q}\,
+\frac{\lvert \topk_K^{t}(q) \cap \topk_{K'}^{s}(q)\rvert}{K}.
+\]
+Because $\rho$ depends on $K'/N$ we always report $K'$ as a fraction of $N$. Windows of
+different depths are prefixes of a single retrieval at the largest depth, so $\rho(K')$
+is non-increasing in $K'$ by construction; measurements use exact search and the
+approximate-search noise floor is reported separately (pair P0).
+
+\emph{Coverage}, the quantity Section~\ref{sec:econ} is built on:
+\[
+\cov(K') = \frac{1}{N}\Bigl\lvert \bigcup_{q \in Q_{\text{served}}} \topk_{K'}^{s}(q) \Bigr\rvert ,
+\]
+the fraction of the corpus that appears in at least one served window. It is computable
+from the source index alone, with no target encoding at all.
+
+% =====================================================================
+\section{Strategies Under Study}\label{sec:strategies}
+% =====================================================================
+
+Table~\ref{tab:strategies} lists the strategies. Every strategy that does not reach the
+target model on its own is paired with a background migration that re-encodes the corpus
+at a fixed rate, so all admissible trajectories end at $M_T$ with $C = N$.
+
+\begin{table*}[t]
+\centering
+\caption{Strategies evaluated. ``Nominator'' is what proposes candidates; ``Ranker''
+is what orders them. S1 and S3 are the mapping family; S2, S4, S5 the window family.}
+\label{tab:strategies}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+ID & Strategy & Nominator & Ranker \\
+\midrule
+S0 & Blue--green rebuild & --- (old index until switch) & $f_s$, then $f_t$ \\
+S1 & Space mapping~\cite{drift-adapter} & $I_s$ via $A(f_t(q))$ & $f_s$ \\
+S2 & Window re-rank~\cite{embedflow,thaw-anon} & $I_s$ via $f_s(q)$ & $f_t$ \\
+S3 & Mapped window & $I_s$ via $A(f_t(q))$ & $f_t$ \\
+S4 & Window $\cup$ lexical & $I_s \cup$ BM25~\cite{bm25} & $f_t$ \\
+S5 & Window $\cup$ mapped $\cup$ lexical & all three & $f_t$ \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\textbf{New writes.} Documents inserted during migration have no source vector and can
+never be nominated by $I_s$. All window strategies therefore also search a small
+target-space index over migrated and newly written documents and merge results.
+
+\textbf{Background migration orders.} For S2--S5 the background re-encoder follows one
+of: \emph{rand} (uniform random), \emph{size} (shortest first, maximizing documents per
+GPU-second), \emph{demand} (no background work: only documents surfaced by queries are
+encoded, which need not ever complete and is therefore inadmissible under
+Section~\ref{sec:frame}), \emph{demand-then-rand} (demand first, random thereafter, which
+does complete), and \emph{signal} (Section~\ref{sec:order}).
+
+% =====================================================================
+\section{Experimental Setup}\label{sec:setup}
+% =====================================================================
+
+\subsection{Corpora and queries}
+\textbf{Text.} MS MARCO passages~\cite{msmarco}. The full-encoding experiments use a
+$10^6$-passage subsample built as \emph{every judged passage} (MS MARCO dev and TREC-DL
+2019/2020 qrels) plus a uniform random fill; a random subsample would drop most judged
+passages and make $M_T$ and $G(K')$ meaningless. Recall@10 is computed on MS MARCO dev
+(6{,}980 judged queries; primary).
+
+\textbf{Code.} CodeSearchNet~\cite{codesearchnet} Python, 45{,}283 documents, with CoSQA
+as an evaluation-only secondary query set.
+
+\textbf{Workloads.} Uniform over the query set, and ORCAS~\cite{orcas} empirical
+frequency for text. \todo{the reported runs use the uniform workload; add the ORCAS
+and Zipf sweeps, or scope every workload-dependent claim to uniform}
+
+\textbf{Query roles.} A seeded half of the judged queries (3{,}490 of 6{,}980) is held
+out for evaluation; the rest form the traffic served during migration. Evaluated queries
+enter the traffic only as explicit repeats. Without this split, on-demand repair warms
+exactly the windows being evaluated and wins by construction; an earlier version of our
+replay had this flaw and its results are discarded.
+
+\textbf{Traffic intensity.} With background budget $b = N/R$ encodings per round, each
+round serves $\lambda$ queries, set by the ratio $\mathrm{tr} = \lambda K'/b \in \{4, 16,
+64, 256\}$: the on-demand encodings a fully cold round could trigger, relative to the
+background budget. We report every setting and pre-register $\mathrm{tr}{=}64$ as the
+primary. (We write this $\mathrm{tr}$, not $\tau$, which denotes the equivalence band.)
+
+\subsection{Model pairs}
+Table~\ref{tab:pairs} lists the pairs. P0 is the control: the same model with its
+approximate index rebuilt under a different seed, so its $\rho(K')$ measures pure ANN
+noise and serves as the noise floor. Pairs are ordered source\,$\to$\,target such that
+$M_T > M_S$ on the held-out set, i.e.\ every pair is an upgrade someone would perform.
+
+\begin{table*}[t]
+\centering
+\caption{Model pairs and per-pair measurements at $K' = 50$ ($K'/N = 5\times10^{-5}$ on
+text). $\kappa$ is Procrustes compatibility, $\rho$ residual miss, $G$ the window gap,
+$\cov$ union-of-windows coverage. $^\ddagger$P11's Procrustes residual exceeds 1, so the
+orthogonal fit is worse than predicting zero and $\kappa$ is negative; it is a
+compatibility \emph{failure}, not a small compatibility.}
+\label{tab:pairs}
+\small
+\begin{tabular}{@{}llccccc@{}}
+\toprule
+ID & Source $\rightarrow$ Target & Type & $\kappa$ & CKA & $\rho(50)$ & $G(50)$ \\
+\midrule
+P0  & bge-base $\rightarrow$ same, ANN rebuilt & control      & $1.0000$ & $1.0000$ & $0.0000$ & $+0.0000$ \\
+P2  & MiniLM-L6 $\rightarrow$ bge-base         & cross-family & $0.0337$ & $0.6112$ & $0.2064$ & $-0.0027$ \\
+P3  & bge-small $\rightarrow$ bge-base         & same family  & $0.3876$ & $0.7668$ & $0.1395$ & $-0.0014$ \\
+P4  & bge-m3 $\rightarrow$ bge-base            & same family  & $0.2875$ & $0.7191$ & $0.2234$ & $-0.0040$ \\
+P5  & bge-m3 $\rightarrow$ bge-small           & same family  & $0.2737$ & $0.7103$ & $0.2412$ & $-0.0099$ \\
+P9  & MiniLM-L6 $\rightarrow$ bge-small        & cross-family & $0.0419$ & $0.6510$ & $0.1871$ & $-0.0028$ \\
+P10 & MiniLM-L6 $\rightarrow$ bge-m3           & cross-family & $0.0229$ & $0.5812$ & $0.2903$ & $-0.0094$ \\
+P11 & MiniLM-L6 $\rightarrow$ e5-base          & cross-family & $-0.0928^\ddagger$ & $0.6032$ & $0.2060$ & $+0.0035$ \\
+P12 & bge-m3 $\rightarrow$ e5-base             & cross-family & $0.3064$ & $0.7323$ & $0.2191$ & $-0.0023$ \\
+P13 & bge-small $\rightarrow$ e5-base          & cross-family & $0.3985$ & $0.7474$ & $0.1684$ & $-0.0012$ \\
+P14 & bge-base $\rightarrow$ e5-base           & cross-family & $0.4408$ & $0.8164$ & $0.1127$ & $-0.0007$ \\
+\midrule
+P7  & MiniLM-L6 $\rightarrow$ codesage-small   & general$\to$code & $0.0607$ & $0.3848$ & $0.3724$ & $+0.0110$ \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\textbf{Pair coverage is BERT-lineage.} All eleven text pairs are encoder-only models in
+the BERT lineage at 384, 768 or 1024 dimensions, and one pair crosses into a
+code-specialized encoder. We have no cross-architecture pair (encoder\,$\to$\,LLM-based
+embedder) and say so in Section~\ref{sec:disc}: it is the most consequential gap in this
+study, because it is the only direction in which the compatibility axis might span a
+usefully wider range. \todo{run the cross-family pair (RUNBOOK Phase 0.0) and either
+widen this claim or record the prediction it confirms}
+
+\subsection{Implementation and invariants}
+Window, residual-miss and quality measurements use exact inner-product search, so they
+are free of ANN error; HNSW~\cite{hnsw} with identical build parameters is used only for
+P0 and for latency figures. Every encoding is computed once and cached, so all strategies
+are replayed over identical vectors. Every model is encoded under an explicit contract
+(prompt, pooling, padding side, EOS, revision) checked against the model card's worked
+example and for batched-versus-single agreement; models that fail are excluded, not
+tuned.
+
+Before any pair is interpreted the replay must satisfy properties that hold by
+construction: P0 with exact search gives $\rho(K'){=}0$; $\rho(K')$ is non-increasing in
+$K'$; re-ranking a window equal to the corpus gives $G{=}0$; every admissible trajectory
+ends at $M_T$ with $C{=}N$; S0 serves exactly $M_S$ until it switches; and the arrival
+sequence is identical across strategies, so no strategy is compared on a different query
+stream. A violation is a pipeline bug, not a finding. All twelve pairs satisfy all of
+them.
+
+% =====================================================================
+\section{Pre-Registered Hypotheses and Their Outcomes}\label{sec:hyp}
+% =====================================================================
+
+We fixed five hypotheses, each with a falsification condition, before running any pair.
+Table~\ref{tab:hyp} reports all five. Three are falsified on their stated criteria.
+We report them as registered; the sections that follow give each one's measurement and
+the mechanism behind the outcome.
+
+\begin{table*}[t]
+\centering
+\caption{The five pre-registered hypotheses and their measured outcomes. Nothing in this
+table was re-specified after seeing results.}
+\label{tab:hyp}
+\small
+\begin{tabular}{@{}llp{0.40\textwidth}l@{}}
+\toprule
+ & Hypothesis & Falsification condition and measured value & Outcome \\
+\midrule
+H1 & $G(K')$ rises as $\kappa$ falls & Spearman $r_s < 0.5$ across pairs. Measured $r_s(\kappa, G) = +0.19$ over 11 non-control pairs --- below threshold and the wrong sign & \textbf{falsified} \\
+H2 & $(\kappa,\rho)$ beats the majority baseline in LOPO mean regret & regret $\ge$ baseline's. Measured: majority $0.0018943$ at 9/12; $(\kappa,\rho)$ 1-NN $0.0020117$ at 8/12 & \textbf{falsified} \\
+H3 & the low-$\kappa$/low-$\rho$ cell is non-empty (exploratory) & --- . P11 and P9 fall below the median on both axes; but $r_s(\kappa,\rho) = -0.52$, so the axes are far from independent & non-empty \\
+H4 & the bounded-cost probe estimates $\rho(K')$ within $\pm 0.05$ at $\le 2\%$ of $N$ & error exceeds the bound on more than one pair. Measured: 7 of 11 non-control pairs exceed it at a $1.2\%$ total budget & \textbf{falsified} \\
+H5 & the document signal has AUC $>0.5$ and \emph{signal} order beats \emph{rand} at equal budget & AUC CI excludes $0.5$ on 9 of 12 pairs ($0.625$--$0.652$). Head to head \emph{signal} wins 19 of 28 non-tied comparisons (80 of 108 tie): right in sign, sign-test $p = 0.087$, every effect inside $\tau$ & \textbf{inconclusive} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\note{F2, the result we lead with, was \emph{not} pre-registered. That coverage bounds
+window cost from below holds by construction; the finding is that realised cost
+\emph{attains} the bound, to four decimals, which we did not anticipate and report as a
+post-hoc result. Section~\ref{sec:econ} is explicit about this.}
+
+% =====================================================================
+\section{Bounding the Cost of Windowed Reuse}\label{sec:econ}
+% =====================================================================
+
+This section is the result we would hand a practitioner, and the one we did not
+anticipate.
+
+\textbf{The bound.} To serve a query by re-ranking its source window, every document in
+that window must be encoded under $f_t$. A window strategy serving query population
+$Q_{\text{served}}$ must therefore encode at least $\bigl\lvert\bigcup_q
+\topk_{K'}^{s}(q)\bigr\rvert = N\cdot\cov(K')$ documents before it is serving that
+population at target quality, and a full rebuild costs exactly $N$. So no window strategy
+can defer more than $1 - \cov(K')$ of the encoding work. This is arithmetic, not a
+finding, and it is computable from the source index alone: one retrieval pass, no target
+encoding, minutes rather than GPU-days.
+
+\textbf{The finding: the bound is tight.} Table~\ref{tab:econ} compares the cost each
+window strategy actually incurred by the time it was serving the evaluation population
+against the statically computed $\cov(50)$ for its source encoder. The agreement is
+$0.016$--$0.017\%$ relative, across eight pairs and three distinct source encoders.
+
+\begin{table}[t]
+\centering
+\caption{The static bound is attained: realised cost-at-service against $\cov(50)$, at the
+primary setting. $C_{\text{serve}}$ comes from the replay; $\cov(50)$ from a retrieval pass
+that encodes nothing with $f_t$. A window strategy encodes the union of the windows it serves
+by construction, so this table shows the bound is not exceeded by background work --- it is
+not an independent prediction being confirmed. All eight rows have basis \emph{at-last-arrival}, so they are
+mutually comparable (Section~\ref{sec:frame}).}
+\label{tab:econ}
+\small
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Source encoder & Pairs & $C_{\text{serve}}/N$ & $\cov(50)$ & rel.\ err. \\
+\midrule
+MiniLM-L6 & P2, P9, P10 & $0.264861$ & $0.264907$ & $0.017\%$ \\
+bge-m3    & P4, P5, P12 & $0.255091$ & $0.255134$ & $0.017\%$ \\
+bge-small & P3, P13     & $0.262135$ & $0.262176$ & $0.016\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Why it is tight.} The realised cost converges on the \emph{whole-workload}
+coverage, not the evaluation set's: by the time the last evaluation query is served, the
+traffic queries have arrived and repaired their own windows, so the union of all served
+windows has been encoded. The residual $0.017\%$ is the handful of documents in windows
+whose queries had not yet arrived.
+
+\textbf{What this buys.} The practitioner's question --- ``what will this migration cost
+me, and when will I be serving the new model?'' --- is answerable before committing any
+accelerator time, in closed form, from a quantity the source index already supports. No
+replay, no target encoding, no simulation.
+
+\textbf{Against the obvious baseline.} A reader should ask whether retrieval is needed at all:
+if queries drew documents independently, coverage would be $1 - (1 - K'/N)^{|Q|}$, computable
+from three integers. It is a real baseline and the measurement beats it, but not in the
+direction one might guess --- the closed form \emph{overestimates} cost at every depth and every
+encoder, because real windows overlap more than independent draws do:
+
+\begin{center}
+\small
+\begin{tabular}{@{}rccr@{}}
+\toprule
+$K'$ & measured & closed form & over by \\
+\midrule
+50   & $0.2551$--$0.2663$ & $0.2946$ & $10.6$--$15.5\%$ \\
+100  & $0.4138$--$0.4366$ & $0.5024$ & $15.1$--$21.4\%$ \\
+200  & $0.6052$--$0.6453$ & $0.7524$ & $16.6$--$24.3\%$ \\
+500  & $0.8346$--$0.8790$ & $0.9695$ & $10.3$--$16.2\%$ \\
+1000 & $0.9392$--$0.9653$ & $0.9991$ & $3.5$--$6.4\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+At $K' = 50$ the closed form predicts encoding $29.5\%$ of the corpus against a measured
+$26.5\%$, understating the achievable saving by three points of $N$ --- 30{,}000 documents at
+$N = 10^6$, and 107{,}000--147{,}000 at $K' = 200$, where the gap peaks. What the measurement
+adds over the closed form is exactly the window concentration, and the practical reading is
+that a planner using the closed form will under-provision the saving by $10$--$24\%$ in the
+operating range. We report it because a cost model without its trivial baseline is not a
+result.
+
+\textbf{What the replay adds, and what it does not.} The agreement in
+Table~\ref{tab:econ} is the weaker half of this section and we do not want it read as the
+stronger: a window strategy encodes, by construction, the union of the windows it serves, so a
+replay that reproduces that union to one document in 264{,}907 is confirming an
+implementation. The substance is that the static quantity is a usable planning instrument and
+that it beats the closed form; the replay's role is to show the bound is attained rather than
+exceeded by background work.
+
+\textbf{Coverage does not vary across encoders.} At $K' = 50$, coverage spans
+$0.2551$--$0.2663$ over all five text encoders --- a range of $0.0112$. It is therefore
+\emph{not} a usable third map axis (we had considered it as one); it is a property of the
+corpus and workload, nearly independent of which encoder indexes them. That is good news
+for the cost model and bad news for selection, and it foreshadows
+Section~\ref{sec:select}.
+
+\textbf{Window depth is a pure cost knob.} Coverage rises steeply with $K'$ --- $0.2649$,
+$0.4374$, $0.6453$, $0.8787$, $0.9646$ at $K' = 50, 100, 200, 500, 1000$ --- while the
+quality constraint never binds: the worst-case $G(K')$ over all eleven text pairs is
+$+0.0035$ at $K' = 50$ and $\le +0.0000$ at every larger depth. Within the measured range
+there is no quality price for a shallower window, so the depth should be set as small as
+the constraint allows.
+
+\todo{We measured $K' \ge 50$ only, so $K' = 50$ is the smallest depth we \emph{looked at}
+and not the smallest \emph{admissible} one: the frontier is censored from below and the
+$73.5\%$ ceiling reported here is a lower bound on what windowed reuse can defer. Run
+$K' = 10, 25$ (RUNBOOK Phase 11.1) and either report a smaller admissible depth with a
+larger ceiling, or report where $G$ first binds. Figure~\ref{fig:frontier} is blocked on
+this.}
+
+\todo{Figure~\ref{fig:frontier}: the coverage/$G$ frontier over the full $K'$ ladder, one
+line per source encoder, with the admissibility threshold marked.}
+
+% =====================================================================
+\section{What the Strategies Cost}\label{sec:cost}
+% =====================================================================
+
+\textbf{Mapping never wins.} Sweeping the winner rule over every pair, every traffic
+intensity and every $\tau \in [0, 0.01]$ --- 336 configurations --- the adapter-bridge
+strategy S1 is selected $0$ times, the mapped window S3 $0$ times, and the union strategy
+S5 $0$ times. Only S0 (39), S2 (276) and S4 (21) are ever selected. The ordering
+$\text{S2} \approx \text{S4} \approx \text{S5} \gg \text{S0} \gg \text{S3} \gg \text{S1}$
+holds on every pair.
+
+The margin is not subtle. Bridged retrieval serves $M_A$ between $0.0514$ and $0.9497$
+against target qualities of $0.83$--$0.88$; on the five worst pairs $M_A < 0.35$. In
+$\debt$ terms S1 costs between $0.12$ and $0.82$ Recall@10, one to two orders of
+magnitude worse than any window strategy, whose $\debt$ lies within $\pm 0.006$. A
+practitioner choosing a bridge on the strength of its deferred encoding cost would be
+trading almost all of their retrieval quality for it.
+
+\textbf{$\kappa$ predicts how badly mapping fails.} The compatibility axis does not
+predict the winner (Section~\ref{sec:select}), but it does predict the adapter's served
+quality: $r(\kappa, M_A) = +0.742$ over the ten text pairs excluding the control
+($n = 10$, $p \approx 0.014$). Linear CKA ties it on that subset ($+0.739$) but its
+apparent signal over all twelve pairs is carried entirely by the identity control ---
+dropping P0 alone takes $r(\mathrm{CKA}, M_A)$ to $-0.122$ while $\kappa$ holds at
+$+0.415$. $\rho$ has the wrong sign for a compatibility measure, $-0.572$. We report this
+as a secondary observation at $n = 10$, not an established predictor, and note it does
+not transfer across corpora: the code pair has $\kappa = 0.0607$ and the highest $M_A$ of
+any pair, $0.9497$, because its source model is already strong on that corpus.
+
+\textbf{``Do nothing'' is a tautology, not a strategy.} On eleven of twelve pairs the
+blue--green rebuild's $\debt$ equals the quality gap $M_T - M_S$ \emph{exactly} --- to
+$0.00\mathrm{e}{+}00$ --- because it serves source quality throughout the measured period.
+So S0 is admissible precisely when the upgrade is worth less than the equivalence band,
+and the two pairs on which it is selected (P0 at $0.0000$ and P14 at $0.0043$, against
+$\tau = 0.005$) are exactly the two whose gap falls inside it. This is worth stating
+because it looks like a strategy result and is not: it is a restatement of the quality
+gap. Every other pair has a gap of at least $0.0100$.
+
+\todo{Table: $\debt$ by strategy family per pair, from results/tables/grid.csv, with
+tied-set sizes.}
+
+% =====================================================================
+\section{Selection is Moot}\label{sec:select}
+% =====================================================================
+
+H2 asked whether $(\kappa, \rho)$ predicts the winner on a held-out pair. We hold out
+each pair in turn, fit a decision rule on the remaining pairs, and predict the held-out
+winner, scoring by regret in the objective's units.
+
+\begin{table}[t]
+\centering
+\caption{Leave-one-pair-out winner prediction. The majority rule uses no features at all.
+Mean regret is in Recall@10. The two feature rules that match the baseline's accuracy
+reproduce its regret to every digit, i.e.\ they are the constant rule in disguise.}
+\label{tab:lopo}
+\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Rule & Accuracy & Mean regret \\
+\midrule
+\textbf{majority (no features)} & \textbf{9/12} & \textbf{0.0018943} \\
+1-NN on $\kappa$ only          & 9/12 & 0.0018943 \\
+depth-2 tree on $\kappa$ only  & 9/12 & 0.0018943 \\
+1-NN on $(\kappa, \rho)$       & 8/12 & 0.0020117 \\
+depth-2 tree on $(\kappa, \rho)$ & 8/12 & 0.0028713 \\
+depth-2 tree on $\rho$ only    & 8/12 & 0.0028713 \\
+1-NN on $\rho$ only            & 6/12 & 0.0032533 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+H2 is falsified: the $(\kappa,\rho)$ rule's mean regret, $0.0020117$, exceeds the
+majority baseline's $0.0018943$. Every rule that actually discriminates on features does
+worse than ignoring them, and $\rho$ alone is near chance.
+
+\textbf{Why, mechanically.} Three reasons, each measurable.
+(i) \emph{There is almost nothing to predict.} At the primary setting the twelve labels
+are S2 nine times, S0 twice --- both tautologies, as Section~\ref{sec:cost} showed --- and
+S4 once. No feature can separate what does not vary.
+(ii) \emph{At the pre-registered traffic intensity the window variants are
+indistinguishable.} This is a property of that operating point, not of the method, and we
+were initially wrong to state it as one: window strategies also search the target-side index
+over already-migrated documents, so what the background has reached does affect the served
+answer. It has simply reached almost nothing by the time a dense workload is served ---
+cost-at-service for the rebuild is $0.03$ of $N$ at $\mathrm{tr}{=}64$ against $0.63$ at
+$\mathrm{tr}{=}4$ --- and at $\mathrm{tr} \in \{4, 16\}$ the order does move $\debt$, on
+every non-degenerate pair. Eight pairs reported
+one of 3--4 combinations with identical $\debt$, and the control one of fourteen spanning
+all six families; a reported winner such as ``S2/demand-then-rand'' is one arbitrary
+member of a tie, chosen by our simplicity rule.
+(iii) \emph{The baseline is already at the achievable ceiling.} The constant rule's mean
+regret, $0.0019$, is \emph{below} the equivalence band $\tau = 0.005$ that we declared
+before running anything. Its mistakes fall inside the region the study itself calls
+indistinguishable.
+
+\textbf{Sensitivity to $\tau$.} The two pairs that make the map look non-trivial are
+exactly the two that move with the band. At $\tau \le 0.004$, P14 selects the window
+family; at $\tau \ge 0.006$, P11 does; $5$ of $48$ pair\,$\times$\,setting cells differ
+from the registered $\tau$ in one direction and $4$ at the other. At $\tau = 0$ the band
+never engages and $22$ of $48$ differ, with selection falling to $\debt$ differences of
+order $10^{-4}$. So one or two pairs always deviate from S2, but \emph{which} pair is a
+function of $\tau$ rather than of the pair. We publish the full curve rather than a single
+column, and we did not retune $\tau$ after seeing it.
+
+\todo{Figure: winner by pair against $\tau$, from results/tables/tau\_curve.csv.}
+
+% =====================================================================
+\section{A Bounded-Cost Probe}\label{sec:probe}
+% =====================================================================
+
+Measuring $\rho(K')$ directly requires the native target top-$K$, i.e.\ encoding all of
+$D$ with $f_t$ --- the very cost migration seeks to avoid. H4 asked whether it can be
+estimated at bounded cost.
+
+\textbf{Intruder-count estimator.} For a probe query $q$, encode the window
+$\win_q = \topk_{K'}^{s}(q)$ with $f_t$ and let $w_1 \ge \dots \ge w_K$ be the top-$K$
+target scores in $\win_q$. A document outside the window can displace a window document
+from the target top-$K$ only if its target score exceeds some $w_j$. With
+$I_q(w) = \lvert\{d\notin\win_q : s_t(q,d) > w\}\rvert$, the overall top-$K$ contains $j$
+outside documents iff the $j$-th best outside score exceeds $w_{K-j+1}$, so
+\[
+\mathrm{miss}_q = \bigl\lvert\{\, j \in 1..K : I_q(w_{K-j+1}) \ge j \,\}\bigr\rvert .
+\]
+Drawing a uniform sample $S\subset D$ of size $m$ and encoding it with $f_t$ gives the
+unbiased count estimate $\hat I_q(w) = (N/m)\lvert\{d \in S\setminus \win_q : s_t(q,d) >
+w\}\rvert$, which we plug in. One sample serves every probe query, and every encoding it
+performs counts toward the migration, so none is wasted.
+
+\textbf{Result: H4 is falsified, but the stratified estimator is the right design.}
+Intruders are rare tail events, so the uniform estimator has high variance. Stratifying
+on source rank --- oversampling documents at source ranks $K' < r \le cK'$, with
+importance weights --- cuts the mean absolute error from $0.1524$ to $0.0573$ at a $1\%$
+sample, a factor of $2.7$. But the pre-registered bound was $\pm 0.05$ with falsification
+on more than one pair, and $7$ of $11$ non-control pairs exceed it at a $1.2\%$ total
+budget. H4 fails as stated.
+
+\textbf{Diagnosis.} The binding constraint is the number of probe queries, not the sample
+size. The window term costs $\lvert Q_{\text{probe}}\rvert \cdot K'$ encodings, so the
+budget admitted only 12 probe queries; $\rho$ estimated from 12 queries has sampling error
+of roughly the size of the miss itself. This is a budget allocation we would set
+differently --- more queries, shallower windows --- but we report the registered design.
+Since $\rho$ turns out not to predict the winner (Section~\ref{sec:select}), a better
+probe for it would not change any recommendation in this paper, and we do not pursue it.
+
+\begin{table}[t]
+\centering
+\caption{Probe error at a $1\%$ sample ($\approx 1.2\%$ total budget, 12 probe queries,
+$K' = 50$). H4's bound is $\pm 0.05$; rows above it are marked.}
+\label{tab:probe}
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Pair & $\rho$ true & uniform err. & stratified err. & vs.\ bound \\
+\midrule
+P0  & $0.0000$ & $0.0000$ & $0.0000$ & pass \\
+P3  & $0.1417$ & $0.1333$ & $0.0167$ & pass \\
+P4  & $0.1833$ & $0.1083$ & $0.0250$ & pass \\
+P12 & $0.2083$ & $0.1250$ & $0.0500$ & pass \\
+P14 & $0.1250$ & $0.1167$ & $0.0500$ & pass \\
+P2  & $0.2083$ & $0.2083$ & $0.0667$ & exceeds \\
+P5  & $0.2000$ & $0.1500$ & $0.0667$ & exceeds \\
+P10 & $0.2833$ & $0.2250$ & $0.0667$ & exceeds \\
+P9  & $0.1917$ & $0.1917$ & $0.0833$ & exceeds \\
+P13 & $0.2333$ & $0.2167$ & $0.0833$ & exceeds \\
+P7  & $0.1375$ & $0.1375$ & $0.0875$ & exceeds \\
+P11 & $0.2667$ & $0.2167$ & $0.0917$ & exceeds \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% =====================================================================
+\section{Document-Level Migration Ordering}\label{sec:order}
+% =====================================================================
+
+\textbf{Signal.} Some documents are retrieved under the source model because of lexical
+evidence; others only because of the source model's semantics. We hypothesized the latter
+are the ones whose exposure changes under the target model. With
+$\mathrm{kocc}_s(d)$ the number of workload queries for which $d\in\topk_K^{s}(q)$, the
+\emph{dense-only heat} is
+\[
+h(d) = \bigl\lvert\{q : d\in\topk_K^{s}(q) \wedge d\notin\topk_{K_b}^{\mathrm{BM25}}(q)\}\bigr\rvert ,
+\]
+computable from the old index and a BM25 index before any target encoding. The gate uses
+the dense-only share $h(d)/\mathrm{kocc}_s(d)$ against the label ``relative exposure
+change exceeds its median''.
+
+\textbf{The signal is real.} The bootstrap $95\%$ CI of the AUC excludes $0.5$ on nine of
+twelve pairs, with AUC between $0.6254$ and $0.6515$ on those nine. The two pairs where it
+fails are informative: P10 ($0.4546$, CI $[0.4181, 0.4912]$) and the code pair P7
+($0.4676$, CI $[0.4625, 0.4729]$) are both below chance.
+
+\textbf{And the head-to-head is inconclusive.} H5 also required \emph{signal} order to beat
+\emph{rand} at equal budget. Across all pairs, traffic intensities and window strategies,
+\emph{signal} is strictly better in 19 comparisons and strictly worse in 9, with 80 of 108
+tied: right in sign, but a sign test on the 28 non-tied comparisons gives $p = 0.087$, and the
+largest single effect is $0.0013$ Recall@10 against an equivalence band of $0.005$. The
+ordering helps, consistently in direction, by an amount this study has declared
+indistinguishable. We report H5 as inconclusive rather than positive or negative.
+
+The ties fall where one would expect. At $\mathrm{tr} \in \{64, 256\}$ the evaluation
+population is served before the background has migrated materially, so the order cannot
+matter, and all 80 ties are there. At $\mathrm{tr} \in \{4, 16\}$, where the background has
+covered a large share of the corpus by service time, the order does move $\debt$ --- and every
+non-tied comparison lives there. An ordering signal pays only in proportion to how much
+migration happens while the system is still being measured, which under a dense workload and
+a completion requirement is a narrow window. That also bounds how much RQ4 could ever have
+been worth in this setting, and we would say so in the design rather than in the results if we
+were starting again.
+
+% =====================================================================
+\section{The Regime Where None of This Helps}\label{sec:regime}
+% =====================================================================
+
+Windowed reuse defers $1 - \cov(K')$ of the encoding work, and
+$\cov(K') \to 1$ as $\lvert Q\rvert K'$ approaches $N$. Our code corpus sits on the far
+side of that boundary: 43{,}730 queries over 45{,}283 documents, giving
+$\cov(K') = 1.0000$ at every depth from 23 to 1000. The union of the windows is the
+corpus, the ceiling on deferral is exactly zero, and no window strategy can save anything
+there however compatible the models are.
+
+This is a property of the corpus and workload, not of the models, and it is checkable in
+advance by the same static measurement as Section~\ref{sec:econ}. It is also why we do
+\emph{not} present the code pair as cross-domain evidence about strategy selection: where
+only one strategy is ever economic, the selection question is vacuous. P7's value is as a
+boundary case: the bound degenerates correctly at $\cov = 1$, where it says reuse can buy
+nothing.
+
+\todo{One code pair is a thin basis for a regime claim. Either add a code$\to$code pair
+(codesage-small $\to$ codesage-base) or scope this section explicitly to one corpus.}
+
+% =====================================================================
+\section{Discussion and Limitations}\label{sec:disc}
+% =====================================================================
+
+\textbf{What a practitioner should do.} Measure $\cov(K')$ on the source index at the
+depth you would use --- one retrieval pass, no target encoding. If
+$1 - \cov(K')$ is small, windowed reuse cannot pay and a blue--green rebuild is the
+honest choice. If it is large, use plain window re-ranking (S2) with any completing
+background order; do not spend effort choosing among the window variants, and do not use
+an adapter bridge. If $M_T - M_S$ is smaller than the quality regression you are willing
+to absorb, do not migrate at all.
+
+\textbf{What we got wrong.} We designed this study around a predictor and it does not
+exist in the range we measured. We think the honest reading is not ``compatibility is
+irrelevant'' but ``the strategy space collapses before the compatibility axis gets a
+chance to matter'': one family dominates, its variants are provably tied, and the only
+genuine fork --- migrate or do not --- is decided by a quantity ($M_T - M_S$) that needs
+no map. A map needs labels that vary, and ours do not.
+
+\textbf{Threats to validity.}
+\begin{itemize}
+\item \emph{Pair coverage.} All eleven text pairs are BERT-lineage encoder-only models.
+We have no encoder\,$\to$\,LLM-embedder pair, which is the direction most likely to widen
+the compatibility range. Our results are evidence about these pair types, not a universal
+law, and we state a falsifiable prediction for that case: since a bridge needs
+$M_A \ge M_T - \tau \approx 0.870$ and the best we measured is $0.757$ at $\kappa =
+0.4408$, and cross-architecture $\kappa$ should run \emph{lower} than within-lineage
+$\kappa$, we predict mapping fails there too. \todo{run it}
+\item \emph{One code corpus, one code pair.}
+\item \emph{One workload.} The reported runs use the uniform workload; the ORCAS and Zipf
+sweeps are specified but not run, so every claim here is scoped to uniform arrival.
+\todo{run them or scope the claims in each section}
+\item \emph{Subsampled corpora.} $\rho$ and $\cov$ depend on $K'/N$; we report $K'$ as a
+fraction and note that $10^6$ is two to three orders of magnitude below production scale.
+\item \emph{The window depth is not justified from below.} See the \todo{} in
+Section~\ref{sec:econ}: $K' = 50$ is the smallest depth measured, not the smallest
+admissible one.
+\item \emph{$\tau$ is a judgement.} We fixed $0.005$ before running and publish the
+sensitivity curve rather than claiming the value is principled.
+\item \emph{Encoding cost as the cost unit} understates query-time latency for window
+strategies, which encode documents inline on a cold query; we report encodings per served
+query separately.
+\item \emph{Scope.} We study complete migration only. The strategy that dominates on both
+axes in our own data --- lazy materialization, which never completes --- is excluded by
+our admissibility constraint by construction, and its economics are concurrent
+work~\cite{thaw-anon}. A reader should not conclude from this paper that completion is
+the right choice, only that under completion the reuse question has the shape described
+here.
+\end{itemize}
+
+% =====================================================================
+\section{Related Work}\label{sec:related}
+% =====================================================================
+
+\textbf{Embedding model upgrades.} Drift-Adapter maps new queries into the legacy space
+to defer re-encoding~\cite{drift-adapter}; our S1/S3 are its families, and
+Section~\ref{sec:cost} is in effect a negative replication at $10^6$ scale under a
+quality-along-the-path objective. EmbedFlow serves a target model over source-index
+candidates while materializing target vectors, with an empirical window diagnostic and a
+registry of measured pairs~\cite{embedflow}; our $G(K')$ follows its definition and our S2
+is its mechanism. Residual reachability reuses old graph structure to accelerate
+new-index construction~\cite{dgm}. Concurrent work studies exactness conditions and the
+economics of incomplete migration~\cite{thaw-anon}; we deliberately measure the
+complementary complete-migration regime. Our contribution is the common frame, the static
+cost model, and the negative selection result.
+
+\textbf{Representation alignment.} Linear and orthogonal alignment of embedding
+spaces~\cite{procrustes}, representation similarity~\cite{cka}, and relative
+representations~\cite{relrep} motivate our compatibility axis. Our finding that linear
+CKA's apparent predictive signal is carried by an identity control is a caution for its
+use as a practical compatibility score.
+
+\textbf{Dynamic vector indexes.} SPFresh, FreshDiskANN, and Quake update indexes as
+vectors change~\cite{spfresh,freshdiskann,quake}; they assume the new vector exists, which
+is the cost studied here. LEANN recomputes embeddings at query time to save
+storage~\cite{leann}, a mechanism related to window re-ranking with a different goal.
+
+\textbf{Stale representations.} Corrector networks reduce re-encoding of stale embeddings
+during retriever training~\cite{corrector}; CIPBench studies which content changes require
+re-embedding under a fixed encoder~\cite{cipbench}, and reports that an exposure signal
+added nothing over change history --- consistent with our Section~\ref{sec:order}.
+
+% =====================================================================
+\section{Conclusion}
+% =====================================================================
+
+We evaluated three families of embedding-upgrade reuse strategies over twelve model pairs
+under one cost model. We set out to build a predictor and found there is little to
+predict: one family dominates, its variants are provably tied, and three of our five
+pre-registered hypotheses failed on their own criteria. What the measurements do deliver
+is an economic account that is more directly useful than the map we wanted. The cost of
+windowed reuse is bounded below by the union of the windows a workload touches; that union is
+computable from the source index in minutes, is $10$--$24\%$ tighter than the closed form that
+assumes independent windows, and the replay confirms it is attained. The upgrade decision is
+therefore a regime question, answerable in advance from a bound, rather than a
+strategy-selection question. Mapping, meanwhile, does not work at
+this scale: it never wins, and the compatibility score tells you in advance how badly it
+will lose.
+
+\section*{Artifacts}
+\todo{Repository URL (anonymized): replay framework, configs, encoder contracts, golden
+files, coverage and probe outputs, all per-pair result JSONs and the derived tables. MS
+MARCO- and ORCAS-derived vectors are not redistributable; scripts regenerate them.}
+
+% =====================================================================
+\begin{thebibliography}{99}
+\bibitem{drift-adapter} H.~Vejendla, ``Drift-Adapter: A practical approach to near
+zero-downtime embedding model upgrades in vector databases,'' in \emph{Proc. EMNLP},
+2025, pp.~15938--15949.
+\bibitem{embedflow} A.~Srivastav, ``EmbedFlow: Progressive embedding-model migration
+over existing vector indexes,'' software, v0.8.0, 2026.
+\url{https://github.com/arnsri33/embedflow}
+\bibitem{dgm} \todo{authors}, ``Exploiting residual reachability for cross-model
+migration of graph-based indexes in approximate nearest neighbor search,''
+arXiv:2609.23036, 2026.
+\bibitem{thaw-anon} Anonymous, ``\todo{Thaw title},'' under submission, 2026.
+\bibitem{cipbench} N.~Zhao, J.~Zhang, T.~Zhong, H.~Wang, and B.~Wang, ``Which code
+changes need re-embedding? CIPBench and the limits of multi-signal index
+maintenance,'' \emph{ACM TOSEM} (submitted), 2026.
+\bibitem{zilliz-migration} Zilliz, ``Migrate to a new embedding model,'' documentation,
+2026.
+\bibitem{msmarco} T.~Nguyen \emph{et al.}, ``MS MARCO: A human generated machine reading
+comprehension dataset,'' arXiv:1611.09268, 2016.
+\bibitem{orcas} N.~Craswell \emph{et al.}, ``ORCAS: 18 million clicked query-document
+pairs for modeling search,'' in \emph{Proc. CIKM}, 2020.
+\bibitem{codesearchnet} H.~Husain \emph{et al.}, ``CodeSearchNet challenge: Evaluating
+the state of semantic code search,'' arXiv:1909.09436, 2019.
+\bibitem{bm25} S.~Robertson and H.~Zaragoza, ``The probabilistic relevance framework:
+BM25 and beyond,'' \emph{Found. Trends Inf. Retr.}, vol.~3, no.~4, 2009.
+\bibitem{hnsw} Y.~Malkov and D.~Yashunin, ``Efficient and robust approximate nearest
+neighbor search using hierarchical navigable small world graphs,'' \emph{IEEE TPAMI},
+vol.~42, no.~4, 2018.
+\bibitem{cka} S.~Kornblith, M.~Norouzi, H.~Lee, and G.~Hinton, ``Similarity of neural
+network representations revisited,'' in \emph{Proc. ICML}, 2019.
+\bibitem{procrustes} P.~Sch\"onemann, ``A generalized solution of the orthogonal
+Procrustes problem,'' \emph{Psychometrika}, vol.~31, 1966.
+\bibitem{relrep} L.~Moschella \emph{et al.}, ``Relative representations enable zero-shot
+latent space communication,'' in \emph{Proc. ICLR}, 2023.
+\bibitem{hubness} M.~Radovanovi\'c, A.~Nanopoulos, and M.~Ivanovi\'c, ``Hubs in space:
+Popular nearest neighbors in high-dimensional data,'' \emph{JMLR}, vol.~11, 2010.
+\bibitem{spfresh} Y.~Xu \emph{et al.}, ``SPFresh: Incremental in-place update for
+billion-scale vector search,'' in \emph{Proc. SOSP}, 2023.
+\bibitem{freshdiskann} A.~Singh \emph{et al.}, ``FreshDiskANN: A fast and accurate
+graph-based ANN index for streaming similarity search,'' arXiv, 2021.
+\bibitem{quake} J.~Mohoney \emph{et al.}, ``Quake: Adaptive indexing for vector search,''
+in \emph{Proc. OSDI}, 2025.
+\bibitem{leann} \todo{authors}, ``LEANN: A low-storage vector index,'' arXiv, 2025.
+\bibitem{corrector} N.~Monath \emph{et al.}, ``A fresh take on stale embeddings:
+Improving dense retriever training with corrector networks,'' in \emph{Proc. ICML},
+2024.
+\end{thebibliography}
+
+\end{document}

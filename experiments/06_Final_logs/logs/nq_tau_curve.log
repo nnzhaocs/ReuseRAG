@@ -1,0 +1,62 @@
+objective band swept over tau in [0.0, 0.002, 0.003, 0.004, 0.005, 0.006, 0.008, 0.01]; the config's own tau is 0.005 (nearest grid point 0.005)
+
+pair     tr  tau=0.0              tau=0.002            tau=0.003            tau=0.004            tau=0.005            tau=0.006            tau=0.008            tau=0.01            
+N0        4  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N0       16  S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand             
+N0       64  S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand             
+N0      256  S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand             
+N10       4  S5/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N10      16  S5/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N10      64  S5/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N10     256  S5/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N11       4  S2/rand              S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N11      16  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N11      64  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N11     256  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N12       4  S2/rand              S2/rand              S4/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N12      16  S4/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S0/rand              S0/rand              S0/rand              S0/rand             
+N12      64  S4/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S0/rand              S0/rand              S0/rand              S0/rand             
+N12     256  S4/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S0/rand              S0/rand              S0/rand              S0/rand             
+N13       4  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N13      16  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N13      64  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N13     256  S2/rand              S2/rand              S2/rand              S2/rand              S2/rand              S2/rand              S2/rand              S2/rand             
+N14       4  S4/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N14      16  S4/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S0/rand              S0/rand             
+N14      64  S4/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S0/rand              S0/rand             
+N14     256  S4/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S0/rand              S0/rand             
+N2        4  S5/demand_then_rand  S4/demand_then_rand  S4/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N2       16  S5/demand_then_rand  S4/demand_then_rand  S4/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N2       64  S5/demand_then_rand  S4/demand_then_rand  S4/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N2      256  S5/demand_then_rand  S4/demand_then_rand  S4/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N3        4  S4/demand_then_rand  S4/demand_then_rand  S4/demand_then_rand  S4/demand_then_rand  S4/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N3       16  S4/demand_then_rand  S4/demand_then_rand  S4/demand_then_rand  S4/demand_then_rand  S4/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N3       64  S4/demand_then_rand  S4/demand_then_rand  S4/demand_then_rand  S4/demand_then_rand  S4/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N3      256  S4/rand              S4/rand              S4/rand              S4/rand              S4/rand              S2/rand              S2/rand              S2/rand             
+N4        4  S2/rand              S0/rand              S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N4       16  S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand             
+N4       64  S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand             
+N4      256  S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand             
+N5        4  S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand             
+N5       16  S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand             
+N5       64  S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand             
+N5      256  S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand              S0/rand             
+N9        4  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N9       16  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N9       64  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand  S2/demand_then_rand 
+N9      256  S2/rand              S2/rand              S2/rand              S2/rand              S2/rand              S2/rand              S2/rand              S2/rand             
+
+cells where the winner differs from the one at tau = 0.005:
+   tau=0.0      18 / 44   N10@4, N10@16, N10@64, N10@256, N11@4, N12@4, N12@16, N12@64, N12@256, N14@4, N14@16, N14@64, N14@256, N2@4, N2@16, N2@64, N2@256, N4@4
+   tau=0.002     9 / 44   N12@4, N12@16, N12@64, N12@256, N2@4, N2@16, N2@64, N2@256, N4@4
+   tau=0.003     8 / 44   N12@4, N12@16, N12@64, N12@256, N2@4, N2@16, N2@64, N2@256
+   tau=0.004     3 / 44   N12@16, N12@64, N12@256
+   tau=0.005     0 / 44
+   tau=0.006     4 / 44   N3@4, N3@16, N3@64, N3@256
+   tau=0.008     7 / 44   N14@16, N14@64, N14@256, N3@4, N3@16, N3@64, N3@256
+   tau=0.01      7 / 44   N14@16, N14@64, N14@256, N3@4, N3@16, N3@64, N3@256
+
+pairs that move anywhere on this grid: ['N10', 'N11', 'N12', 'N14', 'N2', 'N3', 'N4']
+A pair that moves is one whose reported strategy is a function of tau, not of the pair.
+
+wrote results_nq/tables/tau_curve.csv

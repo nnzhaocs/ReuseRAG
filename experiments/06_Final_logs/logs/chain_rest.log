@@ -1,0 +1,34 @@
+
+===== [21:03:44] 等 adapters 完成 =====
+
+===== [21:34:15] 等 adapters 完成 =====
+  adapters: 14 个
+
+===== [22:45:16] 13.2b xarch（P5p/P5q 回放，CPU） =====
+  xarch rc=0 files=2
+[2026-11-09T23:20:13+08:00] xarch: 2 output file(s)
+[2026-11-09T23:20:13+08:00] xarch done
+
+===== [23:20:13] submission check + collect =====
+  check rc=0
+  collect rc=0
+[2026-11-09T23:20:17+08:00] not produced (stage failed or not run): results_llm coverage_llm
+[2026-11-09T23:20:18+08:00] wrote submission_outputs_20261109_2320.zip (4.5M) -- send this file
+
+===== [23:20:18] 等 GPU 链的 core 完成 =====
+  chain_gpu tail:
+[2026-11-09T22:30:22+08:00] encode failed: logs/nq_encode.log
+
+===== [22:30:22] CHAIN_GPU2_DONE =====
+
+===== [23:20:18] extension 其余阶段（交给驱动并行：all） =====
+  all rc=1
+tracked files differ from HEAD (run_pair.py would refuse): FREEZE_CHECK.md curve_check.md 
+
+===== [23:20:18] extension check + collect =====
+  check rc=0
+  collect rc=0
+[2026-11-09T23:20:18+08:00] not produced: planner_nq planner_check_nq.md results_nq results_nq_static sweeps_n
+[2026-11-09T23:20:18+08:00] wrote extension_outputs_20261109_2320.zip (48K) -- send this file back
+
+===== [23:20:18] CHAIN_REST_DONE 23:20:18 =====

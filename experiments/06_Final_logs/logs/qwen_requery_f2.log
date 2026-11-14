@@ -1,0 +1,21 @@
+  enc/Qwen3-Embedding-8B/q.npy: no sidecar -- treated as stale
+[2026-11-10T04:20:39+08:00] requery: Qwen/Qwen3-Embedding-8B queries from sub1m/queries.tsv (max-seq-len 512, precision -, batch 16); old file in superseded_double_instruction/enc_Qwen3-Embedding-8B/
+model input for the first text: 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:how many years did william bradford serve as governor of plymouth colony?'
+FAIL  doc: file exists                           enc/Qwen3-Embedding-8B/doc.npy is missing
+ok    query: 2-D array                           shape (7077, 4096)
+ok    query: row count matches the text file     7077 rows vs 7077 lines in queries.tsv
+ok    query: plausible dimension                 dim 4096
+ok    query: float32                             float32
+ok    query: all values finite                   0 non-finite in a sample of 4096
+ok    query: no zero-norm rows                   0 zero rows in a sample of 4096
+ok    query: space not collapsed                 mean pairwise cosine 0.1091 over 1024 rows (fail above 0.95)
+ok    query: few duplicate rows                  0 of 1024 sampled rows are duplicates at 5 decimal places
+ok    query: padding check in the sidecar        status ok, contract unverified
+warn  query: contract verified                   status 'unverified'
+ok    query: encoded under the current contract  prefix and prompt name match configs/models.json
+ok    query: sidecar shape matches the file      sidecar [7077, 4096] vs file [7077, 4096]
+ok    qrels: every query id has a vector         0 of 7077 query ids are >= 7077 rows. This is the e5-base failure: model_quality.py would silently score only the rest
+
+12 passed, 1 warning(s), 1 failure(s)
+[2026-11-10T04:21:23+08:00] requery: encode_check failed for enc/Qwen3-Embedding-8B -- see checks/
+rc=1

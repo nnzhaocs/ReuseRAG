@@ -1,0 +1,151 @@
+{
+ "pair": "P3f",
+ "pair_dir": "/root/sub13run/pairs_s4m/P3f",
+ "N": 4000000,
+ "Q": 7077,
+ "data_fingerprint": "c9fe6437978c4cd1",
+ "pilot_extrapolation": null,
+ "n_eval": 3490,
+ "n_servable": 6980,
+ "window_in_config": 50,
+ "retrieval_depth": 1000,
+ "kappa": 0.389198899269104,
+ "cka": 0.7665651440620422,
+ "M_S": 0.7221585482330198,
+ "M_T": 0.7356494746895634,
+ "M_A": 0.5148758357210633,
+ "eps_list": [
+  0.005,
+  0.01,
+  0.02
+ ],
+ "pilot": false,
+ "meta": {
+  "source": "bge-small-en-v1.5",
+  "target": "bge-base-en-v1.5",
+  "corpus": "msmarco nested s4m"
+ },
+ "depths": [
+  {
+   "kprime": 10,
+   "rho": 0.3806017191977077,
+   "rho_mapped": null,
+   "G": 0.013490926456543595,
+   "coverage": 0.0170645,
+   "ceiling_frac": 0.9829355,
+   "covered": 68258,
+   "admissible": {
+    "0.005": false,
+    "0.01": false,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 25,
+   "rho": 0.18464183381088817,
+   "rho_mapped": null,
+   "G": -0.003510028653295416,
+   "coverage": 0.04148075,
+   "ceiling_frac": 0.95851925,
+   "covered": 165923,
+   "admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 50,
+   "rho": 0.10722063037249274,
+   "rho_mapped": null,
+   "G": -0.00458452722063063,
+   "coverage": 0.079514,
+   "ceiling_frac": 0.920486,
+   "covered": 318056,
+   "admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 100,
+   "rho": 0.06432664756446982,
+   "rho_mapped": null,
+   "G": -0.0031518624641836412,
+   "coverage": 0.1477285,
+   "ceiling_frac": 0.8522715,
+   "covered": 590914,
+   "admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 200,
+   "rho": 0.03842406876790827,
+   "rho_mapped": null,
+   "G": -0.0008595988538683264,
+   "coverage": 0.260857,
+   "ceiling_frac": 0.739143,
+   "covered": 1043428,
+   "admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 350,
+   "rho": 0.02518624641833811,
+   "rho_mapped": null,
+   "G": -0.001289398280802323,
+   "coverage": 0.390389,
+   "ceiling_frac": 0.609611,
+   "covered": 1561556,
+   "admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 500,
+   "rho": 0.019541547277936777,
+   "rho_mapped": null,
+   "G": -0.0008595988538683264,
+   "coverage": 0.48760825,
+   "ceiling_frac": 0.5123917499999999,
+   "covered": 1950433,
+   "admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 1000,
+   "rho": 0.012578796561604433,
+   "rho_mapped": null,
+   "G": -0.0005730659025788842,
+   "coverage": 0.6854575,
+   "ceiling_frac": 0.31454249999999995,
+   "covered": 2741830,
+   "admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  }
+ ],
+ "seconds": {
+  "load": 0.13467192649841309,
+  "precompute": 1398.361294746399,
+  "reference": 0.039519548416137695,
+  "rho": 0.1737210750579834,
+  "G": 6.717100143432617,
+  "coverage": 2.1228842735290527,
+  "total": 1407.549304008484
+ }
+}

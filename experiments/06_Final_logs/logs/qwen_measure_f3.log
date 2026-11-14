@@ -1,0 +1,9 @@
+[2026-11-10T04:25:48+08:00] verify
+  /root/autodl-tmp/enc_qwen/Qwen3-Embedding-8B: contract current; model input 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery'; instruction once
+  enc/Qwen3-Embedding-0.6B: contract current; model input 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery'; instruction once
+[2026-11-10T04:25:48+08:00] verify ok: every Qwen3 query encoding in use carries the instruction once
+the pairs read different query files than the ones this script re-encodes:
+  pairs/P5p/q_tgt.npy -> /root/reusemap_v3n/enc_qwen/Qwen3-Embedding-8B/q.npy, but this script rewrites /root/autodl-tmp/enc_qwen/Qwen3-Embedding-8B/q.npy
+  pairs/P5q/q_tgt.npy -> /root/reusemap_v3n/enc_qwen/Qwen3-Embedding-8B/q.npy, but this script rewrites /root/autodl-tmp/enc_qwen/Qwen3-Embedding-8B/q.npy
+set Q8=/the/dir/the/pairs/use (and Q06 likewise), then run check again
+rc=1

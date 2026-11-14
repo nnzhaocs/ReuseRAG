@@ -1,0 +1,6 @@
+[2026-11-09T15:26:48+08:00] 13.2b: P2 P3 P4 P5 P9 P10 P12 P13 at K'=25 (per-pair logs: logs/d3_P*.log)
+[2026-11-09T15:26:48+08:00] threads: 8 job(s) x 12 of 224 cores
+scripts/submission_runs.sh: line 62:  3285 Killed                  python scripts/run_pair.py pairs/$p --config configs/msmarco_1m_v3_d3.json --name $p --out results_d3/$p.json > logs/d3_$p.log 2>&1
+scripts/submission_runs.sh: line 62:  3286 Killed                  python scripts/run_pair.py pairs/$p --config configs/msmarco_1m_v3_d3.json --name $p --out results_d3/$p.json > logs/d3_$p.log 2>&1
+scripts/submission_runs.sh: line 62:  3290 Killed                  python scripts/run_pair.py pairs/$p --config configs/msmarco_1m_v3_d3.json --name $p --out results_d3/$p.json > logs/d3_$p.log 2>&1
+[2026-11-09T15:54:40+08:00] 13.2b: replay(s) failed -- see logs/d3_P*.log

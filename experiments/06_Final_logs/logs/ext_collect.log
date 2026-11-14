@@ -1,0 +1,4 @@
+[2026-11-09T23:20:18+08:00] not produced: planner_nq planner_check_nq.md results_nq results_nq_static sweeps_nq coverage_nq adapters_nq results_seeds results_zipf curve_check_zipf.md query_sweep throughput.json throughput_qwen8b.json seeds_summary.md results_llm coverage_llm FREEZE_CHECK_NQ.md
+[2026-11-09T23:20:18+08:00] wrote extension_outputs_20261109_2320.zip (48K) -- send this file back
+[2026-11-10T00:53:19+08:00] not produced: planner_nq planner_check_nq.md results_nq results_nq_static sweeps_nq coverage_nq adapters_nq results_seeds results_zipf curve_check_zipf.md query_sweep throughput_qwen8b.json seeds_summary.md results_llm coverage_llm FREEZE_CHECK_NQ.md
+[2026-11-10T00:53:19+08:00] wrote extension_outputs_20261110_0053.zip (64K) -- send this file back

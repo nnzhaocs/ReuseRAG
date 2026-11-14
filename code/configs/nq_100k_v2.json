@@ -1,0 +1,48 @@
+{
+ "_status_2026_11_08": "2026-11-08: the _preregistered text above was copied from msmarco_1m_v3.json and describes that config, not this one. This config's own values are what it contains: measure-only (replay false), eval_frac 1.0, traffic_ratio [1.0], window 1000, kprime ladder 20-1000.",
+ "_comment": "P5' NQ comparison against the EmbedFlow registry (measure-only: no replay). Every judged query is evaluated (eval_frac 1.0), as in the registry's G(K'). K' ladder = the record's candidate_depths; primary nDCG@10. Pass criterion (pre-registered): G(50) within +/-0.01 of the registry value 0.027784233801564986 and the same shape over K'. It is a CALIBRATION only if corpus, queries, prompts, truncation and dtype replicate the registry record; otherwise report it as a comparison.",
+ "K": 10,
+ "kprime": [
+  20,
+  50,
+  100,
+  200,
+  500,
+  1000
+ ],
+ "window": 1000,
+ "primary": {
+  "metric": "ndcg",
+  "thr": 1
+ },
+ "secondary": [
+  {
+   "metric": "recall",
+   "thr": 1
+  }
+ ],
+ "secondary_eval_qids": null,
+ "eps": 0.01,
+ "delta": 0.01,
+ "workload": "uniform",
+ "replay": false,
+ "eval_frac": 1.0,
+ "repeat_rate": [
+  0.0
+ ],
+ "traffic_ratio": [
+  1.0
+ ],
+ "primary_setting": {
+  "traffic_ratio": 1.0,
+  "repeat_rate": 0.0
+ },
+ "adapter": "procrustes",
+ "adapter_fit": "docs",
+ "adapter_n_fit": 5000,
+ "adapter_n_eval": 2000,
+ "tgt_depth": 1000,
+ "probe_c": 4,
+ "seed": 0,
+ "_preregistered": "2026-11-06 on bjb1, before any v3 pair ran in this round. Values are unchanged from the draft: eval_frac 0.5, traffic grid [4,16,64,256], primary traffic_ratio 64 (placeholder for ORCAS, stated as such), delta 0.01, eps 0.01 (+sensitivity 0.005/0.01/0.02), tau debt 0.005 / c_serve 0.02, band_tiebreak cost, probe 12 x 250 (code 8 x 100). window_frac stays the placeholder on purpose: RUNBOOK Phase 1 makes it a two-stage decision settled from the 5.5 frontier."
+}

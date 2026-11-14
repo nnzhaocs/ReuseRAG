@@ -1,0 +1,24 @@
+[2026-11-10T04:29:03+08:00] verify
+  /root/reusemap_v3n/enc_qwen/Qwen3-Embedding-8B: contract current; model input 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery'; instruction once
+  enc/Qwen3-Embedding-0.6B: contract current; model input 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery'; instruction once
+[2026-11-10T04:29:03+08:00] verify ok: every Qwen3 query encoding in use carries the instruction once
+pairs read the query files this script rewrites (P5p, P5q, and P5r if assembled)
+  qwen_manifest.json: P5p 3c80cc5862c6cb5b, P5q dea37fad90854ff8
+[2026-11-10T04:29:03+08:00] moved stale results_xarch/P5p.json to superseded_double_instruction/
+[2026-11-10T04:29:03+08:00] moved stale results_xarch/P5q.json to superseded_double_instruction/
+[2026-11-10T04:29:03+08:00] moved stale adapters/adapters_P5p.json to superseded_double_instruction/
+[2026-11-10T04:29:03+08:00] moved stale adapters/adapters_P5q.json to superseded_double_instruction/
+[2026-11-10T04:29:03+08:00] measure: sweeps, adapters, replays for P5p/P5q, and P5r, in parallel (28 threads each)
+[2026-11-10T05:22:37+08:00] measure: 2 job(s) failed -- read logs/qwen_*.log
+[2026-11-10T05:22:37+08:00] measure: missing results_xarch/P5p.json
+[2026-11-10T05:22:37+08:00] measure: missing results_xarch/P5q.json
+[2026-11-10T05:22:37+08:00] measure: missing results_llm/P5r.json
+[2026-11-10T05:22:37+08:00] measure: missing adapters/adapters_P5r.json
+[2026-11-10T05:22:37+08:00] measure: 4 output file(s)
+  qwen_manifest.json: P5p 3c80cc5862c6cb5b, P5q dea37fad90854ff8, P5r 501b0464fba9261d
+  sweeps_qwen/sweep_P5p.json: reads the fixed inputs
+  adapters/adapters_P5p.json: reads the fixed inputs
+  sweeps_qwen/sweep_P5q.json: reads the fixed inputs
+  adapters/adapters_P5q.json: reads the fixed inputs
+[2026-11-10T05:22:38+08:00] measure: every output read the fixed query files
+rc=1

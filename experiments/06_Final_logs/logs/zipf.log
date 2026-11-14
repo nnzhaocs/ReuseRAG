@@ -1,0 +1,4 @@
+[2026-11-10T02:16:06+08:00] zipf: P2 P5 P11 P13 under configs/msmarco_1m_v3_zipf.json (per-pair logs: logs/zipf_P*.log)
+[2026-11-10T02:16:06+08:00] threads: 4 job(s) x 10 of 224 cores
+scripts/extension_runs.sh: line 76: 59394 Killed                  python scripts/run_pair.py "pairs/$p" --config configs/msmarco_1m_v3_zipf.json --name "$p" --out "results_zipf/$p.json" > "logs/zipf_$p.log" 2>&1
+[2026-11-10T03:03:24+08:00] zipf: a replay failed -- see logs/zipf_P*.log

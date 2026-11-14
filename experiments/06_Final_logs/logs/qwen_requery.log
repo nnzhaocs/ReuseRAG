@@ -1,0 +1,3 @@
+  enc/Qwen3-Embedding-8B/q.npy: no sidecar -- treated as stale
+[2026-11-09T23:22:31+08:00] requery: Qwen/Qwen3-Embedding-8B queries from sub1m/queries.tsv (max-seq-len 512, precision -, batch 16); old file in superseded_double_instruction/enc_Qwen3-Embedding-8B/
+[2026-11-09T23:22:39+08:00] requery: Qwen/Qwen3-Embedding-8B failed -- see logs/requery_Qwen3-Embedding-8B.log; restoring the old file

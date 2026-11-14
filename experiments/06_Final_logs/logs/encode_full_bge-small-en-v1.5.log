@@ -1,0 +1,26 @@
+Could not reach the Hub (Cannot reach https://hf-mirror.com/api/models/BAAI/bge-small-en-v1.5: offline mode is enabled. To disable it, please unset the `HF_HUB_OFFLINE` environment variable.). Using cached commit hash for 'BAAI/bge-small-en-v1.5'.
+WARNING: contract for BAAI/bge-small-en-v1.5 is 'unverified' (Thaw resolve_prefixes (BGE English: instruction on queries only)); the sidecar records this
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 15173.82it/s]
+contract: pooling: no Pooling module found, could not compare
+model input for the first text: 'The presence of communication amid scientific minds was equally important to the success of the Manhattan Project as scientific intellect was. The only cloud hanging over the impressive achievement of the atomic researchers and engineers is what their success truly meant; hundreds of thousands of in'
+padding check: min cos 0.9999998807907104 over 64 texts -> ok
+  500,000/8,841,823 encoded, 413995 texts/s
+  1,000,000/8,841,823 encoded, 5300 texts/s
+  1,500,000/8,841,823 encoded, 3953 texts/s
+  2,000,000/8,841,823 encoded, 3497 texts/s
+  2,500,000/8,841,823 encoded, 3273 texts/s
+  3,000,000/8,841,823 encoded, 3159 texts/s
+  3,500,000/8,841,823 encoded, 3070 texts/s
+  4,000,000/8,841,823 encoded, 3009 texts/s
+  4,500,000/8,841,823 encoded, 2980 texts/s
+  5,000,000/8,841,823 encoded, 2945 texts/s
+  5,500,000/8,841,823 encoded, 2925 texts/s
+  6,000,000/8,841,823 encoded, 2891 texts/s
+  6,500,000/8,841,823 encoded, 2849 texts/s
+  7,000,000/8,841,823 encoded, 2838 texts/s
+  7,500,000/8,841,823 encoded, 2828 texts/s
+  8,000,000/8,841,823 encoded, 2817 texts/s
+  8,500,000/8,841,823 encoded, 2805 texts/s
+  8,841,823/8,841,823 encoded, 2799 texts/s
+self-retrieval check: top1 1.0 over 256 documents in a pool of 10256 (chance 9.75e-05) -> ok
+wrote /root/autodl-tmp/enc_full/bge-small-en-v1.5/doc.npy (8841823, 384)

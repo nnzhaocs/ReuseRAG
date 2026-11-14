@@ -1,0 +1,9 @@
+# replay pipeline (CPU)
+numpy>=1.26
+scipy>=1.11
+scikit-learn>=1.4
+# data preparation
+sentence-transformers>=3.0   # encode.py (GPU recommended)
+bm25s>=0.2                   # bm25_run.py
+faiss-cpu>=1.8               # ann_noise.py (P0 ANN noise floor) only
+pyarrow>=14                  # build_code_corpus.py, build_nq_prefix.py

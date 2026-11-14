@@ -1,0 +1,6 @@
+P2 [uniform]: gap +0.0471  K'=25: S4 S2 G+0.0094 cov0.149 S3 G+0.3447 cov0.109 S4 G-0.0020 cov0.841 S5 G-0.0012 cov0.853  K'=50: S2 S2 G+0.0022 cov0.264 S3 G+0.2662 cov0.183 S4 G-0.0026 cov0.857 S5 G-0.0014 cov0.874
+   replay at 25: S4/demand_then_rand  static S4 (margin S4)  agree True
+     S2: candidate-union cov 0.1486; replay C_serve 1.0000 (never_reached_target), inline repairs 0.1486; G +0.0094 vs debt +0.0102
+     S3: candidate-union cov 0.1090; replay C_serve 1.0000 (never_reached_target), inline repairs 0.1090; G +0.3447 vs debt +0.3366
+     S4: candidate-union cov 0.8415; replay C_serve 0.8414 (at_last_arrival), inline repairs 0.8415; G -0.0020 vs debt -0.0003
+     S5: candidate-union cov 0.8532; replay C_serve 0.8531 (at_last_arrival), inline repairs 0.8532; G -0.0012 vs debt -0.0000

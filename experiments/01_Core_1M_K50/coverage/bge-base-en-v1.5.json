@@ -1,0 +1,78 @@
+{
+ "name": "bge-base-en-v1.5",
+ "weights_file": null,
+ "exclude_qids_file": "/root/reusemap_v3n/sub1m/query_sets/trecdl.txt",
+ "docs": "/root/reusemap_v3n/enc/bge-base-en-v1.5/doc.npy",
+ "queries": "/root/reusemap_v3n/enc/bge-base-en-v1.5/q.npy",
+ "N": 1000000,
+ "n_queries": 6980,
+ "dim": 768,
+ "qids_file": null,
+ "seconds": 157.30284523963928,
+ "rows": [
+  {
+   "kprime": 25,
+   "covered": 148985,
+   "coverage": 0.148985,
+   "ceiling_frac": 0.851015,
+   "coverage_if_independent": 0.16012497778102264,
+   "concentration": 0.01113997778102263
+  },
+  {
+   "kprime": 50,
+   "covered": 263695,
+   "coverage": 0.263695,
+   "ceiling_frac": 0.736305,
+   "coverage_if_independent": 0.29461302446338866,
+   "concentration": 0.03091802446338865
+  },
+  {
+   "kprime": 100,
+   "covered": 430710,
+   "coverage": 0.43071,
+   "ceiling_frac": 0.5692900000000001,
+   "coverage_if_independent": 0.5024378981460813,
+   "concentration": 0.07172789814608133
+  },
+  {
+   "kprime": 200,
+   "covered": 632326,
+   "coverage": 0.632326,
+   "ceiling_frac": 0.36767399999999995,
+   "coverage_if_independent": 0.7524492379016126,
+   "concentration": 0.1201232379016125
+  },
+  {
+   "kprime": 350,
+   "covered": 784487,
+   "coverage": 0.784487,
+   "ceiling_frac": 0.21551299999999995,
+   "coverage_if_independent": 0.9131373918074829,
+   "concentration": 0.12865039180748283
+  },
+  {
+   "kprime": 500,
+   "covered": 861171,
+   "coverage": 0.861171,
+   "ceiling_frac": 0.13882899999999998,
+   "coverage_if_independent": 0.9695257370998838,
+   "concentration": 0.10835473709988375
+  },
+  {
+   "kprime": 1000,
+   "covered": 953401,
+   "coverage": 0.953401,
+   "ceiling_frac": 0.046598999999999946,
+   "coverage_if_independent": 0.9990729400545475,
+   "concentration": 0.045671940054547444
+  },
+  {
+   "kprime": 2000,
+   "covered": 988102,
+   "coverage": 0.988102,
+   "ceiling_frac": 0.011897999999999964,
+   "coverage_if_independent": 0.9999991465497974,
+   "concentration": 0.011897146549797344
+  }
+ ]
+}

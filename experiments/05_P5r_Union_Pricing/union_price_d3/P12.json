@@ -1,0 +1,141 @@
+{
+ "pair": "P12",
+ "N": 1000000,
+ "n_eval": 3490,
+ "n_servable": 6980,
+ "bm25_depth": 500,
+ "tau": 0.005,
+ "eps": 0.01,
+ "margin": 0.006,
+ "families": [
+  "S2",
+  "S3",
+  "S4",
+  "S5"
+ ],
+ "cost_semantics": "static candidate-union coverage over all servable queries; not exact first-arrival C_serve",
+ "workloads": {
+  "uniform": {
+   "M_S": 0.858595988538682,
+   "M_T": 0.8796084049665711,
+   "M_A": 0.3509073543457498,
+   "gap": 0.02101241642788909,
+   "n_eff": 3490.0,
+   "depths": {
+    "25": {
+     "prices": {
+      "S2": {
+       "G": 0.0013610315186245447,
+       "cov": 0.145169
+      },
+      "S3": {
+       "G": 0.41809933142311356,
+       "cov": 0.092627
+      },
+      "S4": {
+       "G": -0.002507163323782313,
+       "cov": 0.840685
+      },
+      "S5": {
+       "G": -0.0020773638968482055,
+       "cov": 0.850108
+      }
+     },
+     "winner": "S2",
+     "admissible": [
+      "S2",
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S2",
+     "admissible_margin": [
+      "S2",
+      "S4",
+      "S5"
+     ]
+    },
+    "50": {
+     "prices": {
+      "S2": {
+       "G": -0.00193409742120354,
+       "cov": 0.254009
+      },
+      "S3": {
+       "G": 0.347349570200573,
+       "cov": 0.150405
+      },
+      "S4": {
+       "G": -0.0020057306590258728,
+       "cov": 0.854075
+      },
+      "S5": {
+       "G": -0.0011461318051576574,
+       "cov": 0.867677
+      }
+     },
+     "winner": "S2",
+     "admissible": [
+      "S2",
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S2",
+     "admissible_margin": [
+      "S2",
+      "S4",
+      "S5"
+     ]
+    }
+   },
+   "replay": {
+    "results": "results_d3",
+    "window": 25,
+    "winner": "S2/demand_then_rand",
+    "winner_family": "S2",
+    "static_winner": "S2",
+    "static_winner_margin": "S2",
+    "families": {
+     "S2": {
+      "static_G": 0.0013610315186245447,
+      "static_cov": 0.145169,
+      "static_candidate_union_cov": 0.145169,
+      "replay_debt": 0.0014565425023880252,
+      "replay_C_serve_frac": 0.145142,
+      "replay_basis": "at_last_arrival",
+      "replay_repairs_frac": 0.145169
+     },
+     "S3": {
+      "static_G": 0.41809933142311356,
+      "static_cov": 0.092627,
+      "static_candidate_union_cov": 0.092627,
+      "replay_debt": 0.41208213944606575,
+      "replay_C_serve_frac": 1.0,
+      "replay_basis": "never_reached_target",
+      "replay_repairs_frac": 0.092627
+     },
+     "S4": {
+      "static_G": -0.002507163323782313,
+      "static_cov": 0.840685,
+      "static_candidate_union_cov": 0.840685,
+      "replay_debt": -0.0017908309455588745,
+      "replay_C_serve_frac": 0.840622,
+      "replay_basis": "at_last_arrival",
+      "replay_repairs_frac": 0.840684
+     },
+     "S5": {
+      "static_G": -0.0020773638968482055,
+      "static_cov": 0.850108,
+      "static_candidate_union_cov": 0.850108,
+      "replay_debt": -0.0009312320916905481,
+      "replay_C_serve_frac": 0.850047,
+      "replay_basis": "at_last_arrival",
+      "replay_repairs_frac": 0.850107
+     }
+    },
+    "replay_S0_debt": 0.021012416427891756,
+    "agree": true,
+    "agree_margin": true
+   }
+  }
+ }
+}

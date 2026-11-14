@@ -1,0 +1,124 @@
+[2026-11-09T15:26:48+08:00] 13.5: window multiplicities
+[2026-11-09T15:26:48+08:00] threads: 6 job(s) x 3 of 224 cores
+excluded 604 of 44334 queries (subcsn/query_sets/cosqa.txt); 43730 remain
+retrieval pass: 104s for 43730 queries
+K'=   25 union 0.9997  max c   293  mass CV 0.69  top-1% docs hold 4.2% of mass
+K'=   50 union 1.0000  max c   448  mass CV 0.64  top-1% docs hold 3.9% of mass
+K'=  100 union 1.0000  max c   731  mass CV 0.59  top-1% docs hold 3.6% of mass
+K'=  200 union 1.0000  max c  1190  mass CV 0.54  top-1% docs hold 3.2% of mass
+wrote window_mass_csn/all-MiniLM-L6-v2.json
+excluded 604 of 44334 queries (subcsn/query_sets/cosqa.txt); 43730 remain
+retrieval pass: 119s for 43730 queries
+K'=   25 union 1.0000  max c   118  mass CV 0.46  top-1% docs hold 2.7% of mass
+K'=   50 union 1.0000  max c   234  mass CV 0.41  top-1% docs hold 2.5% of mass
+K'=  100 union 1.0000  max c   390  mass CV 0.35  top-1% docs hold 2.3% of mass
+K'=  200 union 1.0000  max c   583  mass CV 0.30  top-1% docs hold 2.1% of mass
+wrote window_mass_csn/codesage-small.json
+excluded 97 of 7077 queries (sub1m/query_sets/trecdl.txt); 6980 remain
+retrieval pass: 294s for 6980 queries
+K'=   25 union 0.1481  max c    10  mass CV 2.62  top-1% docs hold 14.0% of mass
+K'=   50 union 0.2612  max c    16  mass CV 1.97  top-1% docs hold 10.7% of mass
+K'=  100 union 0.4265  max c    26  mass CV 1.53  top-1% docs hold 8.6% of mass
+K'=  200 union 0.6238  max c    46  mass CV 1.25  top-1% docs hold 7.2% of mass
+K'=  500 union 0.8496  max c    78  mass CV 1.02  top-1% docs hold 6.2% of mass
+wrote window_mass/bge-small-en-v1.5.json
+excluded 97 of 7077 queries (sub1m/query_sets/trecdl.txt); 6980 remain
+retrieval pass: 307s for 6980 queries
+K'=   25 union 0.1486  max c    14  mass CV 2.61  top-1% docs hold 14.0% of mass
+K'=   50 union 0.2643  max c    23  mass CV 1.94  top-1% docs hold 10.3% of mass
+K'=  100 union 0.4353  max c    42  mass CV 1.49  top-1% docs hold 7.9% of mass
+K'=  200 union 0.6438  max c    61  mass CV 1.18  top-1% docs hold 6.4% of mass
+K'=  500 union 0.8779  max c    90  mass CV 0.91  top-1% docs hold 5.3% of mass
+wrote window_mass/all-MiniLM-L6-v2.json
+excluded 97 of 7077 queries (sub1m/query_sets/trecdl.txt); 6980 remain
+retrieval pass: 362s for 6980 queries
+K'=   25 union 0.1490  max c     9  mass CV 2.60  top-1% docs hold 13.8% of mass
+K'=   50 union 0.2637  max c    12  mass CV 1.94  top-1% docs hold 10.3% of mass
+K'=  100 union 0.4307  max c    19  mass CV 1.50  top-1% docs hold 8.1% of mass
+K'=  200 union 0.6323  max c    35  mass CV 1.20  top-1% docs hold 6.7% of mass
+K'=  500 union 0.8612  max c    80  mass CV 0.97  top-1% docs hold 5.7% of mass
+wrote window_mass/bge-base-en-v1.5.json
+excluded 97 of 7077 queries (sub1m/query_sets/trecdl.txt); 6980 remain
+retrieval pass: 408s for 6980 queries
+K'=   25 union 0.1452  max c    17  mass CV 2.70  top-1% docs hold 15.0% of mass
+K'=   50 union 0.2540  max c    32  mass CV 2.08  top-1% docs hold 11.8% of mass
+K'=  100 union 0.4118  max c    57  mass CV 1.66  top-1% docs hold 9.8% of mass
+K'=  200 union 0.6031  max c    92  mass CV 1.39  top-1% docs hold 8.6% of mass
+K'=  500 union 0.8330  max c   189  mass CV 1.16  top-1% docs hold 7.4% of mass
+wrote window_mass/bge-m3.json
+[2026-11-09T15:33:51+08:00] 13.5: 4 output file(s)
+[2026-11-09T15:33:51+08:00] 13.5: 2 output file(s)
+| pair | source | tr | points | max abs err (frac of N) | max rel err |
+|---|---|---|---|---|---|
+| P0 | bge-base-en-v1.5 | 4 | 64 rounds | 0.00130 | 0.55% |
+| P0 | bge-base-en-v1.5 | 16 | 16 rounds | 0.00081 | 0.46% |
+| P0 | bge-base-en-v1.5 | 64 | 4 rounds | 0.00066 | 0.29% |
+| P0 | bge-base-en-v1.5 | 256 | 1 rounds | 0.00010 | 0.04% |
+| P10 | all-MiniLM-L6-v2 | 4 | 64 rounds | 0.00131 | 0.81% |
+| P10 | all-MiniLM-L6-v2 | 16 | 16 rounds | 0.00128 | 0.74% |
+| P10 | all-MiniLM-L6-v2 | 64 | 4 rounds | 0.00063 | 0.27% |
+| P10 | all-MiniLM-L6-v2 | 256 | 1 rounds | 0.00008 | 0.03% |
+| P11 | all-MiniLM-L6-v2 | 4 | 64 rounds | 0.00131 | 0.81% |
+| P11 | all-MiniLM-L6-v2 | 16 | 16 rounds | 0.00128 | 0.74% |
+| P11 | all-MiniLM-L6-v2 | 64 | 4 rounds | 0.00063 | 0.27% |
+| P11 | all-MiniLM-L6-v2 | 256 | 1 rounds | 0.00008 | 0.03% |
+| P12 | bge-m3 | 4 | 64 rounds | 0.00104 | 0.66% |
+| P12 | bge-m3 | 16 | 16 rounds | 0.00095 | 0.56% |
+| P12 | bge-m3 | 64 | 4 rounds | 0.00060 | 0.27% |
+| P12 | bge-m3 | 256 | 1 rounds | 0.00008 | 0.03% |
+| P13 | bge-small-en-v1.5 | 4 | 64 rounds | 0.00129 | 0.61% |
+| P13 | bge-small-en-v1.5 | 16 | 16 rounds | 0.00093 | 0.54% |
+| P13 | bge-small-en-v1.5 | 64 | 4 rounds | 0.00078 | 0.34% |
+| P13 | bge-small-en-v1.5 | 256 | 1 rounds | 0.00010 | 0.04% |
+| P14 | bge-base-en-v1.5 | 4 | 64 rounds | 0.00130 | 0.55% |
+| P14 | bge-base-en-v1.5 | 16 | 16 rounds | 0.00081 | 0.46% |
+| P14 | bge-base-en-v1.5 | 64 | 4 rounds | 0.00066 | 0.29% |
+| P14 | bge-base-en-v1.5 | 256 | 1 rounds | 0.00010 | 0.04% |
+| P2 | all-MiniLM-L6-v2 | 4 | 64 rounds | 0.00131 | 0.81% |
+| P2 | all-MiniLM-L6-v2 | 16 | 16 rounds | 0.00128 | 0.74% |
+| P2 | all-MiniLM-L6-v2 | 64 | 4 rounds | 0.00063 | 0.27% |
+| P2 | all-MiniLM-L6-v2 | 256 | 1 rounds | 0.00008 | 0.03% |
+| P3 | bge-small-en-v1.5 | 4 | 64 rounds | 0.00129 | 0.61% |
+| P3 | bge-small-en-v1.5 | 16 | 16 rounds | 0.00093 | 0.54% |
+| P3 | bge-small-en-v1.5 | 64 | 4 rounds | 0.00078 | 0.34% |
+| P3 | bge-small-en-v1.5 | 256 | 1 rounds | 0.00010 | 0.04% |
+| P4 | bge-m3 | 4 | 64 rounds | 0.00104 | 0.66% |
+| P4 | bge-m3 | 16 | 16 rounds | 0.00095 | 0.56% |
+| P4 | bge-m3 | 64 | 4 rounds | 0.00060 | 0.27% |
+| P4 | bge-m3 | 256 | 1 rounds | 0.00008 | 0.03% |
+| P5 | bge-m3 | 4 | 64 rounds | 0.00104 | 0.66% |
+| P5 | bge-m3 | 16 | 16 rounds | 0.00095 | 0.56% |
+| P5 | bge-m3 | 64 | 4 rounds | 0.00060 | 0.27% |
+| P5 | bge-m3 | 256 | 1 rounds | 0.00008 | 0.03% |
+| P7 | all-MiniLM-L6-v2 | - | window mass is for N=1000000, replay N=45773 | | |
+| P8 | codesage-small | - | no window-mass file for the source | | |
+| P9 | all-MiniLM-L6-v2 | 4 | 64 rounds | 0.00131 | 0.81% |
+| P9 | all-MiniLM-L6-v2 | 16 | 16 rounds | 0.00128 | 0.74% |
+| P9 | all-MiniLM-L6-v2 | 64 | 4 rounds | 0.00063 | 0.27% |
+| P9 | all-MiniLM-L6-v2 | 256 | 1 rounds | 0.00008 | 0.03% |
+
+935 realised points; worst relative error 0.81%; 0 points above the independent bound (0 more at full coverage, where the bound is within 1e-9 of 1); 0 series with an ambiguous start round (scored at their worst case); 0 settings skipped for having no S2/demand trajectory
+| pair | source | tr | points | max abs err (frac of N) | max rel err |
+|---|---|---|---|---|---|
+| P0 | bge-base-en-v1.5 | - | no window-mass file for the source | | |
+| P10 | all-MiniLM-L6-v2 | - | window mass is for N=45773, replay N=1000000 | | |
+| P11 | all-MiniLM-L6-v2 | - | window mass is for N=45773, replay N=1000000 | | |
+| P12 | bge-m3 | - | no window-mass file for the source | | |
+| P13 | bge-small-en-v1.5 | - | no window-mass file for the source | | |
+| P14 | bge-base-en-v1.5 | - | no window-mass file for the source | | |
+| P2 | all-MiniLM-L6-v2 | - | window mass is for N=45773, replay N=1000000 | | |
+| P3 | bge-small-en-v1.5 | - | no window-mass file for the source | | |
+| P4 | bge-m3 | - | no window-mass file for the source | | |
+| P5 | bge-m3 | - | no window-mass file for the source | | |
+| P7 | all-MiniLM-L6-v2 | 4 | 401 rounds | 0.01420 | 3.18% |
+| P7 | all-MiniLM-L6-v2 | 16 | 401 rounds | 0.01021 | 2.71% |
+| P7 | all-MiniLM-L6-v2 | 64 | 401 rounds | 0.01263 | 2.75% |
+| P7 | all-MiniLM-L6-v2 | 256 | 354 rounds (r0 ambiguous: 1, 2, 354; worst case) | 0.13648 | 15.80% |
+| P8 | codesage-small | 4 | 401 rounds | 0.00919 | 1.25% |
+| P8 | codesage-small | 16 | 401 rounds | 0.00919 | 1.25% |
+| P8 | codesage-small | 64 | 401 rounds | 0.00423 | 0.90% |
+| P8 | codesage-small | 256 | 354 rounds (r0 ambiguous: 1, 2, 354; worst case) | 0.10056 | 11.18% |
+| P9 | all-MiniLM-L6-v2 | - | window mass is for N=45773, replay N=1000000 | | |
+
+3114 realised points; worst relative error 15.80%; 0 points above the independent bound (92 more at full coverage, where the bound is within 1e-9 of 1); 2 series with an ambiguous start round (scored at their worst case); 0 settings skipped for having no S2/demand trajectory
+[2026-11-09T15:33:54+08:00] 13.5 done

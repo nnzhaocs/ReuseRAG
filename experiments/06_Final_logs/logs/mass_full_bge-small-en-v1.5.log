@@ -1,0 +1,10 @@
+excluded 97 of 7077 queries (subfull/query_sets/trecdl.txt); 6980 remain
+retrieval pass: 548s for 6980 queries
+K'=   10 union 0.0078  max c     3  mass CV 11.35  top-1% docs hold 100.0% of mass
+K'=   25 union 0.0192  max c     4  mass CV 7.23  top-1% docs hold 53.2% of mass
+K'=   50 union 0.0376  max c     6  mass CV 5.18  top-1% docs hold 30.0% of mass
+K'=  100 union 0.0725  max c     8  mass CV 3.74  top-1% docs hold 20.9% of mass
+K'=  200 union 0.1354  max c    11  mass CV 2.74  top-1% docs hold 15.0% of mass
+K'=  500 union 0.2863  max c    22  mass CV 1.89  top-1% docs hold 10.2% of mass
+K'= 1000 union 0.4591  max c    38  mass CV 1.48  top-1% docs hold 8.3% of mass
+wrote window_mass_full/bge-small-en-v1.5.json

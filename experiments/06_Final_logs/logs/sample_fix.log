@@ -1,0 +1,135 @@
+===== [18:08:18] 13.6 sample sweep（正确路径 pairs/<P>）
+[P2] f=0.01 seed=0: |S|/N=0.0137 gap=+0.0034 (full +0.0471) D1 DIFFERS
+[P2] f=0.01 seed=1: |S|/N=0.0137 gap=+0.0031 (full +0.0471) D1 DIFFERS
+[P2] f=0.01 seed=2: |S|/N=0.0137 gap=+0.0033 (full +0.0471) D1 DIFFERS
+[P2] f=0.05 seed=0: |S|/N=0.0535 gap=+0.0069 (full +0.0471) D1 agrees
+[P2] f=0.05 seed=1: |S|/N=0.0535 gap=+0.0079 (full +0.0471) D1 agrees
+[P2] f=0.05 seed=2: |S|/N=0.0535 gap=+0.0098 (full +0.0471) D1 agrees
+[P2] f=0.25 seed=0: |S|/N=0.2528 gap=+0.0242 (full +0.0471) D1 agrees
+[P2] f=0.25 seed=1: |S|/N=0.2528 gap=+0.0239 (full +0.0471) D1 agrees
+[P2] f=0.25 seed=2: |S|/N=0.2528 gap=+0.0211 (full +0.0471) D1 agrees
+P2: smallest fraction at which D1 agrees on every seed: 0.05
+[P3] f=0.01 seed=0: |S|/N=0.0137 gap=+0.0006 (full +0.0154) D1 DIFFERS
+[P3] f=0.01 seed=1: |S|/N=0.0137 gap=+0.0016 (full +0.0154) D1 DIFFERS
+[P3] f=0.01 seed=2: |S|/N=0.0137 gap=+0.0018 (full +0.0154) D1 DIFFERS
+[P3] f=0.05 seed=0: |S|/N=0.0535 gap=+0.0004 (full +0.0154) D1 DIFFERS
+[P3] f=0.05 seed=1: |S|/N=0.0535 gap=+0.0031 (full +0.0154) D1 DIFFERS
+[P3] f=0.05 seed=2: |S|/N=0.0535 gap=+0.0016 (full +0.0154) D1 DIFFERS
+[P3] f=0.25 seed=0: |S|/N=0.2528 gap=+0.0080 (full +0.0154) D1 agrees
+[P3] f=0.25 seed=1: |S|/N=0.2528 gap=+0.0064 (full +0.0154) D1 agrees
+[P3] f=0.25 seed=2: |S|/N=0.2528 gap=+0.0042 (full +0.0154) D1 DIFFERS
+P3: smallest fraction at which D1 agrees on every seed: None
+[P4] f=0.01 seed=0: |S|/N=0.0137 gap=+0.0007 (full +0.0219) D1 DIFFERS
+[P4] f=0.01 seed=1: |S|/N=0.0137 gap=+0.0022 (full +0.0219) D1 DIFFERS
+[P4] f=0.01 seed=2: |S|/N=0.0137 gap=+0.0015 (full +0.0219) D1 DIFFERS
+[P4] f=0.05 seed=0: |S|/N=0.0535 gap=+0.0028 (full +0.0219) D1 DIFFERS
+[P4] f=0.05 seed=1: |S|/N=0.0535 gap=+0.0021 (full +0.0219) D1 DIFFERS
+[P4] f=0.05 seed=2: |S|/N=0.0535 gap=+0.0050 (full +0.0219) D1 agrees
+[P4] f=0.25 seed=0: |S|/N=0.2528 gap=+0.0140 (full +0.0219) D1 agrees
+[P4] f=0.25 seed=1: |S|/N=0.2528 gap=+0.0128 (full +0.0219) D1 agrees
+[P4] f=0.25 seed=2: |S|/N=0.2528 gap=+0.0112 (full +0.0219) D1 agrees
+P4: smallest fraction at which D1 agrees on every seed: 0.25
+[P5] f=0.01 seed=0: |S|/N=0.0137 gap=+0.0001 (full +0.0066) D1 DIFFERS
+[P5] f=0.01 seed=1: |S|/N=0.0137 gap=+0.0006 (full +0.0066) D1 DIFFERS
+[P5] f=0.01 seed=2: |S|/N=0.0137 gap=-0.0003 (full +0.0066) D1 DIFFERS
+[P5] f=0.05 seed=0: |S|/N=0.0535 gap=+0.0024 (full +0.0066) D1 DIFFERS
+[P5] f=0.05 seed=1: |S|/N=0.0535 gap=-0.0010 (full +0.0066) D1 DIFFERS
+[P5] f=0.05 seed=2: |S|/N=0.0535 gap=+0.0034 (full +0.0066) D1 DIFFERS
+[P5] f=0.25 seed=0: |S|/N=0.2528 gap=+0.0059 (full +0.0066) D1 agrees
+[P5] f=0.25 seed=1: |S|/N=0.2528 gap=+0.0064 (full +0.0066) D1 agrees
+[P5] f=0.25 seed=2: |S|/N=0.2528 gap=+0.0070 (full +0.0066) D1 agrees
+P5: smallest fraction at which D1 agrees on every seed: 0.25
+[P9] f=0.01 seed=0: |S|/N=0.0137 gap=+0.0028 (full +0.0317) D1 DIFFERS
+[P9] f=0.01 seed=1: |S|/N=0.0137 gap=+0.0014 (full +0.0317) D1 DIFFERS
+[P9] f=0.01 seed=2: |S|/N=0.0137 gap=+0.0015 (full +0.0317) D1 DIFFERS
+[P9] f=0.05 seed=0: |S|/N=0.0535 gap=+0.0064 (full +0.0317) D1 agrees
+[P9] f=0.05 seed=1: |S|/N=0.0535 gap=+0.0048 (full +0.0317) D1 DIFFERS
+[P9] f=0.05 seed=2: |S|/N=0.0535 gap=+0.0082 (full +0.0317) D1 agrees
+[P9] f=0.25 seed=0: |S|/N=0.2528 gap=+0.0161 (full +0.0317) D1 agrees
+[P9] f=0.25 seed=1: |S|/N=0.2528 gap=+0.0175 (full +0.0317) D1 agrees
+[P9] f=0.25 seed=2: |S|/N=0.2528 gap=+0.0169 (full +0.0317) D1 agrees
+P9: smallest fraction at which D1 agrees on every seed: 0.25
+[P10] f=0.01 seed=0: |S|/N=0.0137 gap=+0.0027 (full +0.0251) D1 DIFFERS
+[P10] f=0.01 seed=1: |S|/N=0.0137 gap=+0.0009 (full +0.0251) D1 DIFFERS
+[P10] f=0.01 seed=2: |S|/N=0.0137 gap=+0.0018 (full +0.0251) D1 DIFFERS
+[P10] f=0.05 seed=0: |S|/N=0.0535 gap=+0.0040 (full +0.0251) D1 DIFFERS
+[P10] f=0.05 seed=1: |S|/N=0.0535 gap=+0.0058 (full +0.0251) D1 agrees
+[P10] f=0.05 seed=2: |S|/N=0.0535 gap=+0.0048 (full +0.0251) D1 DIFFERS
+[P10] f=0.25 seed=0: |S|/N=0.2528 gap=+0.0102 (full +0.0251) D1 agrees
+[P10] f=0.25 seed=1: |S|/N=0.2528 gap=+0.0111 (full +0.0251) D1 agrees
+[P10] f=0.25 seed=2: |S|/N=0.2528 gap=+0.0099 (full +0.0251) D1 agrees
+P10: smallest fraction at which D1 agrees on every seed: 0.25
+[P11] f=0.01 seed=0: |S|/N=0.0137 gap=+0.0031 (full +0.0462) D1 DIFFERS
+[P11] f=0.01 seed=1: |S|/N=0.0137 gap=+0.0014 (full +0.0462) D1 DIFFERS
+[P11] f=0.01 seed=2: |S|/N=0.0137 gap=+0.0021 (full +0.0462) D1 DIFFERS
+[P11] f=0.05 seed=0: |S|/N=0.0535 gap=+0.0068 (full +0.0462) D1 agrees
+[P11] f=0.05 seed=1: |S|/N=0.0535 gap=+0.0078 (full +0.0462) D1 agrees
+[P11] f=0.05 seed=2: |S|/N=0.0535 gap=+0.0082 (full +0.0462) D1 agrees
+[P11] f=0.25 seed=0: |S|/N=0.2528 gap=+0.0211 (full +0.0462) D1 agrees
+[P11] f=0.25 seed=1: |S|/N=0.2528 gap=+0.0184 (full +0.0462) D1 agrees
+[P11] f=0.25 seed=2: |S|/N=0.2528 gap=+0.0213 (full +0.0462) D1 agrees
+P11: smallest fraction at which D1 agrees on every seed: 0.05
+[P12] f=0.01 seed=0: |S|/N=0.0137 gap=+0.0004 (full +0.0210) D1 DIFFERS
+[P12] f=0.01 seed=1: |S|/N=0.0137 gap=+0.0005 (full +0.0210) D1 DIFFERS
+[P12] f=0.01 seed=2: |S|/N=0.0137 gap=+0.0003 (full +0.0210) D1 DIFFERS
+[P12] f=0.05 seed=0: |S|/N=0.0535 gap=+0.0028 (full +0.0210) D1 DIFFERS
+[P12] f=0.05 seed=1: |S|/N=0.0535 gap=+0.0020 (full +0.0210) D1 DIFFERS
+[P12] f=0.05 seed=2: |S|/N=0.0535 gap=+0.0035 (full +0.0210) D1 DIFFERS
+[P12] f=0.25 seed=0: |S|/N=0.2528 gap=+0.0109 (full +0.0210) D1 agrees
+[P12] f=0.25 seed=1: |S|/N=0.2528 gap=+0.0073 (full +0.0210) D1 agrees
+[P12] f=0.25 seed=2: |S|/N=0.2528 gap=+0.0113 (full +0.0210) D1 agrees
+P12: smallest fraction at which D1 agrees on every seed: 0.25
+[P13] f=0.01 seed=0: |S|/N=0.0137 gap=+0.0003 (full +0.0144) D1 DIFFERS
+[P13] f=0.01 seed=1: |S|/N=0.0137 gap=-0.0000 (full +0.0144) D1 DIFFERS
+[P13] f=0.01 seed=2: |S|/N=0.0137 gap=+0.0006 (full +0.0144) D1 DIFFERS
+[P13] f=0.05 seed=0: |S|/N=0.0535 gap=+0.0004 (full +0.0144) D1 DIFFERS
+[P13] f=0.05 seed=1: |S|/N=0.0535 gap=+0.0030 (full +0.0144) D1 DIFFERS
+[P13] f=0.05 seed=2: |S|/N=0.0535 gap=+0.0000 (full +0.0144) D1 DIFFERS
+[P13] f=0.25 seed=0: |S|/N=0.2528 gap=+0.0050 (full +0.0144) D1 DIFFERS
+[P13] f=0.25 seed=1: |S|/N=0.2528 gap=+0.0009 (full +0.0144) D1 DIFFERS
+[P13] f=0.25 seed=2: |S|/N=0.2528 gap=+0.0043 (full +0.0144) D1 DIFFERS
+P13: smallest fraction at which D1 agrees on every seed: None
+[P14] f=0.01 seed=0: |S|/N=0.0137 gap=-0.0003 (full -0.0009) D1 agrees
+[P14] f=0.01 seed=1: |S|/N=0.0137 gap=-0.0017 (full -0.0009) D1 agrees
+[P14] f=0.01 seed=2: |S|/N=0.0137 gap=-0.0012 (full -0.0009) D1 agrees
+[P14] f=0.05 seed=0: |S|/N=0.0535 gap=-0.0000 (full -0.0009) D1 agrees
+[P14] f=0.05 seed=1: |S|/N=0.0535 gap=-0.0001 (full -0.0009) D1 agrees
+[P14] f=0.05 seed=2: |S|/N=0.0535 gap=-0.0016 (full -0.0009) D1 agrees
+[P14] f=0.25 seed=0: |S|/N=0.2528 gap=-0.0031 (full -0.0009) D1 agrees
+[P14] f=0.25 seed=1: |S|/N=0.2528 gap=-0.0055 (full -0.0009) D1 agrees
+[P14] f=0.25 seed=2: |S|/N=0.2528 gap=+0.0001 (full -0.0009) D1 agrees
+P14: smallest fraction at which D1 agrees on every seed: 0.01
+  text rc=0 files=10
+[P7] f=0.01 seed=0: |S|/N=0.0770 gap=+0.0083 (full +0.0307) D1 agrees
+[P7] f=0.01 seed=1: |S|/N=0.0770 gap=+0.0088 (full +0.0307) D1 agrees
+[P7] f=0.01 seed=2: |S|/N=0.0770 gap=+0.0081 (full +0.0307) D1 agrees
+[P7] f=0.05 seed=0: |S|/N=0.1143 gap=+0.0097 (full +0.0307) D1 agrees
+[P7] f=0.05 seed=1: |S|/N=0.1143 gap=+0.0100 (full +0.0307) D1 agrees
+[P7] f=0.05 seed=2: |S|/N=0.1143 gap=+0.0101 (full +0.0307) D1 agrees
+[P7] f=0.25 seed=0: |S|/N=0.3007 gap=+0.0159 (full +0.0307) D1 agrees
+[P7] f=0.25 seed=1: |S|/N=0.3007 gap=+0.0169 (full +0.0307) D1 agrees
+[P7] f=0.25 seed=2: |S|/N=0.3007 gap=+0.0173 (full +0.0307) D1 agrees
+P7: smallest fraction at which D1 agrees on every seed: 0.01
+[P8] f=0.01 seed=0: |S|/N=0.0770 gap=-0.0004 (full +0.0008) D1 agrees
+[P8] f=0.01 seed=1: |S|/N=0.0770 gap=-0.0000 (full +0.0008) D1 agrees
+[P8] f=0.01 seed=2: |S|/N=0.0770 gap=-0.0001 (full +0.0008) D1 agrees
+[P8] f=0.05 seed=0: |S|/N=0.1143 gap=+0.0007 (full +0.0008) D1 agrees
+[P8] f=0.05 seed=1: |S|/N=0.1143 gap=+0.0006 (full +0.0008) D1 agrees
+[P8] f=0.05 seed=2: |S|/N=0.1143 gap=+0.0002 (full +0.0008) D1 agrees
+[P8] f=0.25 seed=0: |S|/N=0.3007 gap=+0.0012 (full +0.0008) D1 agrees
+[P8] f=0.25 seed=1: |S|/N=0.3007 gap=+0.0010 (full +0.0008) D1 agrees
+[P8] f=0.25 seed=2: |S|/N=0.3007 gap=+0.0011 (full +0.0008) D1 agrees
+P8: smallest fraction at which D1 agrees on every seed: 0.01
+  code rc=0 files=12
+===== [18:22:20] check
+[2026-11-09T18:22:20+08:00] planner check reported failures: read planner_check.md (report them, do not re-plan)
+
+all 6 tables describe these results
+K* = 50
+935 realised points; worst relative error 0.81%; 0 points above the independent bound (0 more at full coverage, where the bound is within 1e-9 of 1); 0 series with an ambiguous start round (scored at their worst case); 0 settings skipped for having no S2/demand trajectory
+[2026-11-09T18:22:23+08:00] checks done
+===== [18:22:23] collect
+[2026-11-09T18:22:23+08:00] collect
+[2026-11-09T18:22:23+08:00] not produced (stage failed or not run): results_xarch
+[2026-11-09T18:22:24+08:00] wrote submission_outputs_20261109_1822.zip (4.2M) -- send this file
+SAMPLE_FIX_DONE 18:22:24

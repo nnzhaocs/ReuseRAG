@@ -1,0 +1,36 @@
+  /root/autodl-tmp/enc_qwen/Qwen3-Embedding-8B/q.npy: no sidecar -- treated as stale
+[2026-11-10T04:24:08+08:00] requery: Qwen/Qwen3-Embedding-8B queries from sub1m/queries.tsv (max-seq-len 512, precision -, batch 16); old file in superseded_double_instruction/_root_autodl-tmp_enc_qwen_Qwen3-Embedding-8B/
+model input for the first text: 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:how many years did william bradford serve as governor of plymouth colony?'
+ok    doc: 2-D array                             shape (1000000, 4096)
+ok    doc: row count matches the text file       1000000 rows vs 1000000 lines in corpus.tsv
+ok    doc: plausible dimension                   dim 4096
+ok    doc: float32                               float32
+ok    doc: all values finite                     0 non-finite in a sample of 4096
+ok    doc: no zero-norm rows                     0 zero rows in a sample of 4096
+ok    doc: space not collapsed                   mean pairwise cosine 0.1727 over 1024 rows (fail above 0.95)
+ok    doc: few duplicate rows                    0 of 1024 sampled rows are duplicates at 5 decimal places
+ok    doc: padding check in the sidecar          status ok, contract unverified
+warn  doc: contract verified                     status 'unverified'
+ok    doc: encoded under the current contract    prefix and prompt name match configs/models.json
+ok    doc: self-retrieval check in the sidecar   status ok, top1 1.0
+ok    doc: sidecar shape matches the file        sidecar [1000000, 4096] vs file [1000000, 4096]
+ok    query: 2-D array                           shape (7077, 4096)
+ok    query: row count matches the text file     7077 rows vs 7077 lines in queries.tsv
+ok    query: plausible dimension                 dim 4096
+ok    query: float32                             float32
+ok    query: all values finite                   0 non-finite in a sample of 4096
+ok    query: no zero-norm rows                   0 zero rows in a sample of 4096
+ok    query: space not collapsed                 mean pairwise cosine 0.1091 over 1024 rows (fail above 0.95)
+ok    query: few duplicate rows                  0 of 1024 sampled rows are duplicates at 5 decimal places
+ok    query: padding check in the sidecar        status ok, contract unverified
+warn  query: contract verified                   status 'unverified'
+ok    query: encoded under the current contract  prefix and prompt name match configs/models.json
+ok    query: sidecar shape matches the file      sidecar [7077, 4096] vs file [7077, 4096]
+ok    qrels: every query id has a vector         0 of 7077 query ids are >= 7077 rows. This is the e5-base failure: model_quality.py would silently score only the rest
+ok    qrels: every judged document has a vector  0 judged document ids are >= 1000000 rows
+
+25 passed, 2 warning(s), 0 failure(s)
+  enc/Qwen3-Embedding-0.6B/q.npy: prefix '', prompt_name 'query' -> current
+[2026-11-10T04:24:53+08:00] requery: enc/Qwen3-Embedding-0.6B/q.npy already current
+[2026-11-10T04:24:53+08:00] requery done
+rc=0

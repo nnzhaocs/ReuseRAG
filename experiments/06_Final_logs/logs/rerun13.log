@@ -1,0 +1,31 @@
+
+===== [16:09:51] 13.2b 补齐 P4 P5 P11 P12（4 并行） =====
+  内存 used=113G avail=881G
+  d3 现有: 9/8
+  内存 used=113G avail=881G
+
+===== [17:15:02] 13.1 补齐 P4 P14（2 并行） =====
+  adapters 现有: 12/12
+  内存 used=113G avail=882G
+
+===== [18:02:31] 13.6 sample sweep =====
+  sample: 0/10
+  sample 总: 0/12
+  内存 used=113G avail=882G
+
+===== [18:02:35] checks =====
+  check rc=0
+[2026-11-09T18:02:35+08:00] planner check reported failures: read planner_check.md (report them, do not re-pla
+
+all 6 tables describe these results
+K* = 50
+935 realised points; worst relative error 0.81%; 0 points above the independent bound (0 more at full coverage
+[2026-11-09T18:02:38+08:00] checks done
+
+===== [18:02:38] collect =====
+  collect rc=0
+[2026-11-09T18:02:38+08:00] collect
+[2026-11-09T18:02:38+08:00] not produced (stage failed or not run): results_xarch
+[2026-11-09T18:02:39+08:00] wrote submission_outputs_20261109_1802.zip (4.2M) -- send this file
+
+===== [18:02:39] RERUN13_DONE =====

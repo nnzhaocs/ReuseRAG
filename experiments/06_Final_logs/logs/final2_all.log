@@ -1,0 +1,38 @@
+=== 18:23:49 final2 all start (SIZES=2000000) ===
+[2026-11-11T18:23:49+08:00] cores: 1 (lane 1 0, lane 2 1); nproc says 128
+Terminated
+=== FINAL2_EXIT rc=143 18:24:56 ===
+=== 23:25:12 final2 all start (SIZES=2000000) ===
+[2026-11-11T23:25:12+08:00] cores: 16 (lane 1 9, lane 2 7); nproc says 128
+5 final2 tests passed
+runbook ok (101 commands, 30 scripts, 81 tests; drivers name 36 scripts, all present)
+full-scale inputs ok: N=8,841,823, Q=7,077, 3 encodings, 3 checked pairs, 3 sweeps, replay K'=50
+[2026-11-11T23:26:15+08:00] found results_xarch
+[2026-11-11T23:26:15+08:00] found results_nq
+[2026-11-11T23:26:15+08:00] found results_llm
+[2026-11-11T23:26:15+08:00] found pairs/P5r
+[2026-11-11T23:26:15+08:00] disk: 76 GB free on /root/autodl-tmp; 2M needs ~13 GB, 4M ~26 GB
+[2026-11-11T23:26:15+08:00] RAM: 1007 GB, 816 GB available
+[2026-11-11T23:26:15+08:00] preflight ok
+[2026-11-11T23:26:15+08:00] lane 1 (pid 8536): logs/final2_lane1.log; lane 2 (pid 8537): logs/final2_lane2.log
+Terminated
+=== FINAL2_EXIT rc=143 00:30:38 ===
+=== 00:30:46 final2 all start (SIZES=2000000) ===
+[2026-11-12T00:30:46+08:00] cores: 16 (lane 1 9, lane 2 7); nproc says 128
+5 final2 tests passed
+runbook ok (101 commands, 30 scripts, 81 tests; drivers name 36 scripts, all present)
+full-scale inputs ok: N=8,841,823, Q=7,077, 3 encodings, 3 checked pairs, 3 sweeps, replay K'=50
+[2026-11-12T00:31:49+08:00] found results_xarch
+[2026-11-12T00:31:49+08:00] found results_nq
+[2026-11-12T00:31:49+08:00] found results_llm
+[2026-11-12T00:31:49+08:00] found pairs/P5r
+[2026-11-12T00:31:49+08:00] disk: 54 GB free on /root/autodl-tmp; 2M needs ~13 GB, 4M ~26 GB
+[2026-11-12T00:31:49+08:00] RAM: 1007 GB, 818 GB available
+[2026-11-12T00:31:49+08:00] preflight ok
+[2026-11-12T00:31:49+08:00] lane 1 (pid 14831): logs/final2_lane1.log; lane 2 (pid 14832): logs/final2_lane2.log
+[2026-11-12T02:59:49+08:00] lane 1 FAILED -- see logs/final2_lane1.log
+[2026-11-12T04:08:02+08:00] lane 2 completed successfully
+[2026-11-12T00:44:15+08:00] union recorded one or more failed sub-jobs
+[2026-11-12T04:08:04+08:00] wrote final2_outputs_20261112_0408.zip (12M) -- send this file
+[2026-11-12T04:08:04+08:00] ALL FINISHED WITH FAILURES -- partial outputs were collected; inspect both lane logs
+=== FINAL2_EXIT rc=1 04:08:04 ===

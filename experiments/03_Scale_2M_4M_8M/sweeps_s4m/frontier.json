@@ -1,0 +1,314 @@
+{
+ "kprime_ladder": [
+  10,
+  25,
+  50,
+  100,
+  200,
+  350,
+  500,
+  1000
+ ],
+ "eps_list": [
+  0.005,
+  0.01,
+  0.02
+ ],
+ "pilot": false,
+ "per_pair": [
+  {
+   "pair": "P2f",
+   "pair_dir": "/root/sub13run/pairs_s4m/P2f",
+   "N": 4000000,
+   "Q": 7077,
+   "data_fingerprint": "0cd3ff14126785fe",
+   "pilot_extrapolation": null,
+   "n_eval": 3490,
+   "n_servable": 6980,
+   "window_in_config": 50,
+   "retrieval_depth": 1000,
+   "kappa": 0.03605198860168457,
+   "cka": 0.6130325794219971,
+   "M_S": 0.6699617956064633,
+   "M_T": 0.7356494746895634,
+   "M_A": 0.25444126074496476,
+   "eps_list": [
+    0.005,
+    0.01,
+    0.02
+   ],
+   "pilot": false,
+   "meta": {
+    "source": "all-MiniLM-L6-v2",
+    "target": "bge-base-en-v1.5",
+    "corpus": "msmarco nested s4m"
+   },
+   "depths": [
+    {
+     "kprime": 10,
+     "rho": 0.47595988538681944,
+     "rho_mapped": null,
+     "G": 0.06568767908310014,
+     "coverage": 0.01699875,
+     "ceiling_frac": 0.98300125,
+     "covered": 67995,
+     "admissible": {
+      "0.005": false,
+      "0.01": false,
+      "0.02": false
+     }
+    },
+    {
+     "kprime": 25,
+     "rho": 0.2801719197707735,
+     "rho_mapped": null,
+     "G": 0.017024832855779826,
+     "coverage": 0.0412825,
+     "ceiling_frac": 0.9587175,
+     "covered": 165130,
+     "admissible": {
+      "0.005": false,
+      "0.01": false,
+      "0.02": true
+     }
+    },
+    {
+     "kprime": 50,
+     "rho": 0.184269340974212,
+     "rho_mapped": null,
+     "G": 0.004703915950334814,
+     "coverage": 0.0793275,
+     "ceiling_frac": 0.9206725,
+     "covered": 317310,
+     "admissible": {
+      "0.005": true,
+      "0.01": true,
+      "0.02": true
+     }
+    },
+    {
+     "kprime": 100,
+     "rho": 0.12134670487106003,
+     "rho_mapped": null,
+     "G": 0.0012177650429801012,
+     "coverage": 0.14812125,
+     "ceiling_frac": 0.85187875,
+     "covered": 592485,
+     "admissible": {
+      "0.005": true,
+      "0.01": true,
+      "0.02": true
+     }
+    },
+    {
+     "kprime": 200,
+     "rho": 0.07994269340974203,
+     "rho_mapped": null,
+     "G": 0.0003581661891118859,
+     "coverage": 0.26354425,
+     "ceiling_frac": 0.73645575,
+     "covered": 1054177,
+     "admissible": {
+      "0.005": true,
+      "0.01": true,
+      "0.02": true
+     }
+    },
+    {
+     "kprime": 350,
+     "rho": 0.05684813753581652,
+     "rho_mapped": null,
+     "G": -0.00042979942693410766,
+     "coverage": 0.39752025,
+     "ceiling_frac": 0.60247975,
+     "covered": 1590081,
+     "admissible": {
+      "0.005": true,
+      "0.01": true,
+      "0.02": true
+     }
+    },
+    {
+     "kprime": 500,
+     "rho": 0.04604584527220612,
+     "rho_mapped": null,
+     "G": -0.0008595988538683264,
+     "coverage": 0.4996735,
+     "ceiling_frac": 0.5003265,
+     "covered": 1998694,
+     "admissible": {
+      "0.005": true,
+      "0.01": true,
+      "0.02": true
+     }
+    },
+    {
+     "kprime": 1000,
+     "rho": 0.02965616045845265,
+     "rho_mapped": null,
+     "G": -0.0011461318051576574,
+     "coverage": 0.7094355,
+     "ceiling_frac": 0.2905645,
+     "covered": 2837742,
+     "admissible": {
+      "0.005": true,
+      "0.01": true,
+      "0.02": true
+     }
+    }
+   ],
+   "seconds": {
+    "load": 0.1644432544708252,
+    "precompute": 1450.6407852172852,
+    "reference": 0.03715872764587402,
+    "rho": 0.15975451469421387,
+    "G": 5.812828302383423,
+    "coverage": 2.359215497970581,
+    "total": 1459.1744017601013
+   }
+  }
+ ],
+ "frontier": [
+  {
+   "pair": "P2f",
+   "eps": 0.005,
+   "kstar": 50,
+   "ceiling_frac": 0.9206725,
+   "G": 0.004703915950334814,
+   "rho": 0.184269340974212
+  },
+  {
+   "pair": "P2f",
+   "eps": 0.01,
+   "kstar": 50,
+   "ceiling_frac": 0.9206725,
+   "G": 0.004703915950334814,
+   "rho": 0.184269340974212
+  },
+  {
+   "pair": "P2f",
+   "eps": 0.02,
+   "kstar": 25,
+   "ceiling_frac": 0.9587175,
+   "G": 0.017024832855779826,
+   "rho": 0.2801719197707735
+  }
+ ],
+ "rho_spread": [
+  {
+   "kprime": 10,
+   "n_pairs": 1,
+   "rho_min": 0.47595988538681944,
+   "rho_max": 0.47595988538681944,
+   "rho_spread": 0.0,
+   "G_max": 0.06568767908310014,
+   "all_admissible": {
+    "0.005": false,
+    "0.01": false,
+    "0.02": false
+   }
+  },
+  {
+   "kprime": 25,
+   "n_pairs": 1,
+   "rho_min": 0.2801719197707735,
+   "rho_max": 0.2801719197707735,
+   "rho_spread": 0.0,
+   "G_max": 0.017024832855779826,
+   "all_admissible": {
+    "0.005": false,
+    "0.01": false,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 50,
+   "n_pairs": 1,
+   "rho_min": 0.184269340974212,
+   "rho_max": 0.184269340974212,
+   "rho_spread": 0.0,
+   "G_max": 0.004703915950334814,
+   "all_admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 100,
+   "n_pairs": 1,
+   "rho_min": 0.12134670487106003,
+   "rho_max": 0.12134670487106003,
+   "rho_spread": 0.0,
+   "G_max": 0.0012177650429801012,
+   "all_admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 200,
+   "n_pairs": 1,
+   "rho_min": 0.07994269340974203,
+   "rho_max": 0.07994269340974203,
+   "rho_spread": 0.0,
+   "G_max": 0.0003581661891118859,
+   "all_admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 350,
+   "n_pairs": 1,
+   "rho_min": 0.05684813753581652,
+   "rho_max": 0.05684813753581652,
+   "rho_spread": 0.0,
+   "G_max": -0.00042979942693410766,
+   "all_admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 500,
+   "n_pairs": 1,
+   "rho_min": 0.04604584527220612,
+   "rho_max": 0.04604584527220612,
+   "rho_spread": 0.0,
+   "G_max": -0.0008595988538683264,
+   "all_admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  },
+  {
+   "kprime": 1000,
+   "n_pairs": 1,
+   "rho_min": 0.02965616045845265,
+   "rho_max": 0.02965616045845265,
+   "rho_spread": 0.0,
+   "G_max": -0.0011461318051576574,
+   "all_admissible": {
+    "0.005": true,
+    "0.01": true,
+    "0.02": true
+   }
+  }
+ ],
+ "timings": {
+  "P2f": {
+   "load": 0.1644432544708252,
+   "precompute": 1450.6407852172852,
+   "reference": 0.03715872764587402,
+   "rho": 0.15975451469421387,
+   "G": 5.812828302383423,
+   "coverage": 2.359215497970581,
+   "total": 1459.1744017601013
+  }
+ }
+}

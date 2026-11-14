@@ -1,0 +1,11 @@
+{
+  "model": "Qwen/Qwen3-Embedding-8B",
+  "source": "FILL: model card URL",
+  "copied": "FILL: YYYY-MM-DD",
+  "queries": ["FILL: copy the card's example queries verbatim"],
+  "documents": ["FILL: copy the card's example documents verbatim"],
+  "expected": [],
+  "tol": 0.01,
+  "max_seq_len": 512,
+  "_note": "Copy texts and printed scores from the card exactly. Do not invent expected values; leave 'expected' empty until copied (golden_check.py refuses to run on an empty one). If the card's example uses a task instruction, the contract's query prompt must produce the same string."
+}

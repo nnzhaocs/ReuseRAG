@@ -1,0 +1,175 @@
+
+### map
+
+| pair | source | target | N | n_eval | M_S | M_T | M_A | kappa | cka | window | rho_window | G_window | winner | debt | served_mean | source_mean | C_serve_frac | C_serve_basis | C_total_frac | repairs_per_query | band | tied_exact | tied_families | warnings | flag |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| P10 | sentence-transformers/all-MiniLM-L6-v2 | BAAI/bge-m3 | 1000000 | 3490 | 0.8335 | 0.8586 | 0.3252 | 0.0253 | 0.5848 | 50 |  |  | S2/demand_then_rand | -0.0020 | 0.8606 | 0.8335 | 0.2642 | at_last_arrival | 1.0000 | 37.8060 | 9 | 3 | S2 | 0 |  |
+| P11 | sentence-transformers/all-MiniLM-L6-v2 | intfloat/e5-base-v2 | 1000000 | 3490 | 0.8335 | 0.8796 | 0.0491 | -0.0899 | 0.6084 | 50 |  |  | S4/demand_then_rand | -0.0007 | 0.8803 | 0.8335 | 0.8568 | at_last_arrival | 1.0000 | 123.7467 | 8 | 6 | S4,S5 | 0 |  |
+| P12 | BAAI/bge-m3 | intfloat/e5-base-v2 | 1000000 | 3490 | 0.8586 | 0.8796 | 0.3509 | 0.3084 | 0.7340 | 50 |  |  | S2/demand_then_rand | -0.0006 | 0.8802 | 0.8586 | 0.2540 | at_last_arrival | 1.0000 | 36.3670 | 12 | 4 | S2 | 0 |  |
+| P13 | BAAI/bge-small-en-v1.5 | intfloat/e5-base-v2 | 1000000 | 3490 | 0.8652 | 0.8796 | 0.4510 | 0.4003 | 0.7498 | 50 |  |  | S2/demand_then_rand | 0.0011 | 0.8785 | 0.8652 | 0.2612 | at_last_arrival | 1.0000 | 37.4074 | 12 | 4 | S2 | 0 |  |
+| P14 | BAAI/bge-base-en-v1.5 | intfloat/e5-base-v2 | 1000000 | 3490 | 0.8805 | 0.8796 | 0.7632 | 0.4424 | 0.8170 | 50 |  |  | S0/rand | -0.0009 | 0.8805 | 0.8805 | 0.0300 | no_repair_needed | 1.0000 | 0.0000 | 13 | 1 | S0 | 4 |  |
+| P2 | sentence-transformers/all-MiniLM-L6-v2 | BAAI/bge-base-en-v1.5 | 1000000 | 3490 | 0.8335 | 0.8805 | 0.4119 | 0.0367 | 0.6166 | 50 |  |  | S2/demand_then_rand | 0.0023 | 0.8782 | 0.8335 | 0.2642 | at_last_arrival | 1.0000 | 37.8060 | 12 | 4 | S2 | 0 |  |
+| P3 | BAAI/bge-small-en-v1.5 | BAAI/bge-base-en-v1.5 | 1000000 | 3490 | 0.8652 | 0.8805 | 0.6832 | 0.3906 | 0.7700 | 50 |  |  | S2/demand_then_rand | -0.0018 | 0.8823 | 0.8652 | 0.2612 | at_last_arrival | 1.0000 | 37.4074 | 12 | 3 | S2 | 0 |  |
+| P4 | BAAI/bge-m3 | BAAI/bge-base-en-v1.5 | 1000000 | 3490 | 0.8586 | 0.8805 | 0.6069 | 0.2892 | 0.7210 | 50 |  |  | S2/demand_then_rand | -0.0031 | 0.8836 | 0.8586 | 0.2540 | at_last_arrival | 1.0000 | 36.3670 | 12 | 4 | S2 | 0 |  |
+| P5 | BAAI/bge-m3 | BAAI/bge-small-en-v1.5 | 1000000 | 3490 | 0.8586 | 0.8652 | 0.4564 | 0.2758 | 0.7131 | 50 |  |  | S2/demand_then_rand | -0.0057 | 0.8709 | 0.8586 | 0.2540 | at_last_arrival | 1.0000 | 36.3670 | 12 | 4 | S2 | 0 |  |
+| P7 | sentence-transformers/all-MiniLM-L6-v2 | codesage/codesage-small | 45773 | 3000 | 0.9590 | 0.9897 | 0.8559 | 0.0637 | 0.3895 | 200 | 0.2210 | 0.0037 | S2/rand | 0.0000 | 0.9892 | 0.9596 | 1.0000 | at_last_arrival | 1.0000 | 1.0217 | 16 | 12 | S2,S4,S5 | 5 |  |
+| P8 | codesage/codesage-small | codesage/codesage-base | 45773 | 3000 | 0.9894 | 0.9902 | 0.9701 | -0.0287 | 0.5390 | 200 | 0.0568 | -0.0006 | S0/rand | -0.0007 | 0.9901 | 0.9888 | 1.0000 | no_repair_needed | 1.0000 | 0.0000 | 21 | 1 | S0 | 7 |  |
+| P9 | sentence-transformers/all-MiniLM-L6-v2 | BAAI/bge-small-en-v1.5 | 1000000 | 3490 | 0.8335 | 0.8652 | 0.4958 | 0.0442 | 0.6535 | 50 |  |  | S2/demand_then_rand | -0.0008 | 0.8660 | 0.8335 | 0.2642 | at_last_arrival | 1.0000 | 37.8060 | 12 | 4 | S2 | 0 |  |
+
+### grid
+
+| pair | traffic_ratio | repeat_rate | stream_len | winner | debt | C_serve_frac | C_serve_basis | C_total_frac | eval_served_frac | non_completing | no_winner_reason | n_in_band | n_tied_exact | cost_basis_conflict |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| P10 | 4.0000 |  | 800 | S2/demand_then_rand | -0.0020 | 0.2642 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 9 | 1 |  |
+| P10 | 16.0000 |  | 3200 | S2/demand_then_rand | -0.0020 | 0.2642 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 9 | 1 |  |
+| P10 | 64.0000 |  | 12800 | S2/demand_then_rand | -0.0020 | 0.2642 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 9 | 3 |  |
+| P10 | 256.0000 |  | 51200 | S2/rand | -0.0020 | 0.2642 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 9 | 3 |  |
+| P11 | 4.0000 |  | 800 | S4/demand_then_rand | -0.0007 | 0.8568 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 9 | 4 |  |
+| P11 | 16.0000 |  | 3200 | S4/demand_then_rand | -0.0007 | 0.8568 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 8 | 6 |  |
+| P11 | 64.0000 |  | 12800 | S4/demand_then_rand | -0.0007 | 0.8568 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 8 | 6 |  |
+| P11 | 256.0000 |  | 51200 | S4/rand | -0.0007 | 0.8568 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 8 | 8 |  |
+| P12 | 4.0000 |  | 800 | S2/demand_then_rand | -0.0006 | 0.2540 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 1 |  |
+| P12 | 16.0000 |  | 3200 | S2/demand_then_rand | -0.0006 | 0.2540 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 3 |  |
+| P12 | 64.0000 |  | 12800 | S2/demand_then_rand | -0.0006 | 0.2540 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 4 |  |
+| P12 | 256.0000 |  | 51200 | S2/rand | -0.0006 | 0.2540 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 4 |  |
+| P13 | 4.0000 |  | 800 | S2/demand_then_rand | 0.0011 | 0.2612 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 1 |  |
+| P13 | 16.0000 |  | 3200 | S2/demand_then_rand | 0.0011 | 0.2612 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 2 |  |
+| P13 | 64.0000 |  | 12800 | S2/demand_then_rand | 0.0011 | 0.2612 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 4 |  |
+| P13 | 256.0000 |  | 51200 | S2/rand | 0.0011 | 0.2612 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 4 |  |
+| P14 | 4.0000 |  | 800 | S2/demand_then_rand | -0.0015 | 0.2637 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 13 | 2 | at_last_arrival,no_repair_needed |
+| P14 | 16.0000 |  | 3200 | S0/rand | -0.0009 | 0.1500 | no_repair_needed | 1.0000 | 1.0000 | 4 |  | 13 | 1 | at_last_arrival,no_repair_needed |
+| P14 | 64.0000 |  | 12800 | S0/rand | -0.0009 | 0.0300 | no_repair_needed | 1.0000 | 1.0000 | 4 |  | 13 | 1 | at_last_arrival,no_repair_needed |
+| P14 | 256.0000 |  | 51200 | S0/rand | -0.0009 | 0.0000 | no_repair_needed | 1.0000 | 1.0000 | 4 |  | 13 | 1 | at_last_arrival,no_repair_needed |
+| P2 | 4.0000 |  | 800 | S2/demand_then_rand | 0.0023 | 0.2642 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 1 |  |
+| P2 | 16.0000 |  | 3200 | S2/demand_then_rand | 0.0023 | 0.2642 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 1 |  |
+| P2 | 64.0000 |  | 12800 | S2/demand_then_rand | 0.0023 | 0.2642 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 4 |  |
+| P2 | 256.0000 |  | 51200 | S2/rand | 0.0023 | 0.2642 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 4 |  |
+| P3 | 4.0000 |  | 800 | S2/demand_then_rand | -0.0018 | 0.2612 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 3 |  |
+| P3 | 16.0000 |  | 3200 | S2/demand_then_rand | -0.0018 | 0.2612 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 3 |  |
+| P3 | 64.0000 |  | 12800 | S2/demand_then_rand | -0.0018 | 0.2612 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 3 |  |
+| P3 | 256.0000 |  | 51200 | S2/rand | -0.0018 | 0.2612 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 4 |  |
+| P4 | 4.0000 |  | 800 | S2/demand_then_rand | -0.0031 | 0.2540 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 1 |  |
+| P4 | 16.0000 |  | 3200 | S2/demand_then_rand | -0.0031 | 0.2540 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 4 |  |
+| P4 | 64.0000 |  | 12800 | S2/demand_then_rand | -0.0031 | 0.2540 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 4 |  |
+| P4 | 256.0000 |  | 51200 | S2/rand | -0.0031 | 0.2540 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 4 |  |
+| P5 | 4.0000 |  | 800 | S2/demand_then_rand | -0.0057 | 0.2540 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 3 |  |
+| P5 | 16.0000 |  | 3200 | S2/demand_then_rand | -0.0057 | 0.2540 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 3 |  |
+| P5 | 64.0000 |  | 12800 | S2/demand_then_rand | -0.0057 | 0.2540 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 4 |  |
+| P5 | 256.0000 |  | 51200 | S2/rand | -0.0057 | 0.2540 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 4 |  |
+| P7 | 4.0000 |  | 9 |  |  |  |  |  | 0.1553 | 2 | only 15.5% of the evaluation workload weight was served inside max_rounds (15.5% of the queries by count; pre-registered minimum 90% by weight) | 0 | 0 |  |
+| P7 | 16.0000 |  | 37 |  |  |  |  |  | 0.4797 | 0 | only 48.0% of the evaluation workload weight was served inside max_rounds (48.0% of the queries by count; pre-registered minimum 90% by weight) | 0 | 0 |  |
+| P7 | 64.0000 |  | 147 | S2/rand | 0.0000 | 1.0000 | at_last_arrival | 1.0000 | 0.9200 | 0 |  | 16 | 12 |  |
+| P7 | 256.0000 |  | 586 | S2/rand | 0.0000 | 1.0000 | at_last_arrival | 1.0000 | 1.0000 | 0 |  | 16 | 12 |  |
+| P8 | 4.0000 |  | 9 |  |  |  |  |  | 0.1553 | 2 | only 15.5% of the evaluation workload weight was served inside max_rounds (15.5% of the queries by count; pre-registered minimum 90% by weight) | 0 | 0 |  |
+| P8 | 16.0000 |  | 37 |  |  |  |  |  | 0.4797 | 0 | only 48.0% of the evaluation workload weight was served inside max_rounds (48.0% of the queries by count; pre-registered minimum 90% by weight) | 0 | 0 |  |
+| P8 | 64.0000 |  | 147 | S0/rand | -0.0007 | 1.0000 | no_repair_needed | 1.0000 | 0.9200 | 0 |  | 21 | 1 | at_last_arrival,no_repair_needed |
+| P8 | 256.0000 |  | 586 | S0/rand | -0.0008 | 1.0000 | no_repair_needed | 1.0000 | 1.0000 | 0 |  | 21 | 1 | at_last_arrival,no_repair_needed |
+| P9 | 4.0000 |  | 800 | S2/demand_then_rand | -0.0008 | 0.2642 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 1 |  |
+| P9 | 16.0000 |  | 3200 | S2/demand_then_rand | -0.0008 | 0.2642 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 2 |  |
+| P9 | 64.0000 |  | 12800 | S2/demand_then_rand | -0.0008 | 0.2642 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 4 |  |
+| P9 | 256.0000 |  | 51200 | S2/rand | -0.0008 | 0.2642 | at_last_arrival | 1.0000 | 1.0000 | 4 |  | 12 | 4 |  |
+
+### probe
+
+| pair | Kprime | n_queries | estimator | sample_frac | total_frac | rho_true | rho_hat | abs_err |
+|---|---|---|---|---|---|---|---|---|
+| P10 | 50 | 12 | uniform | 0.0025 | 0.0031 | 0.2667 | 0.0083 | 0.2583 |
+| P10 | 50 | 12 | stratified | 0.0025 | 0.0049 | 0.2667 | 0.1833 | 0.0833 |
+| P10 | 50 | 12 | uniform | 0.0050 | 0.0056 | 0.2667 | 0.0083 | 0.2583 |
+| P10 | 50 | 12 | stratified | 0.0050 | 0.0074 | 0.2667 | 0.1833 | 0.0833 |
+| P10 | 50 | 12 | uniform | 0.0100 | 0.0106 | 0.2667 | 0.0583 | 0.2083 |
+| P10 | 50 | 12 | stratified | 0.0100 | 0.0123 | 0.2667 | 0.2250 | 0.0417 |
+| P11 | 50 | 12 | uniform | 0.0025 | 0.0031 | 0.2417 | 0.0000 | 0.2417 |
+| P11 | 50 | 12 | stratified | 0.0025 | 0.0049 | 0.2417 | 0.1083 | 0.1333 |
+| P11 | 50 | 12 | uniform | 0.0050 | 0.0056 | 0.2417 | 0.0167 | 0.2250 |
+| P11 | 50 | 12 | stratified | 0.0050 | 0.0074 | 0.2417 | 0.1083 | 0.1333 |
+| P11 | 50 | 12 | uniform | 0.0100 | 0.0106 | 0.2417 | 0.0917 | 0.1500 |
+| P11 | 50 | 12 | stratified | 0.0100 | 0.0123 | 0.2417 | 0.1583 | 0.0833 |
+| P12 | 50 | 12 | uniform | 0.0025 | 0.0031 | 0.1583 | 0.0000 | 0.1583 |
+| P12 | 50 | 12 | stratified | 0.0025 | 0.0049 | 0.1583 | 0.1167 | 0.0417 |
+| P12 | 50 | 12 | uniform | 0.0050 | 0.0056 | 0.1583 | 0.0083 | 0.1500 |
+| P12 | 50 | 12 | stratified | 0.0050 | 0.0074 | 0.1583 | 0.1167 | 0.0417 |
+| P12 | 50 | 12 | uniform | 0.0100 | 0.0106 | 0.1583 | 0.0750 | 0.0833 |
+| P12 | 50 | 12 | stratified | 0.0100 | 0.0124 | 0.1583 | 0.1417 | 0.0167 |
+| P13 | 50 | 12 | uniform | 0.0025 | 0.0031 | 0.2083 | 0.0000 | 0.2083 |
+| P13 | 50 | 12 | stratified | 0.0025 | 0.0049 | 0.2083 | 0.1417 | 0.0667 |
+| P13 | 50 | 12 | uniform | 0.0050 | 0.0056 | 0.2083 | 0.0000 | 0.2083 |
+| P13 | 50 | 12 | stratified | 0.0050 | 0.0074 | 0.2083 | 0.1417 | 0.0667 |
+| P13 | 50 | 12 | uniform | 0.0100 | 0.0106 | 0.2083 | 0.0750 | 0.1333 |
+| P13 | 50 | 12 | stratified | 0.0100 | 0.0123 | 0.2083 | 0.1667 | 0.0417 |
+| P14 | 50 | 12 | uniform | 0.0025 | 0.0031 | 0.0750 | 0.0000 | 0.0750 |
+| P14 | 50 | 12 | stratified | 0.0025 | 0.0049 | 0.0750 | 0.0250 | 0.0500 |
+| P14 | 50 | 12 | uniform | 0.0050 | 0.0056 | 0.0750 | 0.0000 | 0.0750 |
+| P14 | 50 | 12 | stratified | 0.0050 | 0.0073 | 0.0750 | 0.0250 | 0.0500 |
+| P14 | 50 | 12 | uniform | 0.0100 | 0.0106 | 0.0750 | 0.0417 | 0.0333 |
+| P14 | 50 | 12 | stratified | 0.0100 | 0.0123 | 0.0750 | 0.0667 | 0.0083 |
+| P2 | 50 | 12 | uniform | 0.0025 | 0.0031 | 0.2167 | 0.0000 | 0.2167 |
+| P2 | 50 | 12 | stratified | 0.0025 | 0.0049 | 0.2167 | 0.1583 | 0.0583 |
+| P2 | 50 | 12 | uniform | 0.0050 | 0.0056 | 0.2167 | 0.0500 | 0.1667 |
+| P2 | 50 | 12 | stratified | 0.0050 | 0.0074 | 0.2167 | 0.1917 | 0.0250 |
+| P2 | 50 | 12 | uniform | 0.0100 | 0.0106 | 0.2167 | 0.0333 | 0.1833 |
+| P2 | 50 | 12 | stratified | 0.0100 | 0.0123 | 0.2167 | 0.1750 | 0.0417 |
+| P3 | 50 | 12 | uniform | 0.0025 | 0.0031 | 0.1500 | 0.0000 | 0.1500 |
+| P3 | 50 | 12 | stratified | 0.0025 | 0.0049 | 0.1500 | 0.1250 | 0.0250 |
+| P3 | 50 | 12 | uniform | 0.0050 | 0.0056 | 0.1500 | 0.0000 | 0.1500 |
+| P3 | 50 | 12 | stratified | 0.0050 | 0.0074 | 0.1500 | 0.1250 | 0.0250 |
+| P3 | 50 | 12 | uniform | 0.0100 | 0.0106 | 0.1500 | 0.0083 | 0.1417 |
+| P3 | 50 | 12 | stratified | 0.0100 | 0.0123 | 0.1500 | 0.1250 | 0.0250 |
+| P4 | 50 | 12 | uniform | 0.0025 | 0.0031 | 0.1667 | 0.0000 | 0.1667 |
+| P4 | 50 | 12 | stratified | 0.0025 | 0.0049 | 0.1667 | 0.1250 | 0.0417 |
+| P4 | 50 | 12 | uniform | 0.0050 | 0.0056 | 0.1667 | 0.0500 | 0.1167 |
+| P4 | 50 | 12 | stratified | 0.0050 | 0.0074 | 0.1667 | 0.1500 | 0.0167 |
+| P4 | 50 | 12 | uniform | 0.0100 | 0.0106 | 0.1667 | 0.0000 | 0.1667 |
+| P4 | 50 | 12 | stratified | 0.0100 | 0.0124 | 0.1667 | 0.1250 | 0.0417 |
+| P5 | 50 | 12 | uniform | 0.0025 | 0.0031 | 0.1833 | 0.0000 | 0.1833 |
+| P5 | 50 | 12 | stratified | 0.0025 | 0.0049 | 0.1833 | 0.1500 | 0.0333 |
+| P5 | 50 | 12 | uniform | 0.0050 | 0.0056 | 0.1833 | 0.0583 | 0.1250 |
+| P5 | 50 | 12 | stratified | 0.0050 | 0.0074 | 0.1833 | 0.1667 | 0.0167 |
+| P5 | 50 | 12 | uniform | 0.0100 | 0.0106 | 0.1833 | 0.0333 | 0.1500 |
+| P5 | 50 | 12 | stratified | 0.0100 | 0.0124 | 0.1833 | 0.1500 | 0.0333 |
+| P7 | 200 | 8 | uniform | 0.0050 | 0.0391 | 0.1375 | 0.0000 | 0.1375 |
+| P7 | 200 | 8 | stratified | 0.0050 | 0.0558 | 0.1375 | 0.0375 | 0.1000 |
+| P7 | 200 | 8 | uniform | 0.0100 | 0.0439 | 0.1375 | 0.0750 | 0.0625 |
+| P7 | 200 | 8 | stratified | 0.0100 | 0.0603 | 0.1375 | 0.0875 | 0.0500 |
+| P7 | 200 | 8 | uniform | 0.0200 | 0.0537 | 0.1375 | 0.0125 | 0.1250 |
+| P7 | 200 | 8 | stratified | 0.0200 | 0.0700 | 0.1375 | 0.0000 | 0.1375 |
+| P8 | 200 | 8 | uniform | 0.0050 | 0.0394 | 0.0500 | 0.0000 | 0.0500 |
+| P8 | 200 | 8 | stratified | 0.0050 | 0.0562 | 0.0500 | 0.0000 | 0.0500 |
+| P8 | 200 | 8 | uniform | 0.0100 | 0.0442 | 0.0500 | 0.0000 | 0.0500 |
+| P8 | 200 | 8 | stratified | 0.0100 | 0.0607 | 0.0500 | 0.0000 | 0.0500 |
+| P8 | 200 | 8 | uniform | 0.0200 | 0.0539 | 0.0500 | 0.0000 | 0.0500 |
+| P8 | 200 | 8 | stratified | 0.0200 | 0.0703 | 0.0500 | 0.0750 | 0.0250 |
+| P9 | 50 | 12 | uniform | 0.0025 | 0.0031 | 0.2083 | 0.0000 | 0.2083 |
+| P9 | 50 | 12 | stratified | 0.0025 | 0.0049 | 0.2083 | 0.1333 | 0.0750 |
+| P9 | 50 | 12 | uniform | 0.0050 | 0.0056 | 0.2083 | 0.0667 | 0.1417 |
+| P9 | 50 | 12 | stratified | 0.0050 | 0.0074 | 0.2083 | 0.1667 | 0.0417 |
+| P9 | 50 | 12 | uniform | 0.0100 | 0.0106 | 0.2083 | 0.0333 | 0.1750 |
+| P9 | 50 | 12 | stratified | 0.0100 | 0.0123 | 0.2083 | 0.1417 | 0.0667 |
+
+### heat
+
+| pair | available | auc | ci_lo | ci_hi | gate_open | label_rule | n_docs |
+|---|---|---|---|---|---|---|---|
+| P10 | True | 0.4343 | 0.3968 | 0.4700 | False | rel > median | 64720 |
+| P11 | True | 0.6407 | 0.6375 | 0.6439 | True | rel > median | 64720 |
+| P12 | True | 0.6498 | 0.6467 | 0.6530 | True | rel > median | 64133 |
+| P13 | True | 0.6319 | 0.6286 | 0.6353 | True | rel > median | 64989 |
+| P14 | True | 0.6225 | 0.6192 | 0.6259 | True | rel > median | 65019 |
+| P2 | True | 0.6421 | 0.6392 | 0.6453 | True | rel > median | 64720 |
+| P3 | True | 0.6306 | 0.6274 | 0.6336 | True | rel > median | 64989 |
+| P4 | True | 0.6503 | 0.6471 | 0.6533 | True | rel > median | 64133 |
+| P5 | True | 0.6504 | 0.6471 | 0.6534 | True | rel > median | 64133 |
+| P7 | True | 0.4677 | 0.4623 | 0.4728 | False | rel > median | 45540 |
+| P8 | True | 0.5141 | 0.5087 | 0.5195 | True | rel > median | 45746 |
+| P9 | True | 0.6362 | 0.6331 | 0.6393 | True | rel > median | 64720 |
+
+### calib
+
+| pair | source | target | M_S | M_T | Kprime | rho | G |
+|---|---|---|---|---|---|---|---|
+| P5c | sentence-transformers/all-MiniLM-L6-v2 | Qwen/Qwen3-Embedding-8B | 0.5875 | 0.7656 | 20 | 0.2541 | 0.0238 |
+| P5c | sentence-transformers/all-MiniLM-L6-v2 | Qwen/Qwen3-Embedding-8B | 0.5875 | 0.7656 | 50 | 0.1209 | 0.0068 |
+| P5c | sentence-transformers/all-MiniLM-L6-v2 | Qwen/Qwen3-Embedding-8B | 0.5875 | 0.7656 | 100 | 0.0771 | 0.0029 |
+| P5c | sentence-transformers/all-MiniLM-L6-v2 | Qwen/Qwen3-Embedding-8B | 0.5875 | 0.7656 | 200 | 0.0506 | 0.0008 |
+| P5c | sentence-transformers/all-MiniLM-L6-v2 | Qwen/Qwen3-Embedding-8B | 0.5875 | 0.7656 | 500 | 0.0304 | -0.0003 |
+| P5c | sentence-transformers/all-MiniLM-L6-v2 | Qwen/Qwen3-Embedding-8B | 0.5875 | 0.7656 | 1000 | 0.0202 | 0.0000 |

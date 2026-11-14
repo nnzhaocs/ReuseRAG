@@ -1,0 +1,4 @@
+[2026-11-10T02:16:06+08:00] seeds: P11 at seeds 1 2 3 4 (per-seed logs: logs/seed_P11_*.log)
+[2026-11-10T02:16:06+08:00] threads: 4 job(s) x 14 of 224 cores
+[2026-11-10T03:04:59+08:00] seeds: 4 output file(s)
+[2026-11-10T03:04:59+08:00] seeds done

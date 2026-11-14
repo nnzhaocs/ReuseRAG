@@ -1,0 +1,141 @@
+{
+ "pair": "P4",
+ "N": 1000000,
+ "n_eval": 3490,
+ "n_servable": 6980,
+ "bm25_depth": 500,
+ "tau": 0.005,
+ "eps": 0.01,
+ "margin": 0.006,
+ "families": [
+  "S2",
+  "S3",
+  "S4",
+  "S5"
+ ],
+ "cost_semantics": "static candidate-union coverage over all servable queries; not exact first-arrival C_serve",
+ "workloads": {
+  "uniform": {
+   "M_S": 0.858595988538682,
+   "M_T": 0.880515759312321,
+   "M_A": 0.6069484240687679,
+   "gap": 0.021919770773638936,
+   "n_eff": 3490.0,
+   "depths": {
+    "25": {
+     "prices": {
+      "S2": {
+       "G": -0.0010744985673352137,
+       "cov": 0.145169
+      },
+      "S3": {
+       "G": 0.18118433619866292,
+       "cov": 0.134033
+      },
+      "S4": {
+       "G": -0.004751671442215888,
+       "cov": 0.840685
+      },
+      "S5": {
+       "G": -0.001814708691499578,
+       "cov": 0.850569
+      }
+     },
+     "winner": "S2",
+     "admissible": [
+      "S2",
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S2",
+     "admissible_margin": [
+      "S2",
+      "S4",
+      "S5"
+     ]
+    },
+    "50": {
+     "prices": {
+      "S2": {
+       "G": -0.005038204393505219,
+       "cov": 0.254009
+      },
+      "S3": {
+       "G": 0.13488538681948425,
+       "cov": 0.229752
+      },
+      "S4": {
+       "G": -0.0036771728748806742,
+       "cov": 0.854075
+      },
+      "S5": {
+       "G": -0.001814708691499578,
+       "cov": 0.870103
+      }
+     },
+     "winner": "S2",
+     "admissible": [
+      "S2",
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S2",
+     "admissible_margin": [
+      "S2",
+      "S4",
+      "S5"
+     ]
+    }
+   },
+   "replay": {
+    "results": "results_d3",
+    "window": 25,
+    "winner": "S2/demand_then_rand",
+    "winner_family": "S2",
+    "static_winner": "S2",
+    "static_winner_margin": "S2",
+    "families": {
+     "S2": {
+      "static_G": -0.0010744985673352137,
+      "static_cov": 0.145169,
+      "static_candidate_union_cov": 0.145169,
+      "replay_debt": -7.163323782233277e-05,
+      "replay_C_serve_frac": 0.145142,
+      "replay_basis": "at_last_arrival",
+      "replay_repairs_frac": 0.145169
+     },
+     "S3": {
+      "static_G": 0.18118433619866292,
+      "static_cov": 0.134033,
+      "static_candidate_union_cov": 0.134033,
+      "replay_debt": 0.17027220630374051,
+      "replay_C_serve_frac": 1.0,
+      "replay_basis": "never_reached_target",
+      "replay_repairs_frac": 0.134033
+     },
+     "S4": {
+      "static_G": -0.004751671442215888,
+      "static_cov": 0.840685,
+      "static_candidate_union_cov": 0.840685,
+      "replay_debt": -0.002936962750716643,
+      "replay_C_serve_frac": 0.840622,
+      "replay_basis": "at_last_arrival",
+      "replay_repairs_frac": 0.840684
+     },
+     "S5": {
+      "static_G": -0.001814708691499578,
+      "static_cov": 0.850569,
+      "static_candidate_union_cov": 0.850569,
+      "replay_debt": -0.002220630372492982,
+      "replay_C_serve_frac": 0.850509,
+      "replay_basis": "at_last_arrival",
+      "replay_repairs_frac": 0.850567
+     }
+    },
+    "replay_S0_debt": 0.02191977077364138,
+    "agree": true,
+    "agree_margin": true
+   }
+  }
+ }
+}

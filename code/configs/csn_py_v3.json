@@ -1,0 +1,90 @@
+{
+ "_status_2026_11_08": "2026-11-08: the _preregistered sentence about window_frac was copied from msmarco_1m_v3.json. Code pairs use a fixed window (window 200) and the kprime ladder 50-1000; there is no window_frac and no two-stage window decision here. Coverage at every measured depth is in the data archive's coverage/ and sweeps_csn/, not in this file.",
+ "K": 10,
+ "kprime": [
+  50,
+  100,
+  200,
+  500,
+  1000
+ ],
+ "window": 200,
+ "primary": {
+  "metric": "recall",
+  "thr": 1
+ },
+ "secondary": [
+  {
+   "metric": "ndcg",
+   "thr": 1
+  }
+ ],
+ "secondary_eval_qids": "subcsn/query_sets/cosqa.txt",
+ "eps": 0.01,
+ "delta": 0.01,
+ "eps_sensitivity": [
+  0.005,
+  0.01,
+  0.02
+ ],
+ "objective": "debt",
+ "tau": {
+  "debt": 0.005,
+  "c_serve_frac": 0.02
+ },
+ "band_tiebreak": "cost",
+ "workload": "uniform",
+ "eval_frac": 0.5,
+ "eval_arrival": "first_service",
+ "min_eval_served": 0.9,
+ "arrival_target_frac": 0.99,
+ "n_eval_queries": 3000,
+ "traffic_ratio": [
+  4.0,
+  16.0,
+  64.0,
+  256.0
+ ],
+ "primary_setting": {
+  "traffic_ratio": 64.0
+ },
+ "rounds": 100,
+ "max_rounds_factor": 8,
+ "stream_len": null,
+ "per_query_sample": 200,
+ "per_query_every": null,
+ "orders": [
+  "rand",
+  "size",
+  "demand",
+  "demand_then_rand",
+  "signal"
+ ],
+ "strategies": [
+  "S0",
+  "S1",
+  "S2",
+  "S3",
+  "S4",
+  "S5"
+ ],
+ "bm25_depth": 200,
+ "mode": "sync",
+ "checkpoint": "state",
+ "adapter": "procrustes",
+ "adapter_fit": "docs",
+ "adapter_n_fit": 5000,
+ "adapter_n_eval": 2000,
+ "mapped_query_margin": 0.05,
+ "tgt_depth": 1000,
+ "probe_c": 4,
+ "probe_budgets_frac": [
+  0.005,
+  0.01,
+  0.02
+ ],
+ "probe_queries": 8,
+ "strat_per_query": 100,
+ "seed": 0,
+ "_preregistered": "2026-11-06 on bjb1, before any v3 pair ran in this round. Values are unchanged from the draft: eval_frac 0.5, traffic grid [4,16,64,256], primary traffic_ratio 64 (placeholder for ORCAS, stated as such), delta 0.01, eps 0.01 (+sensitivity 0.005/0.01/0.02), tau debt 0.005 / c_serve 0.02, band_tiebreak cost, probe 12 x 250 (code 8 x 100). window_frac stays the placeholder on purpose: RUNBOOK Phase 1 makes it a two-stage decision settled from the 5.5 frontier."
+}

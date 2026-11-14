@@ -1,0 +1,52 @@
+
+===== [22:27:10] 等前面全部完成：main+extension、latency、GPU2 =====
+  前置完成
+
+===== [23:21:10] Step 0 安装 7f79e07 =====
+hint: Turn this message off by running
+hint: "git config advice.addIgnoredFile false"
+127afc2 Final code: Qwen3 contract fix (7f79e07)
+80 tests passed
+runbook ok (101 commands, 30 scripts, 80 tests; drivers name 25 scripts, all present)
+
+===== [23:21:47] 1 check =====
+[2026-11-09T23:21:47+08:00] check
+80 tests passed
+contract: Qwen3 queries take the instruction from the model prompt only
+missing enc/Qwen3-Embedding-8B/doc.npy
+  check rc=0
+
+===== [23:22:30] 2 requery（GPU ~10 min） =====
+  requery rc=1
+  enc/Qwen3-Embedding-8B/q.npy: no sidecar -- treated as stale
+[2026-11-09T23:22:31+08:00] requery: Qwen/Qwen3-Embedding-8B queries from sub1m/queries.tsv (max-seq
+[2026-11-09T23:22:39+08:00] requery: Qwen/Qwen3-Embedding-8B failed -- see logs/requery_Qwen3-Embedd
+[2026-11-09T23:22:39+08:00] verify
+Traceback (most recent call last):
+  File "<stdin>", line 9, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: 'enc/Qwen3-Embedding-8B/q.npy.json'
+  verify rc=0
+
+===== [23:22:39] 3 measure（CPU 1.5-2h） =====
+  measure rc=1
+[2026-11-09T23:22:39+08:00] verify
+Traceback (most recent call last):
+  File "<stdin>", line 9, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: 'enc/Qwen3-Embedding-8B/q.npy.json'
+no qwen_manifest.json: measure writes it (after verify)
+
+===== [23:22:39] 4 collect =====
+[2026-11-09T23:22:40+08:00] wrote qwen_rerun_outputs_20261109_2322.zip (300K) -- send this file
+300K qwen_rerun_outputs_20261109_2322.zip
+
+===== [23:22:40] 附：submission / extension 的 check 与 collect（旧代码下表格检查失败会静默跳过 freeze check） =====
+  sub check rc=0
+  sub collect rc=0
+[2026-11-09T23:22:43+08:00] not produced (stage failed or not run): results_llm coverage_llm
+[2026-11-09T23:22:44+08:00] wrote submission_outputs_20261109_2322.zip (4.5M) -- send this file
+  ext check rc=0
+  ext collect rc=0
+[2026-11-09T23:22:44+08:00] not produced: planner_nq planner_check_nq.md results_nq results_nq_stati
+[2026-11-09T23:22:44+08:00] wrote extension_outputs_20261109_2322.zip (52K) -- send this file back
+
+===== [23:22:44] CHAIN_QWEN_DONE 23:22:44 =====

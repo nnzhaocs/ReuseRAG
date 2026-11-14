@@ -1,0 +1,14 @@
+NQ encodings missing (the encode stage makes them on the GPU): e5-base-v2 bge-m3 bge-small-en-v1.5 bge-base-en-v1.5 all-MiniLM-L6-v2
+P5r: enc/Qwen3-Embedding-0.6B not encoded and checked yet (encode_llm does it on the GPU)
+[2026-11-09T22:08:31+08:00] preflight ok
+[2026-11-09T22:08:41+08:00] encode failed: logs/nq_encode.log
+NQ encodings missing (the encode stage makes them on the GPU): bge-m3 bge-small-en-v1.5 bge-base-en-v1.5 all-MiniLM-L6-v2
+P5r: enc/Qwen3-Embedding-0.6B not encoded and checked yet (encode_llm does it on the GPU)
+[2026-11-09T22:30:08+08:00] preflight ok
+[2026-11-09T22:30:22+08:00] encode failed: logs/nq_encode.log
+tracked files differ from HEAD (run_pair.py would refuse): FREEZE_CHECK.md 
+NQ encodings: all five present
+P5r: enc/Qwen3-Embedding-0.6B encoded and checked
+[2026-11-10T01:09:18+08:00] preflight ok
+[2026-11-10T01:22:34+08:00] not produced: results_seeds results_zipf curve_check_zipf.md query_sweep throughput_qwen8b.json seeds_summary.md results_llm coverage_llm
+[2026-11-10T01:22:35+08:00] wrote extension_outputs_20261110_0122.zip (832K) -- send this file back

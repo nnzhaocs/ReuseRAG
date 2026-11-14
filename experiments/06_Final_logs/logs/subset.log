@@ -1,0 +1,5 @@
+full 8,841,823 rows; 1M rows found in order: 1,000,000
+s4m: corpus.tsv 4,000,000 rows, qrels 28,083
+s4m all-MiniLM-L6-v2: 4,000,000 x 384 written
+s4m bge-small-en-v1.5: 4,000,000 x 384 written
+s4m bge-base-en-v1.5: 4,000,000 x 768 written

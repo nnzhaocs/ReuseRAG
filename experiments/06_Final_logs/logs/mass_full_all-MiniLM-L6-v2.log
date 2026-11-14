@@ -1,0 +1,10 @@
+excluded 97 of 7077 queries (subfull/query_sets/trecdl.txt); 6980 remain
+retrieval pass: 553s for 6980 queries
+K'=   10 union 0.0078  max c     3  mass CV 11.38  top-1% docs hold 100.0% of mass
+K'=   25 union 0.0192  max c     5  mass CV 7.26  top-1% docs hold 53.6% of mass
+K'=   50 union 0.0375  max c     8  mass CV 5.20  top-1% docs hold 30.4% of mass
+K'=  100 union 0.0722  max c    13  mass CV 3.75  top-1% docs hold 21.1% of mass
+K'=  200 union 0.1356  max c    25  mass CV 2.74  top-1% docs hold 14.9% of mass
+K'=  500 union 0.2896  max c    51  mass CV 1.86  top-1% docs hold 9.8% of mass
+K'= 1000 union 0.4698  max c    66  mass CV 1.43  top-1% docs hold 7.7% of mass
+wrote window_mass_full/all-MiniLM-L6-v2.json

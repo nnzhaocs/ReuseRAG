@@ -1,0 +1,78 @@
+{
+ "name": "bge-m3",
+ "weights_file": null,
+ "exclude_qids_file": "/root/reusemap_v3n/sub1m/query_sets/trecdl.txt",
+ "docs": "/root/reusemap_v3n/enc/bge-m3/doc.npy",
+ "queries": "/root/reusemap_v3n/enc/bge-m3/q.npy",
+ "N": 1000000,
+ "n_queries": 6980,
+ "dim": 1024,
+ "qids_file": null,
+ "seconds": 158.5520339012146,
+ "rows": [
+  {
+   "kprime": 25,
+   "covered": 145169,
+   "coverage": 0.145169,
+   "ceiling_frac": 0.854831,
+   "coverage_if_independent": 0.16012497778102264,
+   "concentration": 0.014955977781022645
+  },
+  {
+   "kprime": 50,
+   "covered": 254009,
+   "coverage": 0.254009,
+   "ceiling_frac": 0.7459910000000001,
+   "coverage_if_independent": 0.29461302446338866,
+   "concentration": 0.04060402446338868
+  },
+  {
+   "kprime": 100,
+   "covered": 411801,
+   "coverage": 0.411801,
+   "ceiling_frac": 0.588199,
+   "coverage_if_independent": 0.5024378981460813,
+   "concentration": 0.09063689814608133
+  },
+  {
+   "kprime": 200,
+   "covered": 603137,
+   "coverage": 0.603137,
+   "ceiling_frac": 0.39686299999999997,
+   "coverage_if_independent": 0.7524492379016126,
+   "concentration": 0.14931223790161252
+  },
+  {
+   "kprime": 350,
+   "covered": 753158,
+   "coverage": 0.753158,
+   "ceiling_frac": 0.246842,
+   "coverage_if_independent": 0.9131373918074829,
+   "concentration": 0.15997939180748288
+  },
+  {
+   "kprime": 500,
+   "covered": 833040,
+   "coverage": 0.83304,
+   "ceiling_frac": 0.16696,
+   "coverage_if_independent": 0.9695257370998838,
+   "concentration": 0.13648573709988376
+  },
+  {
+   "kprime": 1000,
+   "covered": 938248,
+   "coverage": 0.938248,
+   "ceiling_frac": 0.06175200000000003,
+   "coverage_if_independent": 0.9990729400545475,
+   "concentration": 0.06082494005454753
+  },
+  {
+   "kprime": 2000,
+   "covered": 983514,
+   "coverage": 0.983514,
+   "ceiling_frac": 0.016486,
+   "coverage_if_independent": 0.9999991465497974,
+   "concentration": 0.01648514654979738
+  }
+ ]
+}

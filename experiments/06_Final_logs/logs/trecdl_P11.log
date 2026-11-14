@@ -1,0 +1,7 @@
+[P11] N=1000000 Q=7077 eval=3490 traffic_pool=3490 window=25 kappa=-0.090 cka=0.608 (816.7s)
+[P11] secondary (97 deeply-judged queries, ndcg@10): M_T=0.6703 G={25: 0.0101, 50: 0.0136, 500: 0.0014, 1000: 0.0005, 2000: 0.0007, 5000: 0.0}
+[P11] NOTE G < 0 at 4 depth(s) on the sparse primary set but at none on the deeply-judged set -- consistent with judgment sparsity rather than a cascade effect. This is the comparison the paper turns on.
+[P11] M_S=0.8335 M_T=0.8796 M_A=0.0491 rho={25: 0.3010028653295127, 50: 0.21063037249283656, 500: 0.060085959885386675, 1000: 0.04014326647564459, 2000: 0.02590257879656155, 5000: 0.013839541547277845}
+[P11] measure-only (replay=false): G={25: 0.01368194842407, 50: 0.0036532951289403037, 500: -0.000644699140401106, 1000: -0.000644699140401106, 2000: -0.000644699140401106, 5000: -0.0005730659025788842}
+   I2 rho non-increasing: ok
+   I4/I5 skipped: measure-only run (replay=false)

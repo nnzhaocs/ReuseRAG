@@ -1,0 +1,11 @@
+date	name	run_key	git	config_hash	data_fp	status	out
+2026-11-12T01:56:46	P2	2258ff4dc9a4ae3d	f848f884e438	b79a6ef31ee03ed8	01c373877f239344	ok	/root/sub13run/results_zipf_a1.2/P2.json
+2026-11-12T01:56:46	P3	f5f698d4ec198ff6	f848f884e438	b79a6ef31ee03ed8	9344bb97ebc46301	ok	/root/sub13run/results_zipf_a1.2/P3.json
+2026-11-12T02:05:07	P5	c08b4aa1af79cd3e	f848f884e438	b79a6ef31ee03ed8	4213b35689f95e94	ok	/root/sub13run/results_zipf_a1.2/P5.json
+2026-11-12T02:07:28	P4	17c310fc7c602052	f848f884e438	b79a6ef31ee03ed8	4ec3964ec6cac5cf	ok	/root/sub13run/results_zipf_a1.2/P4.json
+2026-11-12T02:09:42	P9	394755693568bd1b	f848f884e438	b79a6ef31ee03ed8	b7e623016988795a	ok	/root/sub13run/results_zipf_a1.2/P9.json
+2026-11-12T02:11:30	P10	e4995ad34e9c18f3	f848f884e438	b79a6ef31ee03ed8	67081095af9bcb7f	ok	/root/sub13run/results_zipf_a1.2/P10.json
+2026-11-12T02:16:08	P12	59e2b15828ca28ce	f848f884e438	b79a6ef31ee03ed8	1ec02a2b44ebebee	ok	/root/sub13run/results_zipf_a1.2/P12.json
+2026-11-12T02:22:09	P11	db5bd5b3793d2679	f848f884e438	b79a6ef31ee03ed8	467b3ac2a36d8de2	ok	/root/sub13run/results_zipf_a1.2/P11.json
+2026-11-12T02:23:16	P13	b3b3cccac4d6ea6b	f848f884e438	b79a6ef31ee03ed8	3fa4d5de235eb521	ok	/root/sub13run/results_zipf_a1.2/P13.json
+2026-11-12T02:25:42	P14	c767cbe7d3b43947	f848f884e438	b79a6ef31ee03ed8	4a21ee8875f1f185	ok	/root/sub13run/results_zipf_a1.2/P14.json

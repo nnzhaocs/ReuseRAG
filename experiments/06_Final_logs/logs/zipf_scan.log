@@ -1,0 +1,129 @@
+P2: Zipf(0.9) replay S0 debt +0.050110 vs static weighted gap +0.050110 (diff +4.44e-16)
+P2: uniform S2@25; 13 of 20 skewed settings decide otherwise
+P3: uniform S2@25; 2 of 20 skewed settings decide otherwise
+P4: uniform S2@25; 5 of 20 skewed settings decide otherwise
+P5: Zipf(0.9) replay S0 debt -0.005484 vs static weighted gap -0.005484 (diff -2.22e-16)
+P5: uniform S2@25; 9 of 20 skewed settings decide otherwise
+P9: uniform S2@25; 4 of 20 skewed settings decide otherwise
+P10: uniform S2@25; 7 of 20 skewed settings decide otherwise
+Traceback (most recent call last):
+  File "/root/sub13run/scripts/zipf_scan.py", line 161, in <module>
+    main()
+  File "/root/sub13run/scripts/zipf_scan.py", line 157, in main
+    return scan(build_parser().parse_args())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/sub13run/scripts/zipf_scan.py", line 66, in scan
+    p = Pair(pair_dir, cfg)
+        ^^^^^^^^^^^^^^^^^^^
+  File "/root/sub13run/scripts/../reusemap/pair.py", line 93, in __init__
+    self.doc_tgt = lv("doc_tgt.npy")
+                   ^^^^^^^^^^^^^^^^^
+  File "/root/sub13run/scripts/../reusemap/pair.py", line 91, in <lambda>
+    lv = lambda n: load_vectors(os.path.join(pair_dir, n))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/sub13run/scripts/../reusemap/pair.py", line 52, in load_vectors
+    X = np.load(path, mmap_mode="r")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/numpy/lib/_npyio_impl.py", line 454, in load
+    fid = stack.enter_context(open(os.fspath(file), "rb"))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'pairs/P11/doc_tgt.npy'
+P2: Zipf(0.9) replay S0 debt +0.050110 vs static weighted gap +0.050110 (diff +4.44e-16)
+P2: uniform S2@25; 13 of 20 skewed settings decide otherwise
+P3: uniform S2@25; 2 of 20 skewed settings decide otherwise
+P4: uniform S2@25; 5 of 20 skewed settings decide otherwise
+P5: Zipf(0.9) replay S0 debt -0.005484 vs static weighted gap -0.005484 (diff -2.22e-16)
+P5: uniform S2@25; 9 of 20 skewed settings decide otherwise
+P9: uniform S2@25; 4 of 20 skewed settings decide otherwise
+P10: uniform S2@25; 7 of 20 skewed settings decide otherwise
+Traceback (most recent call last):
+  File "/root/sub13run/scripts/zipf_scan.py", line 161, in <module>
+    main()
+  File "/root/sub13run/scripts/zipf_scan.py", line 157, in main
+    return scan(build_parser().parse_args())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/sub13run/scripts/zipf_scan.py", line 66, in scan
+    p = Pair(pair_dir, cfg)
+        ^^^^^^^^^^^^^^^^^^^
+  File "/root/sub13run/scripts/../reusemap/pair.py", line 93, in __init__
+    self.doc_tgt = lv("doc_tgt.npy")
+                   ^^^^^^^^^^^^^^^^^
+  File "/root/sub13run/scripts/../reusemap/pair.py", line 91, in <lambda>
+    lv = lambda n: load_vectors(os.path.join(pair_dir, n))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/sub13run/scripts/../reusemap/pair.py", line 52, in load_vectors
+    X = np.load(path, mmap_mode="r")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/numpy/lib/_npyio_impl.py", line 454, in load
+    fid = stack.enter_context(open(os.fspath(file), "rb"))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'pairs/P11/doc_tgt.npy'
+=== ZIPF_SCAN_EXIT rc=1 22:48:40 ===
+=== 00:41:07 zipf_scan start ===
+P2: Zipf(0.9) replay S0 debt +0.050110 vs static weighted gap +0.050110 (diff +4.44e-16)
+P2: uniform S2@25; 13 of 20 skewed settings decide otherwise
+P3: uniform S2@25; 2 of 20 skewed settings decide otherwise
+P4: uniform S2@25; 5 of 20 skewed settings decide otherwise
+P5: Zipf(0.9) replay S0 debt -0.005484 vs static weighted gap -0.005484 (diff -2.22e-16)
+P5: uniform S2@25; 9 of 20 skewed settings decide otherwise
+P9: uniform S2@25; 4 of 20 skewed settings decide otherwise
+P10: uniform S2@25; 7 of 20 skewed settings decide otherwise
+P11: Zipf(0.9) replay S0 debt +0.046079 vs static weighted gap +0.046079 (diff +0.00e+00)
+P11: uniform S2@50; 7 of 20 skewed settings decide otherwise
+P12: uniform S2@25; 6 of 20 skewed settings decide otherwise
+P13: Zipf(0.9) replay S0 debt +0.021513 vs static weighted gap +0.021513 (diff -9.99e-16)
+P13: uniform S2@25; 5 of 20 skewed settings decide otherwise
+P14: uniform S0@None; 2 of 20 skewed settings decide otherwise
+| pair | alpha | n_eff | weighted gap | same decision as uniform | decisions |
+|---|---|---|---|---|---|
+| P2 | 0 | 3,490 | +0.0471 .. +0.0471 | 1/1 | S2@25 |
+| P2 | 0.3 | 2,896 | +0.0423 .. +0.0499 | 3/5 | S2@25, S2@50 |
+| P2 | 0.6 | 796 | +0.0321 .. +0.0577 | 2/5 | S2@25, S2@50 |
+| P2 | 0.9 | 93 | +0.0118 .. +0.0794 | 1/5 | S0@-, S2@25, S2@50 |
+| P2 | 1.2 | 18 | -0.0163 .. +0.1063 | 1/5 | S0@-, S2@25, S2@50 |
+| P3 | 0 | 3,490 | +0.0154 .. +0.0154 | 1/1 | S2@25 |
+| P3 | 0.3 | 2,896 | +0.0138 .. +0.0182 | 5/5 | S2@25 |
+| P3 | 0.6 | 796 | +0.0119 .. +0.0251 | 5/5 | S2@25 |
+| P3 | 0.9 | 93 | +0.0045 .. +0.0385 | 4/5 | S0@-, S2@25 |
+| P3 | 1.2 | 18 | -0.0116 .. +0.0467 | 4/5 | S0@-, S2@25 |
+| P4 | 0 | 3,490 | +0.0219 .. +0.0219 | 1/1 | S2@25 |
+| P4 | 0.3 | 2,896 | +0.0206 .. +0.0258 | 5/5 | S2@25 |
+| P4 | 0.6 | 796 | +0.0176 .. +0.0332 | 5/5 | S2@25 |
+| P4 | 0.9 | 93 | +0.0102 .. +0.0418 | 3/5 | S2@25, S2@50 |
+| P4 | 1.2 | 18 | +0.0029 .. +0.0458 | 2/5 | S0@-, S2@25, S2@50 |
+| P5 | 0 | 3,490 | +0.0066 .. +0.0066 | 1/1 | S2@25 |
+| P5 | 0.3 | 2,896 | +0.0033 .. +0.0098 | 4/5 | S0@-, S2@25 |
+| P5 | 0.6 | 796 | -0.0014 .. +0.0169 | 3/5 | S0@-, S2@25 |
+| P5 | 0.9 | 93 | -0.0055 .. +0.0276 | 2/5 | S0@-, S2@25 |
+| P5 | 1.2 | 18 | -0.0061 .. +0.0389 | 2/5 | S0@-, S2@25 |
+| P9 | 0 | 3,490 | +0.0317 .. +0.0317 | 1/1 | S2@25 |
+| P9 | 0.3 | 2,896 | +0.0275 .. +0.0328 | 5/5 | S2@25 |
+| P9 | 0.6 | 796 | +0.0196 .. +0.0326 | 5/5 | S2@25 |
+| P9 | 0.9 | 93 | +0.0073 .. +0.0409 | 4/5 | S2@25, S2@50 |
+| P9 | 1.2 | 18 | -0.0047 .. +0.0596 | 2/5 | S0@-, S2@25, S2@50 |
+| P10 | 0 | 3,490 | +0.0251 .. +0.0251 | 1/1 | S2@25 |
+| P10 | 0.3 | 2,896 | +0.0180 .. +0.0293 | 5/5 | S2@25 |
+| P10 | 0.6 | 796 | +0.0052 .. +0.0329 | 4/5 | S2@25, S2@50 |
+| P10 | 0.9 | 93 | -0.0143 .. +0.0396 | 2/5 | S0@-, S2@25, S2@50 |
+| P10 | 1.2 | 18 | -0.0435 .. +0.0605 | 2/5 | S0@-, S2@25, S2@50 |
+| P11 | 0 | 3,490 | +0.0462 .. +0.0462 | 1/1 | S2@50 |
+| P11 | 0.3 | 2,896 | +0.0412 .. +0.0490 | 5/5 | S2@50 |
+| P11 | 0.6 | 796 | +0.0332 .. +0.0573 | 4/5 | S2@25, S2@50 |
+| P11 | 0.9 | 93 | +0.0200 .. +0.0792 | 2/5 | S2@200, S2@25, S2@50 |
+| P11 | 1.2 | 18 | +0.0056 .. +0.1064 | 2/5 | S0@-, S2@25, S2@50 |
+| P12 | 0 | 3,490 | +0.0210 .. +0.0210 | 1/1 | S2@25 |
+| P12 | 0.3 | 2,896 | +0.0194 .. +0.0240 | 5/5 | S2@25 |
+| P12 | 0.6 | 796 | +0.0175 .. +0.0295 | 4/5 | S2@25, S2@50 |
+| P12 | 0.9 | 93 | +0.0132 .. +0.0397 | 3/5 | S2@25, S2@50 |
+| P12 | 1.2 | 18 | +0.0046 .. +0.0607 | 2/5 | S0@-, S2@25, S2@50 |
+| P13 | 0 | 3,490 | +0.0144 .. +0.0144 | 1/1 | S2@25 |
+| P13 | 0.3 | 2,896 | +0.0137 .. +0.0176 | 5/5 | S2@25 |
+| P13 | 0.6 | 796 | +0.0117 .. +0.0246 | 5/5 | S2@25 |
+| P13 | 0.9 | 93 | +0.0041 .. +0.0383 | 3/5 | S0@-, S2@100, S2@25 |
+| P13 | 1.2 | 18 | -0.0054 .. +0.0468 | 2/5 | S0@-, S2@100, S2@25 |
+| P14 | 0 | 3,490 | -0.0009 .. -0.0009 | 1/1 | S0@- |
+| P14 | 0.3 | 2,896 | -0.0019 .. +0.0010 | 5/5 | S0@- |
+| P14 | 0.6 | 796 | -0.0046 .. +0.0027 | 5/5 | S0@- |
+| P14 | 0.9 | 93 | -0.0102 .. +0.0114 | 4/5 | S0@-, S2@50 |
+| P14 | 1.2 | 18 | -0.0140 .. +0.0334 | 4/5 | S0@-, S2@50 |
+=== ZIPF_SCAN_EXIT rc=0 01:17:40 ===

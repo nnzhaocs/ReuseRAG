@@ -1,0 +1,36 @@
+
+===== [01:15:59] 等 core 完成（最多 14 分钟） =====
+[2026-11-10T01:22:35+08:00] wrote extension_outputs_20261110_0122.zip (832K) -- 
+
+===== [01:22:35] extension all =====
+
+===== [01:22:59] 阻止 extension all 启动（2.5 h 跑不完），只做 check+collect =====
+  killed 45292
+
+===== [01:23:01] extension check =====
+  rc=0
+| pair | planned | K' | verdict | timing | family | cost (bound) | quality |
+11 pairs scorable, 11 pre-committed; 3 pre-committed claims failed
+all 5 tables describe these results
+K* = 50
+
+===== [01:23:02] extension collect =====
+  rc=0
+[2026-11-10T01:23:02+08:00] not produced: results_seeds results_zipf curve_check_zipf.md query_sweep
+[2026-11-10T01:23:03+08:00] wrote extension_outputs_20261110_0123.zip (832K) -- send this file back
+832K extension_outputs_20261110_0123.zip
+
+===== [01:23:03] submission check =====
+  rc=0
+| P11 | S2 | 50 | replay at K'=25: depth not scorable | pre-committed | excluded by D2 (S4/demand_th
+8 pairs scorable, 8 pre-committed; 1 pre-committed claims failed
+all 6 tables describe these results
+K* = 50
+
+===== [01:23:07] submission collect =====
+  rc=0
+[2026-11-10T01:23:07+08:00] not produced (stage failed or not run): results_llm coverage_llm
+[2026-11-10T01:23:08+08:00] wrote submission_outputs_20261110_0123.zip (4.5M) -- send this file
+4.5M submission_outputs_20261110_0123.zip
+
+===== [01:23:08] FINISH_NOW_DONE 01:23:08 =====

@@ -1,0 +1,17 @@
+
+===== [01:07:33] 14.1 encode（补齐 MiniLM） =====
+  encode rc=0
+25 passed, 2 warning(s), 0 failure(s)
+[2026-11-10T01:08:41+08:00] encode done
+all-MiniLM-L6-v2 bge-base-en-v1.5 bge-m3 bge-small-en-v1.5 e5-base-v2 
+
+===== [01:08:41] 14 core（NQ） =====
+  core rc=0
+tracked files differ from HEAD (run_pair.py would refuse): FREEZE_CHECK.md 
+NQ encodings: all five present
+P5r: enc/Qwen3-Embedding-0.6B encoded and checked
+[2026-11-10T01:09:18+08:00] preflight ok
+[2026-11-10T01:22:34+08:00] not produced: results_seeds results_zipf curve_check_zipf.md query_sweep throughpu
+[2026-11-10T01:22:35+08:00] wrote extension_outputs_20261110_0122.zip (832K) -- send this file back
+
+===== [01:22:35] extension all =====

@@ -1,0 +1,5 @@
+[2026-11-10T02:16:06+08:00] qsweep: P2 P3 P4 P5 P9 P10 P11 P12 P13 P14 (per-pair logs: logs/qsweep_P*.log)
+[2026-11-10T02:16:06+08:00] threads: 10 job(s) x 4 of 224 cores
+scripts/extension_runs.sh: line 76: 59348 Killed                  python scripts/query_sweep.py "pairs/$p" --config configs/msmarco_1m_v3.json --q 50,100,250,500,1000,2000 --seeds 5 "${planarg[@]}" --out-dir query_sweep > "logs/qsweep_$p.log" 2>&1
+scripts/extension_runs.sh: line 76: 59355 Killed                  python scripts/query_sweep.py "pairs/$p" --config configs/msmarco_1m_v3.json --q 50,100,250,500,1000,2000 --seeds 5 "${planarg[@]}" --out-dir query_sweep > "logs/qsweep_$p.log" 2>&1
+[2026-11-10T02:44:09+08:00] qsweep: failed -- see logs/qsweep_P*.log

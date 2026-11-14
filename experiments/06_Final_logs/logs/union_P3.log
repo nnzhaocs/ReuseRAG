@@ -1,0 +1,10 @@
+P3 [uniform]: gap +0.0154  K'=25: S2 S2 G-0.0032 cov0.148 S3 G+0.1163 cov0.139 S4 G-0.0042 cov0.841 S5 G-0.0025 cov0.851  K'=50: S2 S2 G-0.0029 cov0.261 S3 G+0.0746 cov0.240 S4 G-0.0028 cov0.855 S5 G-0.0014 cov0.870  K'=100: S2 S2 G-0.0017 cov0.426 S3 G+0.0480 cov0.386 S4 G-0.0012 cov0.879 S5 G-0.0007 cov0.899
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+     S2: candidate-union cov 0.2612; replay C_serve 0.2612 (at_last_arrival), inline repairs 0.2612; G -0.0029 vs debt -0.0018
+     S3: candidate-union cov 0.2398; replay C_serve 1.0000 (never_reached_target), inline repairs 0.2398; G +0.0746 vs debt +0.0627
+     S4: candidate-union cov 0.8547; replay C_serve 0.8546 (at_last_arrival), inline repairs 0.8547; G -0.0028 vs debt -0.0013
+     S5: candidate-union cov 0.8701; replay C_serve 0.8700 (at_last_arrival), inline repairs 0.8701; G -0.0014 vs debt -0.0006
+P3 [zipf:0.3]: gap +0.0174  K'=25: S2 S2 G-0.0040 cov0.148 S3 G+0.1212 cov0.139 S4 G-0.0042 cov0.841 S5 G-0.0029 cov0.851  K'=50: S2 S2 G-0.0036 cov0.261 S3 G+0.0785 cov0.240 S4 G-0.0028 cov0.855 S5 G-0.0017 cov0.870  K'=100: S2 S2 G-0.0016 cov0.426 S3 G+0.0507 cov0.386 S4 G-0.0012 cov0.879 S5 G-0.0007 cov0.899
+P3 [zipf:0.6]: gap +0.0214  K'=25: S2 S2 G-0.0047 cov0.148 S3 G+0.1270 cov0.139 S4 G-0.0037 cov0.841 S5 G-0.0029 cov0.851  K'=50: S2 S2 G-0.0041 cov0.261 S3 G+0.0839 cov0.240 S4 G-0.0024 cov0.855 S5 G-0.0017 cov0.870  K'=100: S2 S2 G-0.0014 cov0.426 S3 G+0.0553 cov0.386 S4 G-0.0011 cov0.879 S5 G-0.0007 cov0.899
+P3 [zipf:0.9]: gap +0.0255  K'=25: S2 S2 G-0.0042 cov0.148 S3 G+0.1288 cov0.139 S4 G-0.0024 cov0.841 S5 G-0.0021 cov0.851  K'=50: S2 S2 G-0.0034 cov0.261 S3 G+0.0893 cov0.240 S4 G-0.0016 cov0.855 S5 G-0.0013 cov0.870  K'=100: S2 S2 G-0.0009 cov0.426 S3 G+0.0631 cov0.386 S4 G-0.0007 cov0.879 S5 G-0.0005 cov0.899
+P3 [zipf:1.2]: gap +0.0227  K'=25: S2 S2 G-0.0024 cov0.148 S3 G+0.1159 cov0.139 S4 G-0.0010 cov0.841 S5 G-0.0009 cov0.851  K'=50: S2 S2 G-0.0017 cov0.261 S3 G+0.0871 cov0.240 S4 G-0.0007 cov0.855 S5 G-0.0006 cov0.870  K'=100: S2 S2 G-0.0003 cov0.426 S3 G+0.0688 cov0.386 S4 G-0.0003 cov0.879 S5 G-0.0002 cov0.899

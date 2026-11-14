@@ -1,0 +1,104 @@
+DEVELOPMENT RUN: config overrides {'seed': 3} (not for paper numbers)
+[P12_seed3] N=1000000 Q=7077 eval=3490 traffic_pool=3490 window=50 kappa=0.307 cka=0.732 (286.4s)
+[P12_seed3] secondary (97 deeply-judged queries, ndcg@10): M_T=0.6703 G={500: -0.0003, 1000: 0.0005, 2000: -0.0, 5000: -0.0}
+[P12_seed3] M_S=0.8489 M_T=0.8713 M_A=0.3602 rho={500: 0.06773638968481366, 1000: 0.04481375358166173, 2000: 0.028796561604584436, 5000: 0.016045845272206205}
+[P12_seed3] ratio=4 stream_len=800: ~41 rounds to serve 99% of the workload weight over 3490 evaluation queries (~41 rounds for that share of the query COUNT); max_rounds=800, background completes at round 100
+[P12_seed3] ratio=4 S0/rand            debt=0.0224 served=0.8489 C_serve/N=1.000 completed=True repairs/q=0.0
+[P12_seed3] ratio=4 S1/rand            debt=0.5110 served=0.3602 C_serve/N=1.000 completed=True repairs/q=0.0
+[P12_seed3] ratio=4 S2/demand          debt=-0.0012 served=0.8724 C_serve/N=0.254 completed=False repairs/q=36.4
+[P12_seed3] ratio=4 S2/demand_then_rand debt=-0.0012 served=0.8724 C_serve/N=0.254 completed=True repairs/q=36.4
+[P12_seed3] ratio=4 S2/rand            debt=-0.0008 served=0.8721 C_serve/N=0.963 completed=True repairs/q=33.4
+[P12_seed3] ratio=4 S2/signal          debt=-0.0019 served=0.8732 C_serve/N=0.940 completed=True repairs/q=30.0
+[P12_seed3] ratio=4 S2/size            debt=-0.0015 served=0.8727 C_serve/N=0.964 completed=True repairs/q=33.5
+[P12_seed3] ratio=4 S3/demand          debt=0.3328 served=0.5385 C_serve/N=1.000 completed=False repairs/q=21.6
+[P12_seed3] ratio=4 S3/demand_then_rand debt=0.3328 served=0.5385 C_serve/N=1.000 completed=True repairs/q=21.6
+[P12_seed3] ratio=4 S3/rand            debt=0.3046 served=0.5667 C_serve/N=1.000 completed=True repairs/q=20.1
+[P12_seed3] ratio=4 S3/signal          debt=0.2423 served=0.6290 C_serve/N=1.000 completed=True repairs/q=18.9
+[P12_seed3] ratio=4 S3/size            debt=0.2880 served=0.5833 C_serve/N=1.000 completed=True repairs/q=20.6
+[P12_seed3] ratio=4 S4/demand          debt=-0.0011 served=0.8724 C_serve/N=0.854 completed=False repairs/q=124.0
+[P12_seed3] ratio=4 S4/demand_then_rand debt=-0.0011 served=0.8724 C_serve/N=0.854 completed=True repairs/q=124.0
+[P12_seed3] ratio=4 S4/rand            debt=-0.0014 served=0.8727 C_serve/N=1.000 completed=True repairs/q=112.2
+[P12_seed3] ratio=4 S4/signal          debt=-0.0014 served=0.8727 C_serve/N=1.000 completed=True repairs/q=111.5
+[P12_seed3] ratio=4 S4/size            debt=-0.0011 served=0.8724 C_serve/N=1.000 completed=True repairs/q=113.0
+[P12_seed3] ratio=4 S5/demand          debt=-0.0011 served=0.8724 C_serve/N=0.868 completed=False repairs/q=126.0
+[P12_seed3] ratio=4 S5/demand_then_rand debt=-0.0011 served=0.8724 C_serve/N=0.868 completed=True repairs/q=126.0
+[P12_seed3] ratio=4 S5/rand            debt=-0.0014 served=0.8727 C_serve/N=1.000 completed=True repairs/q=114.0
+[P12_seed3] ratio=4 S5/signal          debt=-0.0014 served=0.8727 C_serve/N=1.000 completed=True repairs/q=113.5
+[P12_seed3] ratio=4 S5/size            debt=-0.0011 served=0.8724 C_serve/N=1.000 completed=True repairs/q=114.9
+[P12_seed3] ratio=4 winner=S2/demand_then_rand band=12 tied=1 non_completing=['S2/demand', 'S3/demand', 'S4/demand', 'S5/demand']
+[P12_seed3] ratio=16 stream_len=3200: ~11 rounds to serve 99% of the workload weight over 3490 evaluation queries (~11 rounds for that share of the query COUNT); max_rounds=800, background completes at round 100
+[P12_seed3] ratio=16 S0/rand            debt=0.0224 served=0.8489 C_serve/N=1.000 completed=True repairs/q=0.0
+[P12_seed3] ratio=16 S1/rand            debt=0.5110 served=0.3602 C_serve/N=1.000 completed=True repairs/q=0.0
+[P12_seed3] ratio=16 S2/demand          debt=-0.0012 served=0.8724 C_serve/N=0.254 completed=False repairs/q=36.4
+[P12_seed3] ratio=16 S2/demand_then_rand debt=-0.0012 served=0.8724 C_serve/N=0.254 completed=True repairs/q=36.4
+[P12_seed3] ratio=16 S2/rand            debt=-0.0009 served=0.8722 C_serve/N=0.430 completed=True repairs/q=35.8
+[P12_seed3] ratio=16 S2/signal          debt=-0.0017 served=0.8730 C_serve/N=0.415 completed=True repairs/q=33.6
+[P12_seed3] ratio=16 S2/size            debt=-0.0015 served=0.8727 C_serve/N=0.430 completed=True repairs/q=35.8
+[P12_seed3] ratio=16 S3/demand          debt=0.3328 served=0.5385 C_serve/N=1.000 completed=False repairs/q=21.6
+[P12_seed3] ratio=16 S3/demand_then_rand debt=0.3328 served=0.5385 C_serve/N=1.000 completed=True repairs/q=21.6
+[P12_seed3] ratio=16 S3/rand            debt=0.3266 served=0.5447 C_serve/N=1.000 completed=True repairs/q=21.3
+[P12_seed3] ratio=16 S3/signal          debt=0.2968 served=0.5745 C_serve/N=1.000 completed=True repairs/q=20.6
+[P12_seed3] ratio=16 S3/size            debt=0.3204 served=0.5509 C_serve/N=1.000 completed=True repairs/q=21.4
+[P12_seed3] ratio=16 S4/demand          debt=-0.0011 served=0.8724 C_serve/N=0.854 completed=False repairs/q=124.0
+[P12_seed3] ratio=16 S4/demand_then_rand debt=-0.0011 served=0.8724 C_serve/N=0.854 completed=True repairs/q=124.0
+[P12_seed3] ratio=16 S4/rand            debt=-0.0011 served=0.8724 C_serve/N=1.000 completed=True repairs/q=121.2
+[P12_seed3] ratio=16 S4/signal          debt=-0.0014 served=0.8727 C_serve/N=1.000 completed=True repairs/q=120.7
+[P12_seed3] ratio=16 S4/size            debt=-0.0011 served=0.8724 C_serve/N=1.000 completed=True repairs/q=121.6
+[P12_seed3] ratio=16 S5/demand          debt=-0.0011 served=0.8724 C_serve/N=0.868 completed=False repairs/q=126.0
+[P12_seed3] ratio=16 S5/demand_then_rand debt=-0.0011 served=0.8724 C_serve/N=0.868 completed=True repairs/q=126.0
+[P12_seed3] ratio=16 S5/rand            debt=-0.0011 served=0.8724 C_serve/N=1.000 completed=True repairs/q=123.1
+[P12_seed3] ratio=16 S5/signal          debt=-0.0014 served=0.8727 C_serve/N=1.000 completed=True repairs/q=122.7
+[P12_seed3] ratio=16 S5/size            debt=-0.0011 served=0.8724 C_serve/N=1.000 completed=True repairs/q=123.6
+[P12_seed3] ratio=16 winner=S2/demand_then_rand band=12 tied=1 non_completing=['S2/demand', 'S3/demand', 'S4/demand', 'S5/demand']
+[P12_seed3] ratio=64 stream_len=12800: ~3 rounds to serve 99% of the workload weight over 3490 evaluation queries (~3 rounds for that share of the query COUNT); max_rounds=800, background completes at round 100
+[P12_seed3] ratio=64 S0/rand            debt=0.0224 served=0.8489 C_serve/N=1.000 completed=True repairs/q=0.0
+[P12_seed3] ratio=64 S1/rand            debt=0.5110 served=0.3602 C_serve/N=1.000 completed=True repairs/q=0.0
+[P12_seed3] ratio=64 S2/demand          debt=-0.0012 served=0.8724 C_serve/N=0.254 completed=False repairs/q=36.4
+[P12_seed3] ratio=64 S2/demand_then_rand debt=-0.0012 served=0.8724 C_serve/N=0.254 completed=True repairs/q=36.4
+[P12_seed3] ratio=64 S2/rand            debt=-0.0012 served=0.8724 C_serve/N=0.294 completed=True repairs/q=36.3
+[P12_seed3] ratio=64 S2/signal          debt=-0.0015 served=0.8727 C_serve/N=0.289 completed=True repairs/q=35.7
+[P12_seed3] ratio=64 S2/size            debt=-0.0012 served=0.8724 C_serve/N=0.293 completed=True repairs/q=36.3
+[P12_seed3] ratio=64 S3/demand          debt=0.3328 served=0.5385 C_serve/N=1.000 completed=False repairs/q=21.6
+[P12_seed3] ratio=64 S3/demand_then_rand debt=0.3328 served=0.5385 C_serve/N=1.000 completed=True repairs/q=21.6
+[P12_seed3] ratio=64 S3/rand            debt=0.3322 served=0.5391 C_serve/N=1.000 completed=True repairs/q=21.5
+[P12_seed3] ratio=64 S3/signal          debt=0.3283 served=0.5429 C_serve/N=1.000 completed=True repairs/q=21.4
+[P12_seed3] ratio=64 S3/size            debt=0.3322 served=0.5391 C_serve/N=1.000 completed=True repairs/q=21.6
+[P12_seed3] ratio=64 S4/demand          debt=-0.0011 served=0.8724 C_serve/N=0.854 completed=False repairs/q=124.0
+[P12_seed3] ratio=64 S4/demand_then_rand debt=-0.0011 served=0.8724 C_serve/N=0.854 completed=True repairs/q=124.0
+[P12_seed3] ratio=64 S4/rand            debt=-0.0011 served=0.8724 C_serve/N=0.892 completed=True repairs/q=123.6
+[P12_seed3] ratio=64 S4/signal          debt=-0.0014 served=0.8727 C_serve/N=0.891 completed=True repairs/q=123.5
+[P12_seed3] ratio=64 S4/size            debt=-0.0011 served=0.8724 C_serve/N=0.892 completed=True repairs/q=123.7
+[P12_seed3] ratio=64 S5/demand          debt=-0.0011 served=0.8724 C_serve/N=0.868 completed=False repairs/q=126.0
+[P12_seed3] ratio=64 S5/demand_then_rand debt=-0.0011 served=0.8724 C_serve/N=0.868 completed=True repairs/q=126.0
+[P12_seed3] ratio=64 S5/rand            debt=-0.0011 served=0.8724 C_serve/N=0.905 completed=True repairs/q=125.7
+[P12_seed3] ratio=64 S5/signal          debt=-0.0014 served=0.8727 C_serve/N=0.905 completed=True repairs/q=125.5
+[P12_seed3] ratio=64 S5/size            debt=-0.0011 served=0.8724 C_serve/N=0.906 completed=True repairs/q=125.7
+[P12_seed3] ratio=64 winner=S2/demand_then_rand band=12 tied=3 non_completing=['S2/demand', 'S3/demand', 'S4/demand', 'S5/demand']
+[P12_seed3] ratio=256 stream_len=51200: ~1 rounds to serve 99% of the workload weight over 3490 evaluation queries (~1 rounds for that share of the query COUNT); max_rounds=800, background completes at round 100
+[P12_seed3] ratio=256 S0/rand            debt=0.0224 served=0.8489 C_serve/N=1.000 completed=True repairs/q=0.0
+[P12_seed3] ratio=256 S1/rand            debt=0.5110 served=0.3602 C_serve/N=1.000 completed=True repairs/q=0.0
+[P12_seed3] ratio=256 S2/demand          debt=-0.0012 served=0.8724 C_serve/N=0.254 completed=False repairs/q=36.4
+[P12_seed3] ratio=256 S2/demand_then_rand debt=-0.0012 served=0.8724 C_serve/N=0.254 completed=True repairs/q=36.4
+[P12_seed3] ratio=256 S2/rand            debt=-0.0012 served=0.8724 C_serve/N=0.264 completed=True repairs/q=36.4
+[P12_seed3] ratio=256 S2/signal          debt=-0.0012 served=0.8724 C_serve/N=0.264 completed=True repairs/q=36.4
+[P12_seed3] ratio=256 S2/size            debt=-0.0012 served=0.8724 C_serve/N=0.264 completed=True repairs/q=36.4
+[P12_seed3] ratio=256 S3/demand          debt=0.3328 served=0.5385 C_serve/N=1.000 completed=False repairs/q=21.6
+[P12_seed3] ratio=256 S3/demand_then_rand debt=0.3328 served=0.5385 C_serve/N=1.000 completed=True repairs/q=21.6
+[P12_seed3] ratio=256 S3/rand            debt=0.3328 served=0.5385 C_serve/N=1.000 completed=True repairs/q=21.6
+[P12_seed3] ratio=256 S3/signal          debt=0.3328 served=0.5385 C_serve/N=1.000 completed=True repairs/q=21.6
+[P12_seed3] ratio=256 S3/size            debt=0.3328 served=0.5385 C_serve/N=1.000 completed=True repairs/q=21.6
+[P12_seed3] ratio=256 S4/demand          debt=-0.0011 served=0.8724 C_serve/N=0.854 completed=False repairs/q=124.0
+[P12_seed3] ratio=256 S4/demand_then_rand debt=-0.0011 served=0.8724 C_serve/N=0.854 completed=True repairs/q=124.0
+[P12_seed3] ratio=256 S4/rand            debt=-0.0011 served=0.8724 C_serve/N=0.864 completed=True repairs/q=124.0
+[P12_seed3] ratio=256 S4/signal          debt=-0.0011 served=0.8724 C_serve/N=0.864 completed=True repairs/q=124.0
+[P12_seed3] ratio=256 S4/size            debt=-0.0011 served=0.8724 C_serve/N=0.864 completed=True repairs/q=124.0
+[P12_seed3] ratio=256 S5/demand          debt=-0.0011 served=0.8724 C_serve/N=0.868 completed=False repairs/q=126.0
+[P12_seed3] ratio=256 S5/demand_then_rand debt=-0.0011 served=0.8724 C_serve/N=0.868 completed=True repairs/q=126.0
+[P12_seed3] ratio=256 S5/rand            debt=-0.0011 served=0.8724 C_serve/N=0.878 completed=True repairs/q=126.0
+[P12_seed3] ratio=256 S5/signal          debt=-0.0011 served=0.8724 C_serve/N=0.878 completed=True repairs/q=126.0
+[P12_seed3] ratio=256 S5/size            debt=-0.0011 served=0.8724 C_serve/N=0.878 completed=True repairs/q=126.0
+[P12_seed3] ratio=256 winner=S2/demand_then_rand band=12 tied=4 non_completing=['S2/demand', 'S3/demand', 'S4/demand', 'S5/demand']
+[P12_seed3] winner=S2/demand_then_rand band=12  (531.5s)
+   I2 rho non-increasing: ok
+   I4'/I5'/I7/I8/I9 (replay v3): ok
+   I6 evaluation queries are measured at first service only, never re-scored after their own repair: ok (enforced in run_arrivals)

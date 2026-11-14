@@ -1,0 +1,37 @@
+
+===== [23:56:11] 14.1 encode（缓存全修好） =====
+  encode rc=1
+Check your internet connection or see how to run the library in offline mode at 'https://huggingface
+[2026-11-10T00:07:03+08:00] encode: all-MiniLM-L6-v2 document encoding failed
+bge-base-en-v1.5 bge-m3 bge-small-en-v1.5 e5-base-v2 
+
+===== [00:07:03] 14.4 encode_llm =====
+  encode_llm rc=0
+25 passed, 2 warning(s), 0 failure(s)
+[2026-11-10T00:50:39+08:00] encode_llm done
+
+===== [00:50:39] 14.6 throughput =====
+  throughput rc=0
+[2026-11-10T00:53:19+08:00] throughput: Qwen3-8B skipped (see log)
+[2026-11-10T00:53:19+08:00] throughput done
+
+===== [00:53:19] 14 core（NQ：bm25→pairs→measure→plan→replay→check） =====
+  core rc=1
+P5r: enc/Qwen3-Embedding-0.6B not encoded and checked yet (encode_llm does it on the GPU)
+[2026-11-09T22:30:08+08:00] preflight ok
+[2026-11-09T22:30:22+08:00] encode failed: logs/nq_encode.log
+tracked files differ from HEAD (run_pair.py would refuse): FREEZE_CHECK.md 
+
+===== [00:53:19] extension 其余（all） =====
+  all rc=1
+tracked files differ from HEAD (run_pair.py would refuse): FREEZE_CHECK.md curve_check.md 
+tracked files differ from HEAD (run_pair.py would refuse): FREEZE_CHECK.md 
+
+===== [00:53:19] extension collect =====
+  collect rc=0
+[2026-11-10T00:53:19+08:00] not produced: planner_nq planner_check_nq.md results_nq results_nq_static sweeps_n
+[2026-11-10T00:53:19+08:00] wrote extension_outputs_20261110_0053.zip (64K) -- send this file back
+52K extension_outputs_20261109_2322.zip
+63K extension_outputs_20261110_0053.zip
+
+===== [00:53:19] CHAIN_GPU3_DONE 00:53:19 =====

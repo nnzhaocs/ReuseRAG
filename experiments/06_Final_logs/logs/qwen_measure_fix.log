@@ -1,0 +1,29 @@
+
+===== [05:04:26] check（带 Q8/Q06） =====
+[2026-11-10T05:04:26+08:00] check
+80 tests passed
+contract: Qwen3 queries take the instruction from the model prompt only
+the pairs read different query files than the ones this script re-encodes:
+  pairs/P5r/q_tgt.npy -> /root/autodl-tmp/enc/Qwen3-Embedding-8B/q.npy, but this script rewrites /root/reusemap_v3n/enc_qwen/Qwen3-Embedding-8B/q.npy
+set Q8=/the/dir/the/pairs/use (and Q06 likewise), then run check again
+
+===== [05:05:45] measure（CPU 1.5-2h） =====
+  rc=1
+[2026-11-10T05:05:45+08:00] verify
+  /root/reusemap_v3n/enc_qwen/Qwen3-Embedding-8B: contract current; model input 'Instruct: Given a web search 
+  /root/autodl-tmp/enc/Qwen3-Embedding-0.6B: contract current; model input 'Instruct: Given a web search query
+[2026-11-10T05:05:45+08:00] verify ok: every Qwen3 query encoding in use carries the instruction once
+the pairs read different query files than the ones this script re-encodes:
+  pairs/P5r/q_tgt.npy -> /root/autodl-tmp/enc/Qwen3-Embedding-8B/q.npy, but this script rewrites /root/reusema
+set Q8=/the/dir/the/pairs/use (and Q06 likewise), then run check again
+
+===== [05:05:45] consistent =====
+  sweeps_qwen/sweep_P5p.json: reads the fixed inputs
+  adapters/adapters_P5p.json: reads the fixed inputs
+  sweeps_qwen/sweep_P5q.json: reads the fixed inputs
+
+===== [05:05:45] collect =====
+[2026-11-10T05:05:45+08:00] wrote qwen_rerun_outputs_20261110_0505.zip (328K) -- send this file
+326K qwen_rerun_outputs_20261110_0505.zip
+
+===== [05:05:45] QWEN_MEASURE_DONE 05:05:45 =====

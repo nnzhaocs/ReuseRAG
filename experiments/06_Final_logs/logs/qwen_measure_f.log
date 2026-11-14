@@ -1,0 +1,4 @@
+[2026-11-10T03:36:18+08:00] verify
+Traceback (most recent call last):
+  File "<stdin>", line 9, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: 'enc/Qwen3-Embedding-8B/q.npy.json'

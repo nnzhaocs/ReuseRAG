@@ -1,0 +1,23 @@
+# PREFLIGHT — check before running any real pair
+
+- [ ] `git status` clean; the commit you run from is the one recorded in each result's `provenance` (run_pair.py refuses a dirty tree).
+- [ ] Check `results/RUNS.tsv` — a registered run is not repeated (run_pair.py skips it unless --force).
+- [ ] `configs/msmarco_1m_v3.json` / `csn_py_v3.json` committed with the PRE-REGISTERED `delta`, `eps`, `eps_sensitivity`, `tau` bands, `window_frac`, primary metric, `eval_frac`, `traffic_ratio` grid, `objective` and `primary_setting` — before the first real run. Changing them after seeing results makes RQ2 post-hoc.
+- [ ] `primary_setting` comes from the measured ORCAS arrival/recurrence rate, **not** from which `traffic_ratio` gives a non-zero saving (`predict.py` prints the saving per ratio; reading that first and then choosing is the error).
+- [ ] `scripts/coverage.py` run for every candidate source, the ceiling (`1 − coverage`) recorded, and the decision on whether `coverage` enters the map written in `DECISIONS.md` — before the winner rule is built around either answer (RUNBOOK Phase 5.5).
+- [ ] `scripts/predict.py` output committed for every pair **before** its replay runs, and checked afterwards (RUNBOOK Phase 6.5). Outside the stated band is a bug, not a finding.
+- [ ] `scripts/encode_check.py` passes for every encoding (row counts against the text files, every judged query id has a vector, no collapsed space, sidecar present) and every `--kind doc` encoding shows `self_retrieval ok`.
+- [ ] Results have `leaky: false` (eval_frac > 0); under v3 every evaluation query is measured at its FIRST service, so none is ever scored after its own repair.
+- [ ] No `ARRIVAL SHORTFALL` or `NO WINNER` warning at the primary setting; `arrivals_identical` is true in every setting.
+- [ ] `results/RUNS.tsv` status is `ok`, never `ok_dirty` (a run from uncommitted code).
+- [ ] Every model used has a contract in `configs/models.json`, not `blocked`; ideally `verified` by `golden_check.py`. Every encoding sidecar shows padding check `ok` and no transformers shim.
+- [ ] `model_quality.py --floor MiniLM` shows no model below MiniLM-L6; no run prints SOURCE QUERY ENCODING SUSPECT.
+- [ ] Subsample built with `build_subsample.py`; its last line says judged coverage **100%**.
+- [ ] Primary = Recall@10 on MS MARCO dev; secondary = nDCG@10 on TREC-DL (`secondary_eval_qids`). For TREC-DL passage recall, use thr=2 if you report it.
+- [ ] Control is **P0 identity** (`--identity`), not fp32→int8. P6 (fp32→int8) is sanity-only and excluded from LOPO.
+- [ ] `python tests/test_invariants.py` passes; every `run_pair.py` exits 0 (exit 1 = invariant failed = bug).
+- [ ] An unexpected value on a real pair (e.g. a cross-family pair with low ρ) is a **finding**, not a bug. Only invariant failures are bugs.
+- [ ] Code pairs (P7/P8) chosen from the `model_quality.py` pre-check (RUNBOOK §3a) and committed in DECISIONS.md before full encoding; the target is the better model on that corpus.
+- [ ] NQ calibration (P5′) replicates the EmbedFlow registry record's contract exactly (RUNBOOK §3b); otherwise it is labelled a comparison, not a calibration.
+- [ ] Adapter families and n match the Drift-Adapter paper (see README status table) before S1 is labelled as that baseline.
+- [ ] Every number going into the paper has a row in `UNVERIFIED.md` marked verified, or comes from a results JSON produced by this pipeline.

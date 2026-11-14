@@ -1,0 +1,25 @@
+[2026-11-09T23:22:40+08:00] checks
+| pair | planned | K' | verdict | timing | family | cost (bound) | quality |
+|---|---|---|---|---|---|---|---|
+| P0 | S0 | - | no replay |  |  |  |  |
+| P10 | S2 | 25 | PASS | pre-committed | match | 0.148525 vs cov 0.148564 | debt +0.0036 vs G -0.0002 |
+| P11 | S2 | 50 | replay at K'=25: depth not scorable | pre-committed | excluded by D2 (S4/demand_then_rand) |  |  |
+| P12 | S2 | 25 | PASS | pre-committed | match | 0.145142 vs cov 0.145169 | debt +0.0015 vs G +0.0014 |
+| P13 | S2 | 25 | PASS | pre-committed | match | 0.148036 vs cov 0.148061 | debt -0.0004 vs G -0.0018 |
+| P14 | S0 | - | no replay |  |  |  |  |
+| P2 | S2 | 25 | PASS | pre-committed | excluded by D2 (S4/demand_then_rand) |  | debt +0.0102 vs G +0.0094 |
+| P3 | S2 | 25 | PASS | pre-committed | match | 0.148036 vs cov 0.148061 | debt -0.0014 vs G -0.0032 |
+| P4 | S2 | 25 | PASS | pre-committed | match | 0.145142 vs cov 0.145169 | debt -0.0001 vs G -0.0011 |
+| P5 | S2 | 25 | FAIL | pre-committed | match | 0.145142 vs cov 0.145169 | debt -0.0038 vs G -0.0088 x |
+| P5c | S2 | 50 | no replay |  |  |  |  |
+| P7 | S2 | 100 | no replay |  |  |  |  |
+| P8 | S0 | - | no replay |  |  |  |  |
+| P9 | S2 | 25 | PASS | pre-committed | excluded by D2 (S4/demand_then_rand) | 0.148525 vs cov 0.148564 | debt +0.0063 vs G +0.0050 |
+
+8 pairs scorable, 8 pre-committed; 1 pre-committed claims failed
+[2026-11-09T23:22:40+08:00] planner check reported failures: read planner_check.md (report them, do not re-plan)
+
+all 6 tables describe these results
+K* = 50
+935 realised points; worst relative error 0.81%; 0 points above the independent bound (0 more at full coverage, where the bound is within 1e-9 of 1); 0 series with an ambiguous start round (scored at their worst case); 0 settings skipped for having no S2/demand trajectory
+[2026-11-09T23:22:43+08:00] checks done

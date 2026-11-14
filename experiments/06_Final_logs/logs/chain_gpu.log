@@ -1,0 +1,54 @@
+
+===== [21:03:20] 等权重下载 =====
+权重就绪
+/dev/md0         50G   37G   14G  74% /root/autodl-tmp
+
+===== [22:07:21] 14.1 encode（NQ 四编码器，GPU） =====
+  encode rc=1
+TypeError: Pooling.__init__() missing 1 required positional argument: 'embedding_dimension'
+[2026-11-09T22:07:31+08:00] encode: e5-base-v2 document encoding failed
+
+
+===== [22:07:31] 14.4 encode_llm（Qwen3-0.6B，GPU） =====
+  encode_llm rc=1
+TypeError: Pooling.__init__() missing 1 required positional argument: 'embedding_dimension'
+[2026-11-09T22:07:43+08:00] encode_llm: document encoding failed
+
+===== [22:07:43] 14.6 throughput（GPU） =====
+  throughput rc=1
+           ^^^^^^^^^^^^^^^^^^^^^
+TypeError: Pooling.__init__() missing 1 required positional argument: 'embedding_dimension'
+
+===== [22:07:52] 14 core（NQ 计划→回放→check，CPU） =====
+  core rc=1
+NQ encodings missing (the encode stage makes them on the GPU): e5-base-v2 bge-m3 bge-small-en-v1.5 bge-base-en
+P5r: enc/Qwen3-Embedding-0.6B not encoded and checked yet (encode_llm does it on the GPU)
+[2026-11-09T22:08:31+08:00] preflight ok
+[2026-11-09T22:08:41+08:00] encode failed: logs/nq_encode.log
+
+===== [22:08:41] CHAIN_GPU_DONE =====
+
+===== [22:26:10] 14.1 encode 重跑（e5 缓存修好后） =====
+  encode rc=1
+TypeError: Pooling.__init__() missing 1 required positional argument: 'embedding_dimension'
+[2026-11-09T22:29:08+08:00] encode: bge-m3 document encoding failed
+e5-base-v2 
+
+===== [22:29:08] 14.4 encode_llm（Qwen3-0.6B，GPU） =====
+  encode_llm rc=1
+TypeError: Pooling.__init__() missing 1 required positional argument: 'embedding_dimension'
+[2026-11-09T22:29:17+08:00] encode_llm: document encoding failed
+
+===== [22:29:17] 14.6 throughput（GPU） =====
+  throughput rc=1
+           ^^^^^^^^^^^^^^^^^^^^^
+TypeError: Pooling.__init__() missing 1 required positional argument: 'embedding_dimension'
+
+===== [22:29:26] 14 core（NQ 计划→回放→check，CPU） =====
+  core rc=1
+NQ encodings missing (the encode stage makes them on the GPU): bge-m3 bge-small-en-v1.5 bge-base-en-v1.5 all-M
+P5r: enc/Qwen3-Embedding-0.6B not encoded and checked yet (encode_llm does it on the GPU)
+[2026-11-09T22:30:08+08:00] preflight ok
+[2026-11-09T22:30:22+08:00] encode failed: logs/nq_encode.log
+
+===== [22:30:22] CHAIN_GPU2_DONE =====

@@ -1,0 +1,29 @@
+[2026-11-12T05:07:44+08:00] ===== lane 2: subset
+[2026-11-12T05:07:44+08:00] threads: 1 job(s) x 12 of 12 cores
+full 8,841,823 rows; 1M rows found in order: 1,000,000
+s4m: corpus.tsv 4,000,000 rows, qrels 28,083
+s4m all-MiniLM-L6-v2: 4,000,000 x 384 written
+s4m bge-small-en-v1.5: 4,000,000 x 384 written
+s4m bge-base-en-v1.5: 4,000,000 x 768 written
+assembled pairs_s4m/P2f
+assembled pairs_s4m/P3f
+assembled pairs_s4m/P9f
+[2026-11-12T05:09:25+08:00] ===== lane 2: diag
+[2026-11-12T05:09:25+08:00] threads: 1 job(s) x 12 of 12 cores
+
+== P2
+     1M N=1,000,000  dev gap +0.0471  TREC nDCG gap +0.0684  condensed +0.0636  judged@10 S 0.968 T 0.979
+    s4m N=4,000,000  dev gap +0.0657 (change +0.0186, 95% CI [+0.0052, +0.0318])  TREC nDCG gap +0.0711  condensed +0.0636  judged@10 S 0.921 T 0.954
+   8.8M N=8,841,823  dev gap +0.0644 (change +0.0174, 95% CI [+0.0015, +0.0328])  TREC nDCG gap +0.0739  condensed +0.0636  judged@10 S 0.885 T 0.930
+
+== P3
+     1M N=1,000,000  dev gap +0.0154  TREC nDCG gap +0.0131  condensed +0.0094  judged@10 S 0.968 T 0.979
+    s4m N=4,000,000  dev gap +0.0135 (change -0.0019, 95% CI [-0.0144, +0.0107])  TREC nDCG gap +0.0130  condensed +0.0094  judged@10 S 0.935 T 0.954
+   8.8M N=8,841,823  dev gap +0.0096 (change -0.0057, 95% CI [-0.0190, +0.0080])  TREC nDCG gap +0.0143  condensed +0.0094  judged@10 S 0.905 T 0.930
+
+== P9
+     1M N=1,000,000  dev gap +0.0317  TREC nDCG gap +0.0553  condensed +0.0542  judged@10 S 0.968 T 0.968
+    s4m N=4,000,000  dev gap +0.0522 (change +0.0205, 95% CI [+0.0064, +0.0341])  TREC nDCG gap +0.0581  condensed +0.0542  judged@10 S 0.921 T 0.935
+   8.8M N=8,841,823  dev gap +0.0548 (change +0.0231, 95% CI [+0.0077, +0.0382])  TREC nDCG gap +0.0596  condensed +0.0542  judged@10 S 0.885 T 0.905
+[2026-11-12T05:41:16+08:00] ===== lane 2: sweep2
+[2026-11-12T05:41:16+08:00] threads: 1 job(s) x 12 of 12 cores

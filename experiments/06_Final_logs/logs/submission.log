@@ -1,0 +1,67 @@
+[2026-11-09T15:16:35+08:00] preflight
+76 tests passed
+runbook ok (82 commands, 27 scripts, 76 tests)
+d3 config: registered config with window K'=25
+[2026-11-09T15:17:10+08:00] preflight ok
+[2026-11-09T15:17:10+08:00] p0 (serial, before the plan): logs/p0.log
+[2026-11-09T15:26:47+08:00] 13.2a: plan, then commit it BEFORE any K'=25 replay
+plan input: results/P0.json at window 50 
+11 pairs: P10 [10, 25, 50, 100, 200, 500], P11 [10, 25, 50, 100, 200, 500], P12 [10, 25, 50, 100, 200, 500], P13 [10, 25, 50, 100, 200, 500], P14 [10, 25, 50, 100, 200, 500], P2 [10, 25, 50, 100, 200, 500], P3 [10, 25, 50, 100, 200, 500], P4 [10, 25, 50, 100, 200, 500], P5 [10, 25, 50, 100, 200, 500], P7 [25, 50, 100, 200, 500, 1000], P9 [10, 25, 50, 100, 200, 500]
+pair        gap  plan    Kp    cost  replay                 replay cost  verdict
+P0     +0.00000    S0     -       -  S0/rand                     0.0300  match
+P10    +0.02514    S2    25  0.1486  S2/demand_then_rand         0.2642  match
+P11    +0.04616    S2    50  0.2643  S4/demand_then_rand         0.8568  known miss
+P12    +0.02101    S2    25  0.1452  S2/demand_then_rand         0.2540  match
+P13    +0.01445    S2    25  0.1481  S2/demand_then_rand         0.2612  match
+P14    -0.00091    S0     -       -  S0/rand                     0.0300  match
+P2     +0.04706    S2    25  0.1486  S2/demand_then_rand         0.2642  match
+P3     +0.01535    S2    25  0.1481  S2/demand_then_rand         0.2612  match
+P4     +0.02192    S2    25  0.1452  S2/demand_then_rand         0.2540  match
+P5     +0.00657    S2    25  0.1452  S2/demand_then_rand         0.2540  match
+P5c    +0.17817    S2    50       -  -                              nan  no replay
+P7     +0.03072    S2   100       -  S2/rand                     1.0000  match (unpriced)
+P8     +0.00082    S0     -       -  S0/rand                     1.0000  match
+P9     +0.03171    S2    25  0.1486  S2/demand_then_rand         0.2642  match
+
+13 pairs with a replay to score against: 1 known miss, 11 match, 1 match (unpriced), 1 no replay
+
+  P11: replay picked S4/demand_then_rand, which D2 excludes by rule: its cost (0.8568 of N) is not bounded by cov(K') and the quality it buys sits at or inside the band. Report it, do not fit to it
+
+  P5c: measure-only pair
+
+  P7: family matches (S2) but D3 produced no cost, so the replay's 1.0000 of N is unverified against the planner. Count these separately from priced matches
+
+The replays were run and inspected before this script existed, so agreement is a CONSISTENCY result, not a pre-registered prediction. Quote it as 'the planner's decisions reproduce the replayed winner on 11 of 13 pairs', with the exceptions named.
+
+wrote planner/plan.csv
+plan.csv: 8 pairs at K'=25, P11 at 50, P0/P8/P14 rebuild, all window plans priced -- as expected
+[2026-11-09T15:26:48+08:00] plan.csv already committed and unchanged
+2026-11-09T15:16:35+08:00
+[2026-11-09T16:07:34+08:00] 3 stage(s) failed: read logs/*.log; running check/collect on what finished
+[2026-11-09T16:07:34+08:00] checks
+| pair | planned | K' | verdict | timing | family | cost (bound) | quality |
+|---|---|---|---|---|---|---|---|
+| P0 | S0 | - | no replay |  |  |  |  |
+| P10 | S2 | 25 | PASS | pre-committed | match | 0.148525 vs cov 0.148564 | debt +0.0036 vs G -0.0002 |
+| P11 | S2 | 50 | no replay |  |  |  |  |
+| P12 | S2 | 25 | no replay |  |  |  |  |
+| P13 | S2 | 25 | PASS | pre-committed | match | 0.148036 vs cov 0.148061 | debt -0.0004 vs G -0.0018 |
+| P14 | S0 | - | no replay |  |  |  |  |
+| P2 | S2 | 25 | PASS | pre-committed | excluded by D2 (S4/demand_then_rand) |  | debt +0.0102 vs G +0.0094 |
+| P3 | S2 | 25 | PASS | pre-committed | match | 0.148036 vs cov 0.148061 | debt -0.0014 vs G -0.0032 |
+| P4 | S2 | 25 | no replay |  |  |  |  |
+| P5 | S2 | 25 | no replay |  |  |  |  |
+| P5c | S2 | 50 | no replay |  |  |  |  |
+| P7 | S2 | 100 | no replay |  |  |  |  |
+| P8 | S0 | - | no replay |  |  |  |  |
+| P9 | S2 | 25 | PASS | pre-committed | excluded by D2 (S4/demand_then_rand) | 0.148525 vs cov 0.148564 | debt +0.0063 vs G +0.0050 |
+
+5 pairs scorable, 5 pre-committed; 0 pre-committed claims failed
+
+all 6 tables describe these results
+K* = 50
+935 realised points; worst relative error 0.81%; 0 points above the independent bound (0 more at full coverage, where the bound is within 1e-9 of 1); 0 series with an ambiguous start round (scored at their worst case); 0 settings skipped for having no S2/demand trajectory
+[2026-11-09T16:07:37+08:00] checks done
+[2026-11-09T16:07:37+08:00] collect
+[2026-11-09T16:07:37+08:00] not produced (stage failed or not run): results_xarch
+[2026-11-09T16:07:38+08:00] wrote submission_outputs_20261109_1607.zip (3.6M) -- send this file

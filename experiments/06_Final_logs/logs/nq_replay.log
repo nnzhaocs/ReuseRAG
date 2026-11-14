@@ -1,0 +1,16 @@
+[2026-11-10T02:16:06+08:00] replay: NQ pairs at their planned depths (per-pair logs: logs/nq_replay_N*.log)
+[2026-11-10T02:16:06+08:00] threads: 22 job(s) x 3 of 224 cores
+[2026-11-10T02:16:07+08:00]   N0 at K'=50 (configs/nq_100k_v3.json)
+[2026-11-10T02:16:07+08:00]   N2 at K'=50 (configs/nq_100k_v3.json)
+[2026-11-10T02:16:07+08:00]   N3 at K'=25 (configs/nq_100k_v3_k25.json)
+[2026-11-10T02:16:07+08:00]   N4 at K'=50 (configs/nq_100k_v3.json)
+[2026-11-10T02:16:07+08:00]   N5 at K'=50 (configs/nq_100k_v3.json)
+[2026-11-10T02:16:07+08:00]   N9 at K'=25 (configs/nq_100k_v3_k25.json)
+[2026-11-10T02:16:07+08:00]   N10 at K'=50 (configs/nq_100k_v3.json)
+[2026-11-10T02:16:07+08:00]   N11 at K'=50 (configs/nq_100k_v3.json)
+[2026-11-10T02:16:07+08:00]   N12 at K'=50 (configs/nq_100k_v3.json)
+[2026-11-10T02:16:07+08:00]   N13 at K'=25 (configs/nq_100k_v3_k25.json)
+[2026-11-10T02:16:08+08:00]   N14 at K'=50 (configs/nq_100k_v3.json)
+[2026-11-10T02:29:22+08:00] replay: 11 output file(s)
+[2026-11-10T02:29:22+08:00] replay: 10 output file(s)
+[2026-11-10T02:29:22+08:00] replay done

@@ -1,0 +1,4 @@
+[2026-11-09T22:45:16+08:00] xarch: full replays of the encoder->LLM pairs P5p, P5q (XARCH=0 skips)
+[2026-11-09T22:45:16+08:00] threads: 2 job(s) x 112 of 224 cores
+[2026-11-09T23:20:13+08:00] xarch: 2 output file(s)
+[2026-11-09T23:20:13+08:00] xarch done

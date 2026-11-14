@@ -1,0 +1,86 @@
+{
+ "_preregistered": "Pre-registered 2026-11-09, BEFORE any NQ number under this protocol exists: the out-of-domain test of the planner. Identical to msmarco_1m_v3.json in every protocol field (metric Recall@10, K=10, eps 0.01, tau 0.005, eval_frac 0.5, first-service arrivals, traffic grid 4/16/64/256 with 64 primary, strategies, orders, seed 0) except: the corpus is the BEIR NQ 100k subset (subnq/, 1,000 judged test queries, so 500 replayed for evaluation); window depths are absolute (kprime 10..1000) because a fraction of 1e5 documents would round every shallow rung to K; there is no deeply judged secondary set. The sibling files nq_100k_v3_k{25,100,200,500,1000}.json differ ONLY in 'window'. Procedure: measure static inputs (coverage, sweeps, measure-only runs), run plan.py, COMMIT planner_nq/plan.csv, then replay each pair at the depth the committed plan names (S0/S1 plans at the default 50) and score with check_planner.py. Nothing is re-planned after a replay.",
+ "K": 10,
+ "primary": {
+  "metric": "recall",
+  "thr": 1
+ },
+ "secondary": [],
+ "secondary_eval_qids": null,
+ "eps": 0.01,
+ "delta": 0.01,
+ "eps_sensitivity": [
+  0.005,
+  0.01,
+  0.02
+ ],
+ "objective": "debt",
+ "tau": {
+  "debt": 0.005,
+  "c_serve_frac": 0.02
+ },
+ "band_tiebreak": "cost",
+ "workload": "uniform",
+ "eval_frac": 0.5,
+ "eval_arrival": "first_service",
+ "min_eval_served": 0.9,
+ "arrival_target_frac": 0.99,
+ "traffic_ratio": [
+  4.0,
+  16.0,
+  64.0,
+  256.0
+ ],
+ "primary_setting": {
+  "traffic_ratio": 64.0
+ },
+ "rounds": 100,
+ "max_rounds_factor": 8,
+ "stream_len": null,
+ "per_query_sample": 200,
+ "per_query_every": null,
+ "orders": [
+  "rand",
+  "size",
+  "demand",
+  "demand_then_rand",
+  "signal"
+ ],
+ "strategies": [
+  "S0",
+  "S1",
+  "S2",
+  "S3",
+  "S4",
+  "S5"
+ ],
+ "bm25_depth": 500,
+ "mode": "sync",
+ "checkpoint": "state",
+ "adapter": "procrustes",
+ "adapter_fit": "docs",
+ "adapter_n_fit": 10000,
+ "adapter_n_eval": 5000,
+ "mapped_query_margin": 0.05,
+ "tgt_depth": 1000,
+ "probe_c": 4,
+ "probe_budgets_frac": [
+  0.0025,
+  0.005,
+  0.01
+ ],
+ "probe_queries": 12,
+ "strat_per_query": 250,
+ "n_eval_queries": null,
+ "seed": 0,
+ "kprime": [
+  10,
+  25,
+  50,
+  100,
+  200,
+  500,
+  1000
+ ],
+ "window": 500
+}

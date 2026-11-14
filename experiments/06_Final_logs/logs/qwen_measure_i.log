@@ -1,0 +1,34 @@
+
+===== [05:06:40] check =====
+[2026-11-10T05:06:40+08:00] check
+80 tests passed
+contract: Qwen3 queries take the instruction from the model prompt only
+pairs read the query files this script rewrites (P5p, P5q, and P5r if assembled)
+  /root/reusemap_v3n/enc_qwen/Qwen3-Embedding-8B/q.npy: prefix '', prompt_name 'query' -> current
+  /root/autodl-tmp/enc/Qwen3-Embedding-0.6B/q.npy: prefix '', prompt_name 'query' -> current
+[2026-11-10T05:07:51+08:00] check ok: 0 stale query encoding(s) to redo
+
+===== [05:07:51] measure =====
+  rc=0
+  adapters/adapters_P5p.json: reads the fixed inputs
+  results_xarch/P5p.json: reads the fixed inputs
+  sweeps_qwen/sweep_P5q.json: reads the fixed inputs
+  adapters/adapters_P5q.json: reads the fixed inputs
+  results_xarch/P5q.json: reads the fixed inputs
+  results_llm/P5r.json: reads the fixed inputs
+  adapters/adapters_P5r.json: reads the fixed inputs
+[2026-11-10T06:37:09+08:00] measure: every output read the fixed query files
+
+===== [06:37:09] consistent =====
+  results_xarch/P5p.json: reads the fixed inputs
+  sweeps_qwen/sweep_P5q.json: reads the fixed inputs
+  adapters/adapters_P5q.json: reads the fixed inputs
+  results_xarch/P5q.json: reads the fixed inputs
+  results_llm/P5r.json: reads the fixed inputs
+  adapters/adapters_P5r.json: reads the fixed inputs
+
+===== [06:37:09] collect =====
+[2026-11-10T06:37:09+08:00] wrote qwen_rerun_outputs_20261110_0637.zip (636K) -- send this file
+635K qwen_rerun_outputs_20261110_0637.zip
+
+===== [06:37:09] QWEN_I_DONE 06:37:09 =====

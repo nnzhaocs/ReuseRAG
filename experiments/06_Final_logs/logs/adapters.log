@@ -1,0 +1,5 @@
+[2026-11-09T21:02:33+08:00] 13.1: adapter families (per-pair logs: logs/adapters_P*.log)
+[2026-11-09T21:02:33+08:00] threads: 14 job(s) x 16 of 224 cores
+[2026-11-09T21:02:33+08:00] 13.1: moved earlier adapter fits to adapters_superseded/20261109_210233
+[2026-11-09T22:45:11+08:00] 13.1: 14 output file(s)
+[2026-11-09T22:45:11+08:00] 13.1 done

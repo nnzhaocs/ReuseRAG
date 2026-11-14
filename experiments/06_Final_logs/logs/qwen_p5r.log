@@ -1,0 +1,44 @@
+[2026-11-10T05:07:51+08:00] 13.10: LLM->LLM pair P5r = enc/Qwen3-Embedding-0.6B -> enc/Qwen3-Embedding-8B (static measurements + adapter families)
+[2026-11-10T05:07:51+08:00] threads: 1 job(s) x 28 of 28 cores
+documents: memmap (1000000, 1024) float32
+excluded 97 of 7077 queries listed in sub1m/query_sets/trecdl.txt
+  512/6980 queries  (34s)
+
+ K-prime      covered  coverage  ceiling  if indep  concentr
+      25       149591    0.1496   0.8504    0.1601    0.0105
+      50       265760    0.2658   0.7342    0.2946    0.0289
+     100       437632    0.4376   0.5624    0.5024    0.0648
+     200       646552    0.6466   0.3534    0.7524    0.1059
+     350       804210    0.8042   0.1958    0.9131    0.1089
+     500       881762    0.8818   0.1182    0.9695    0.0878
+    1000       968650    0.9687   0.0313    0.9991    0.0304
+    2000       994840    0.9948   0.0052    1.0000    0.0052
+
+6980 queries over N=1000000. 'ceiling' is the largest share of the encoding work any window strategy can save against a full rebuild at that depth.
+wrote coverage_llm/Qwen3-Embedding-0.6B.json
+[P5r] N=1000000 Q=7077 eval=3490 traffic_pool=3490 window=25 kappa=0.357 cka=0.763 (1134.7s)
+[P5r] secondary (97 deeply-judged queries, ndcg@10): M_T=0.7046 G={25: 0.001, 50: -0.0001, 500: 0.0004, 1000: 0.0, 2000: 0.0, 5000: 0.0}
+[P5r] M_S=0.8649 M_T=0.9069 M_A=0.8665 rho={25: 0.2100859598853868, 50: 0.12839541547277922, 500: 0.025530085959885263, 1000: 0.01616045845272185, 2000: 0.009971346704870876, 5000: 0.004756446991403873}
+[P5r] measure-only (replay=false): G={25: 0.00570678127984825, 50: 0.0017430754536776893, 500: -0.0005730659025788842, 1000: -0.0005730659025788842, 2000: 0.0, 5000: 0.0}
+   I2 rho non-increasing: ok
+   I4/I5 skipped: measure-only run (replay=false)
+[P5r] procrustes fit=docs: M_A=0.8676 (95.7% of M_T, +0.0027 vs source)
+[P5r] affine fit=docs: M_A=0.8628 (95.1% of M_T, -0.0021 vs source)
+[P5r] lowrank{'rank': 64} fit=docs: M_A=0.4421 (48.7% of M_T, -0.4228 vs source)
+[P5r] lowrank{'rank': 128} fit=docs: M_A=0.7513 (82.8% of M_T, -0.1136 vs source)
+[P5r] mlp fit=docs: M_A=0.8622 (95.1% of M_T, -0.0027 vs source)
+[P5r] procrustes fit=queries: M_A=0.8575 (94.5% of M_T, -0.0074 vs source)
+[P5r] affine fit=queries: M_A=0.8445 (93.1% of M_T, -0.0204 vs source)
+[P5r] lowrank{'rank': 64} fit=queries: M_A=0.4982 (54.9% of M_T, -0.3667 vs source)
+[P5r] lowrank{'rank': 128} fit=queries: M_A=0.7412 (81.7% of M_T, -0.1237 vs source)
+[P5r] mlp fit=queries: M_A=0.8426 (92.9% of M_T, -0.0223 vs source)
+[P5r] procrustes fit=both: M_A=0.8693 (95.9% of M_T, +0.0044 vs source)
+[P5r] affine fit=both: M_A=0.8676 (95.7% of M_T, +0.0027 vs source)
+[P5r] lowrank{'rank': 64} fit=both: M_A=0.5444 (60.0% of M_T, -0.3205 vs source)
+[P5r] lowrank{'rank': 128} fit=both: M_A=0.7774 (85.7% of M_T, -0.0875 vs source)
+[P5r] mlp fit=both: M_A=0.8681 (95.7% of M_T, +0.0032 vs source)
+wrote adapters/adapters_P5r.json: best procrustes/both M_A=0.8693, M_S=0.8649, beats source: True
+[2026-11-10T06:37:09+08:00] 13.10: 1 output file(s)
+[2026-11-10T06:37:09+08:00] 13.10: 1 output file(s)
+[2026-11-10T06:37:09+08:00] 13.10: 1 output file(s)
+[2026-11-10T06:37:09+08:00] 13.10 done

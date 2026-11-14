@@ -1,0 +1,156 @@
+{
+ "_v3_summary": "Each evaluation query is measured ONCE, when the workload first serves it; a window strategy repairs that query's missing window documents inline and is charged for them; completion is an admissibility CONSTRAINT, not part of the cost (at completion every strategy has encoded exactly N documents, so cost cannot separate them - what separates them is the quality lost during the migration, 'debt'). See DESIGN.md 'Replay protocol v3'.",
+ "K": 10,
+ "window_frac": 5e-05,
+ "primary": {
+  "metric": "recall",
+  "thr": 1
+ },
+ "secondary": [
+  {
+   "metric": "ndcg",
+   "thr": 1
+  }
+ ],
+ "secondary_eval_qids": "s4m/query_sets/trecdl.txt",
+ "_secondary_under_v3": "TREC-DL is evaluation-only, so its queries are never served and have no arrival values; the secondary metric is reported from the fully migrated state (result['final_state']) only.",
+ "eps": 0.01,
+ "delta": 0.01,
+ "eps_sensitivity": [
+  0.005,
+  0.01,
+  0.02
+ ],
+ "_eps_sensitivity": "eps decides, on its own, whether a window strategy is admissible at a given depth: it reaches the target iff G(K') <= eps. P4's dev G was 0.013, so at eps=0.01 every window strategy is inadmissible there and S0 wins by default - a winner set by a knob. 'debt' does not depend on eps; the C_serve diagnostic does, and its winner is reported at each of these values.",
+ "objective": "debt",
+ "tau": {
+  "debt": 0.005,
+  "c_serve_frac": 0.02
+ },
+ "band_tiebreak": "cost",
+ "_band_tiebreak": "How a tie inside the tau band is broken: 'cost' (cheapest by C_serve, then simplicity) or 'simplicity' (the original v3 rule). PRE-REGISTERED. 'cost' is set here because of what the 2026-11-01 1M run showed: every window strategy had debt within 0.0006 of zero, so 12-16 of the 22 combinations sat inside tau = 0.005 and simplicity picked S2/rand on 20 of 21 settings - while inside that same band S2/demand_then_rand reached full population service at 0.835-0.879 of N against S2/rand's 1.000, matching coverage to four decimals. The band therefore contained the entire measured 12-16% saving and the rule discarded it. C_serve is already a pre-registered secondary objective, so ordering the band by it is a stated-ordering change, not a new metric. The function default stays 'simplicity' so an earlier result re-runs to its own winner from its own stored config.",
+ "_tau": "Equivalence bands, in each objective's own units. Everything within the band of the best is equivalent and the SIMPLEST of those wins. Without a band a difference far below the noise floor decides a winner: in the v2 dev runs 0.13% of N flipped a pair between S0 and S5. DECIDE both values; 0.005 recall is roughly the dev bootstrap spread at n_eval ~ 3.5k, and 0.02 N is the original proposal.",
+ "workload": "uniform",
+ "eval_frac": 0.5,
+ "eval_arrival": "first_service",
+ "min_eval_served": 0.9,
+ "arrival_target_frac": 0.99,
+ "_arrival": "Under v3 the stream is drawn from the whole servable workload, so repeat_rate is not used: the mix of evaluation and other queries is the workload's own, not a knob. A setting that cannot serve min_eval_served of its evaluation population inside max_rounds reports NO winner rather than a misleading one. Both min_eval_served and arrival_target_frac are shares of the WORKLOAD WEIGHT, not of the query count, because every quality number is workload-weighted. Under a skewed workload the two differ by orders of magnitude: at a 35,000x weight spread, 99% of the weight is served by round ~100 while 99% of the count takes ~30,000 rounds, since the tail is almost never drawn. Gating on the count would reject every ORCAS and Zipf setting. The count is reported alongside as a diagnostic.",
+ "traffic_ratio": [
+  64.0
+ ],
+ "primary_setting": {
+  "traffic_ratio": 64.0
+ },
+ "_traffic_ratio": "traffic_ratio = (queries served per round x window) / background encodings per round. It is the one parameter that decides whether reuse can pay at all, because cost-to-serve has a floor at the background work already done by the last arrival.",
+ "rounds": 100,
+ "max_rounds_factor": 8,
+ "_max_rounds_factor": "max_rounds = factor x rounds must exceed (arrival rounds) + rounds, or 'demand_then_rand' cannot complete and the run is reported as an ARRIVAL SHORTFALL. 8 covers ratio >= 4 at these sizes; scripts/predict.py prints the requirement per ratio.",
+ "stream_len": null,
+ "per_query_sample": 200,
+ "per_query_every": null,
+ "orders": [
+  "rand",
+  "demand_then_rand"
+ ],
+ "_orders": "'demand_then_rand' holds background work back until every evaluation query has arrived, then completes: under the v3 objective it is the cost-minimal policy that still completes, so leaving it out would mean the best admissible policy is not in the search space. 'demand' never completes and is reported separately, never as a winner (it is also the policy whose economics are Thaw's C2, out of scope here).",
+ "strategies": [
+  "S0",
+  "S1",
+  "S2"
+ ],
+ "bm25_depth": 500,
+ "mode": "sync",
+ "_mode": "first_service requires sync: an arriving query must have its window repaired inline to be servable at target quality. The runner refuses any other mode.",
+ "checkpoint": "state",
+ "adapter": "procrustes",
+ "adapter_fit": "docs",
+ "adapter_n_fit": 10000,
+ "adapter_n_eval": 5000,
+ "mapped_query_margin": 0.05,
+ "tgt_depth": 1000,
+ "probe_c": 4,
+ "probe_budgets_frac": [
+  0.0025,
+  0.005,
+  0.01
+ ],
+ "probe_queries": 12,
+ "strat_per_query": 250,
+ "n_eval_queries": null,
+ "seed": 0,
+ "_preregistered": "2026-11-06 on bjb1, before any v3 pair ran in this round. Values are unchanged from the draft: eval_frac 0.5, traffic grid [4,16,64,256], primary traffic_ratio 64 (placeholder for ORCAS, stated as such), delta 0.01, eps 0.01 (+sensitivity 0.005/0.01/0.02), tau debt 0.005 / c_serve 0.02, band_tiebreak cost, probe 12 x 250 (code 8 x 100). window_frac stays the placeholder on purpose: RUNBOOK Phase 1 makes it a two-stage decision settled from the 5.5 frontier.",
+ "_window_decided": {
+  "kprime": 50,
+  "window_docs": 50,
+  "N": 1000000,
+  "window_frac": 5e-05,
+  "eps": 0.01,
+  "rule": "smallest K' with G<=eps on every pair (RUNBOOK 5.5e / 11.1)",
+  "G_at_10_25_50": {
+   "P2": [
+    0.04706,
+    0.00941,
+    0.00222
+   ],
+   "P3": [
+    0.01535,
+    -0.00325,
+    -0.00289
+   ],
+   "P4": [
+    0.02192,
+    -0.00107,
+    -0.00504
+   ],
+   "P5": [
+    0.00657,
+    -0.00883,
+    -0.00692
+   ],
+   "P9": [
+    0.03171,
+    0.00497,
+    -0.00098
+   ],
+   "P10": [
+    0.02514,
+    -0.00021,
+    -0.00774
+   ],
+   "P11": [
+    0.04616,
+    0.01368,
+    0.00365
+   ],
+   "P12": [
+    0.02101,
+    0.00136,
+    -0.00193
+   ],
+   "P13": [
+    0.01445,
+    -0.00179,
+    0.00079
+   ],
+   "P14": [
+    -0.00091,
+    -0.00189,
+    -0.00179
+   ]
+  },
+  "decided_at": "2026-11-07",
+  "outcome": "10 is admissible only for P5 and P14; 25 is admissible for nine pairs but P11 sits at 0.01368 > eps, so 50 is the smallest depth that works everywhere. The ceiling is therefore 73.5%, not the 85-90% that K'=10/25 would give.",
+  "reproducibility": "the whole 10/25/50 frontier matches the 2026-11-04 run digit for digit, on freshly re-encoded vectors (5 models re-encoded under contracts, 5x23 encode_check passed, 0 failure)"
+ },
+ "window": 50,
+ "_preregistered_scale": "The static scale study was pre-registered 2026-11-10, before any full-corpus (8.8M) vector existed. The scale configs hold the query population fixed and use a 50-document window rather than window_frac x N so corpus sizes are compared at the same depth. Those original static predictions remain in PREREG_SCALE.md. Final2 adds a separate replay test at fixed K'=50; this metadata note does not change any numeric parameter.",
+ "_intermediate": "2026-11-11: msmarco_full_v3.json with the TREC-DL set of the nested s4m corpus (scripts/scale_subset.py: the 1M corpus plus a uniform draw from the rest; same queries).",
+ "_replay_trim": "Replay at an intermediate size: the families the planner prices from the source index (S0-S2; no BM25 run exists at this size, so S4/S5 cannot be replayed), the on-demand order and rand, at the pre-registered primary traffic ratio only. Everything else as the 1M replays.",
+ "kprime": [
+  25,
+  50,
+  100
+ ],
+ "_kprime": "The ladder the replay measures rho and G on: 25, 50, 100 (the K'-fraction ladder of the 1M config reaches 44,209 at 8.8M and only costs time)."
+}

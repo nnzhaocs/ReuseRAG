@@ -1,0 +1,13 @@
+[P2f] N=4000000 Q=7077 eval=3490 traffic_pool=3490 window=50 kappa=0.036 cka=0.613 (1352.4s)
+[P2f] secondary (97 deeply-judged queries, ndcg@10): M_T=0.6693 G={25: 0.0054, 50: 0.0086, 100: 0.006}
+[P2f] M_S=0.6700 M_T=0.7356 M_A=0.2544 rho={25: 0.2801719197707735, 50: 0.184269340974212, 100: 0.12134670487106003}
+[P2f] ratio=64 stream_len=51200: ~1 rounds to serve 99% of the workload weight over 3490 evaluation queries (~1 rounds for that share of the query COUNT); max_rounds=800, background completes at round 100
+[P2f] ratio=64 S0/rand            debt=0.0657 served=0.6700 C_serve/N=1.000 completed=True repairs/q=0.0
+[P2f] ratio=64 S1/rand            debt=0.4812 served=0.2544 C_serve/N=1.000 completed=True repairs/q=0.0
+[P2f] ratio=64 S2/demand_then_rand debt=0.0061 served=0.7295 C_serve/N=0.079 completed=True repairs/q=45.4
+[P2f] ratio=64 S2/rand            debt=0.0061 served=0.7295 C_serve/N=0.079 completed=True repairs/q=45.4
+[P2f] ratio=64 winner=S2/rand band=2 tied=2 non_completing=[]
+[P2f] winner=S2/rand band=2  (1414.0s)
+   I2 rho non-increasing: ok
+   I4'/I5'/I7/I8/I9 (replay v3): ok
+   I6 evaluation queries are measured at first service only, never re-scored after their own repair: ok (enforced in run_arrivals)

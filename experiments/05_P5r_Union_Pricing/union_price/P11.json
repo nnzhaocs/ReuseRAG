@@ -1,0 +1,626 @@
+{
+ "pair": "P11",
+ "N": 1000000,
+ "n_eval": 3490,
+ "n_servable": 6980,
+ "bm25_depth": 500,
+ "tau": 0.005,
+ "eps": 0.01,
+ "margin": 0.006,
+ "families": [
+  "S2",
+  "S3",
+  "S4",
+  "S5"
+ ],
+ "cost_semantics": "static candidate-union coverage over all servable queries; not exact first-arrival C_serve",
+ "workloads": {
+  "uniform": {
+   "M_S": 0.8334527220630372,
+   "M_T": 0.8796084049665711,
+   "M_A": 0.04914040114613181,
+   "gap": 0.04615568290353389,
+   "n_eff": 3490.0,
+   "depths": {
+    "25": {
+     "prices": {
+      "S2": {
+       "G": 0.013681948424068668,
+       "cov": 0.148564
+      },
+      "S3": {
+       "G": 0.7988538681948424,
+       "cov": 0.021585
+      },
+      "S4": {
+       "G": -0.001289398280802434,
+       "cov": 0.841494
+      },
+      "S5": {
+       "G": -0.001289398280802434,
+       "cov": 0.844089
+      }
+     },
+     "winner": "S4",
+     "admissible": [
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S4",
+     "admissible_margin": [
+      "S4",
+      "S5"
+     ]
+    },
+    "50": {
+     "prices": {
+      "S2": {
+       "G": 0.0036532951289398596,
+       "cov": 0.264274
+      },
+      "S3": {
+       "G": 0.7670964660936007,
+       "cov": 0.034853
+      },
+      "S4": {
+       "G": -0.002292263610315315,
+       "cov": 0.856845
+      },
+      "S5": {
+       "G": -0.0020057306590258728,
+       "cov": 0.860516
+      }
+     },
+     "winner": "S4",
+     "admissible": [
+      "S2",
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S4",
+     "admissible_margin": [
+      "S2",
+      "S4",
+      "S5"
+     ]
+    },
+    "100": {
+     "prices": {
+      "S2": {
+       "G": 0.0011461318051575464,
+       "cov": 0.435261
+      },
+      "S3": {
+       "G": 0.7273638968481375,
+       "cov": 0.055182
+      },
+      "S4": {
+       "G": -0.0015759312320918761,
+       "cov": 0.883072
+      },
+      "S5": {
+       "G": -0.001289398280802323,
+       "cov": 0.887666
+      }
+     },
+     "winner": "S2",
+     "admissible": [
+      "S2",
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S2",
+     "admissible_margin": [
+      "S2",
+      "S4",
+      "S5"
+     ]
+    }
+   },
+   "replay": {
+    "results": "results",
+    "window": 50,
+    "winner": "S4/demand_then_rand",
+    "winner_family": "S4",
+    "static_winner": "S4",
+    "static_winner_margin": "S4",
+    "families": {
+     "S2": {
+      "static_G": 0.0036532951289398596,
+      "static_cov": 0.264274,
+      "static_candidate_union_cov": 0.264274,
+      "replay_debt": 0.0043696275071637425,
+      "replay_C_serve_frac": 0.264224,
+      "replay_basis": "at_last_arrival",
+      "replay_repairs_frac": 0.264274
+     },
+     "S3": {
+      "static_G": 0.7670964660936007,
+      "static_cov": 0.034853,
+      "static_candidate_union_cov": 0.034853,
+      "replay_debt": 0.7653772683858594,
+      "replay_C_serve_frac": 1.0,
+      "replay_basis": "never_reached_target",
+      "replay_repairs_frac": 0.034853
+     },
+     "S4": {
+      "static_G": -0.002292263610315315,
+      "static_cov": 0.856845,
+      "static_candidate_union_cov": 0.856845,
+      "replay_debt": -0.0007163323782234388,
+      "replay_C_serve_frac": 0.856782,
+      "replay_basis": "at_last_arrival",
+      "replay_repairs_frac": 0.856842
+     },
+     "S5": {
+      "static_G": -0.0020057306590258728,
+      "static_cov": 0.860516,
+      "static_candidate_union_cov": 0.860516,
+      "replay_debt": -0.0007163323782234388,
+      "replay_C_serve_frac": 0.860456,
+      "replay_basis": "at_last_arrival",
+      "replay_repairs_frac": 0.860513
+     }
+    },
+    "replay_S0_debt": 0.04615568290353822,
+    "agree": true,
+    "agree_margin": true
+   }
+  },
+  "zipf:0.3": {
+   "M_S": 0.8354068830718991,
+   "M_T": 0.8841269567953031,
+   "M_A": 0.050749134656046406,
+   "gap": 0.04872007372340392,
+   "n_eff": 2894.9583660629805,
+   "depths": {
+    "25": {
+     "prices": {
+      "S2": {
+       "G": 0.014832491703346773,
+       "cov": 0.148564
+      },
+      "S3": {
+       "G": 0.8021089391242686,
+       "cov": 0.021585
+      },
+      "S4": {
+       "G": -0.000596117512823291,
+       "cov": 0.841494
+      },
+      "S5": {
+       "G": -0.0005903268738535195,
+       "cov": 0.844089
+      }
+     },
+     "winner": "S4",
+     "admissible": [
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S4",
+     "admissible_margin": [
+      "S4",
+      "S5"
+     ]
+    },
+    "50": {
+     "prices": {
+      "S2": {
+       "G": 0.005081866336889895,
+       "cov": 0.264274
+      },
+      "S3": {
+       "G": 0.7695568065397296,
+       "cov": 0.034853
+      },
+      "S4": {
+       "G": -0.0015654178635159388,
+       "cov": 0.856845
+      },
+      "S5": {
+       "G": -0.0013644395674859977,
+       "cov": 0.860516
+      }
+     },
+     "winner": "S4",
+     "admissible": [
+      "S2",
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S4",
+     "admissible_margin": [
+      "S4",
+      "S5"
+     ]
+    },
+    "100": {
+     "prices": {
+      "S2": {
+       "G": 0.0019601377413869248,
+       "cov": 0.435261
+      },
+      "S3": {
+       "G": 0.7301696408638361,
+       "cov": 0.055182
+      },
+      "S4": {
+       "G": -0.001183586995694652,
+       "cov": 0.883072
+      },
+      "S5": {
+       "G": -0.000982608699664267,
+       "cov": 0.887666
+      }
+     },
+     "winner": "S2",
+     "admissible": [
+      "S2",
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S2",
+     "admissible_margin": [
+      "S2",
+      "S4",
+      "S5"
+     ]
+    }
+   }
+  },
+  "zipf:0.6": {
+   "M_S": 0.8431084911385399,
+   "M_T": 0.8935309761965387,
+   "M_A": 0.04970127937974662,
+   "gap": 0.050422485057998734,
+   "n_eff": 808.3762512238642,
+   "depths": {
+    "25": {
+     "prices": {
+      "S2": {
+       "G": 0.015904567802466074,
+       "cov": 0.148564
+      },
+      "S3": {
+       "G": 0.814211592880834,
+       "cov": 0.021585
+      },
+      "S4": {
+       "G": 0.00021331500712096219,
+       "cov": 0.841494
+      },
+      "S5": {
+       "G": 0.0002210551162622476,
+       "cov": 0.844089
+      }
+     },
+     "winner": "S4",
+     "admissible": [
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S4",
+     "admissible_margin": [
+      "S4",
+      "S5"
+     ]
+    },
+    "50": {
+     "prices": {
+      "S2": {
+       "G": 0.007232950679557093,
+       "cov": 0.264274
+      },
+      "S3": {
+       "G": 0.7775477188709082,
+       "cov": 0.034853
+      },
+      "S4": {
+       "G": -0.0005724614408095796,
+       "cov": 0.856845
+      },
+      "S5": {
+       "G": -0.0004555274849983304,
+       "cov": 0.860516
+      }
+     },
+     "winner": "S4",
+     "admissible": [
+      "S2",
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S4",
+     "admissible_margin": [
+      "S4",
+      "S5"
+     ]
+    },
+    "100": {
+     "prices": {
+      "S2": {
+       "G": 0.003564402073009787,
+       "cov": 0.435261
+      },
+      "S3": {
+       "G": 0.7398119009352969,
+       "cov": 0.055182
+      },
+      "S4": {
+       "G": -0.0006616236843758339,
+       "cov": 0.883072
+      },
+      "S5": {
+       "G": -0.0005446897285648067,
+       "cov": 0.887666
+      }
+     },
+     "winner": "S2",
+     "admissible": [
+      "S2",
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S2",
+     "admissible_margin": [
+      "S2",
+      "S4",
+      "S5"
+     ]
+    }
+   }
+  },
+  "zipf:0.9": {
+   "M_S": 0.8690704995778055,
+   "M_T": 0.9151497185383859,
+   "M_A": 0.04078087400012596,
+   "gap": 0.046079218960580426,
+   "n_eff": 77.3840737013433,
+   "depths": {
+    "25": {
+     "prices": {
+      "S2": {
+       "G": 0.015277525102099787,
+       "cov": 0.148564
+      },
+      "S3": {
+       "G": 0.8512436269926038,
+       "cov": 0.021585
+      },
+      "S4": {
+       "G": 0.0006833408705435584,
+       "cov": 0.841494
+      },
+      "S5": {
+       "G": 0.0006887335924170568,
+       "cov": 0.844089
+      }
+     },
+     "winner": "S4",
+     "admissible": [
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S4",
+     "admissible_margin": [
+      "S4",
+      "S5"
+     ]
+    },
+    "50": {
+     "prices": {
+      "S2": {
+       "G": 0.009199312821927763,
+       "cov": 0.264274
+      },
+      "S3": {
+       "G": 0.80463288960029,
+       "cov": 0.034853
+      },
+      "S4": {
+       "G": 0.0002505109977991582,
+       "cov": 0.856845
+      },
+      "S5": {
+       "G": 0.0002977921915758852,
+       "cov": 0.860516
+      }
+     },
+     "winner": "S4",
+     "admissible": [
+      "S2",
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S4",
+     "admissible_margin": [
+      "S4",
+      "S5"
+     ]
+    },
+    "100": {
+     "prices": {
+      "S2": {
+       "G": 0.005762069939038272,
+       "cov": 0.435261
+      },
+      "S3": {
+       "G": 0.7739011483442695,
+       "cov": 0.055182
+      },
+      "S4": {
+       "G": -0.00015641461259396916,
+       "cov": 0.883072
+      },
+      "S5": {
+       "G": -0.00010913341881724214,
+       "cov": 0.887666
+      }
+     },
+     "winner": "S4",
+     "admissible": [
+      "S2",
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S4",
+     "admissible_margin": [
+      "S4",
+      "S5"
+     ]
+    }
+   },
+   "replay": {
+    "results": "results_zipf",
+    "window": 50,
+    "winner": "S4/demand_then_rand",
+    "winner_family": "S4",
+    "static_winner": "S4",
+    "static_winner_margin": "S4",
+    "families": {
+     "S2": {
+      "static_G": 0.009199312821927763,
+      "static_cov": 0.264274,
+      "static_candidate_union_cov": 0.264274,
+      "replay_debt": 0.009360419439225387,
+      "replay_C_serve_frac": 0.264274,
+      "replay_basis": "at_last_arrival",
+      "replay_repairs_frac": 0.264274
+     },
+     "S3": {
+      "static_G": 0.80463288960029,
+      "static_cov": 0.034853,
+      "static_candidate_union_cov": 0.034853,
+      "replay_debt": 0.8043308436544299,
+      "replay_C_serve_frac": 1.0,
+      "replay_basis": "never_reached_target",
+      "replay_repairs_frac": 0.034853
+     },
+     "S4": {
+      "static_G": 0.0002505109977991582,
+      "static_cov": 0.856845,
+      "static_candidate_union_cov": 0.856845,
+      "replay_debt": 0.0003825631798979323,
+      "replay_C_serve_frac": 0.856845,
+      "replay_basis": "at_last_arrival",
+      "replay_repairs_frac": 0.856845
+     },
+     "S5": {
+      "static_G": 0.0002977921915758852,
+      "static_cov": 0.860516,
+      "static_candidate_union_cov": 0.860516,
+      "replay_debt": 0.0003825631798979323,
+      "replay_C_serve_frac": 0.860516,
+      "replay_basis": "at_last_arrival",
+      "replay_repairs_frac": 0.860516
+     }
+    },
+    "replay_S0_debt": 0.046079218960580426,
+    "agree": true,
+    "agree_margin": true
+   }
+  },
+  "zipf:1.2": {
+   "M_S": 0.9152371851489105,
+   "M_T": 0.9471946657200941,
+   "M_A": 0.02430331261585145,
+   "gap": 0.03195748057118364,
+   "n_eff": 12.225350129968527,
+   "depths": {
+    "25": {
+     "prices": {
+      "S2": {
+       "G": 0.01118047171902048,
+       "cov": 0.148564
+      },
+      "S3": {
+       "G": 0.9106269573358129,
+       "cov": 0.021585
+      },
+      "S4": {
+       "G": 0.0005072895635787056,
+       "cov": 0.841494
+      },
+      "S5": {
+       "G": 0.0005092206326522408,
+       "cov": 0.844089
+      }
+     },
+     "winner": "S4",
+     "admissible": [
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S4",
+     "admissible_margin": [
+      "S4",
+      "S5"
+     ]
+    },
+    "50": {
+     "prices": {
+      "S2": {
+       "G": 0.008340963979068805,
+       "cov": 0.264274
+      },
+      "S3": {
+       "G": 0.8564015382508814,
+       "cov": 0.034853
+      },
+      "S4": {
+       "G": 0.00038266602011072237,
+       "cov": 0.856845
+      },
+      "S5": {
+       "G": 0.0003937193932181948,
+       "cov": 0.860516
+      }
+     },
+     "winner": "S4",
+     "admissible": [
+      "S2",
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S4",
+     "admissible_margin": [
+      "S4",
+      "S5"
+     ]
+    },
+    "100": {
+     "prices": {
+      "S2": {
+       "G": 0.006210102326320355,
+       "cov": 0.435261
+      },
+      "S3": {
+       "G": 0.838516989073153,
+       "cov": 0.055182
+      },
+      "S4": {
+       "G": 5.6829628715560077e-05,
+       "cov": 0.883072
+      },
+      "S5": {
+       "G": 6.788300182303253e-05,
+       "cov": 0.887666
+      }
+     },
+     "winner": "S4",
+     "admissible": [
+      "S2",
+      "S4",
+      "S5"
+     ],
+     "winner_margin": "S4",
+     "admissible_margin": [
+      "S4",
+      "S5"
+     ]
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,5 @@
+  enc/Qwen3-Embedding-8B/q.npy: prefix '', prompt_name 'query' -> current
+[2026-11-10T05:03:08+08:00] requery: enc/Qwen3-Embedding-8B/q.npy already current
+  enc/Qwen3-Embedding-0.6B/q.npy: prefix '', prompt_name 'query' -> current
+[2026-11-10T05:03:08+08:00] requery: enc/Qwen3-Embedding-0.6B/q.npy already current
+[2026-11-10T05:03:08+08:00] requery done

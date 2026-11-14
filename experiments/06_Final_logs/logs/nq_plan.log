@@ -1,0 +1,2 @@
+[2026-11-10T02:16:06+08:00] plan: NQ, then commit BEFORE any NQ replay
+[2026-11-10T02:16:06+08:00] plan: NQ replays exist; keeping the plan committed at 2026-11-10T01:10:10+08:00

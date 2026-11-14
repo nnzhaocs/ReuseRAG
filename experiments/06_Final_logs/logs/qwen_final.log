@@ -1,0 +1,32 @@
+
+===== [05:03:07] requery（GPU，8B+0.6B 查询重编） =====
+  rc=0
+[2026-11-10T05:03:08+08:00] requery: enc/Qwen3-Embedding-8B/q.npy already current
+  enc/Qwen3-Embedding-0.6B/q.npy: prefix '', prompt_name 'query' -> current
+[2026-11-10T05:03:08+08:00] requery: enc/Qwen3-Embedding-0.6B/q.npy already current
+[2026-11-10T05:03:08+08:00] requery done
+
+===== [05:03:08] verify =====
+[2026-11-10T05:03:08+08:00] verify
+  enc/Qwen3-Embedding-8B: contract current; model input 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery'; instruction once
+  enc/Qwen3-Embedding-0.6B: contract current; model input 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery'; instruction once
+[2026-11-10T05:03:08+08:00] verify ok: every Qwen3 query encoding in use carries the instruction once
+
+===== [05:03:08] measure（CPU 1.5-2h） =====
+  rc=1
+  enc/Qwen3-Embedding-0.6B: contract current; model input 'Instruct: Given a web search query, retrieve releva
+[2026-11-10T05:03:08+08:00] verify ok: every Qwen3 query encoding in use carries the instruction once
+the pairs read different query files than the ones this script re-encodes:
+  pairs/P5p/q_tgt.npy -> /root/reusemap_v3n/enc_qwen/Qwen3-Embedding-8B/q.npy, but this script rewrites /root/
+  pairs/P5q/q_tgt.npy -> /root/reusemap_v3n/enc_qwen/Qwen3-Embedding-8B/q.npy, but this script rewrites /root/
+set Q8=/the/dir/the/pairs/use (and Q06 likewise), then run check again
+
+===== [05:03:09] consistent =====
+  sweeps_qwen/sweep_P5p.json: reads the fixed inputs
+  sweeps_qwen/sweep_P5q.json: reads the fixed inputs
+
+===== [05:03:09] collect =====
+[2026-11-10T05:03:09+08:00] wrote qwen_rerun_outputs_20261110_0503.zip (324K) -- send this file
+323K qwen_rerun_outputs_20261110_0503.zip
+
+===== [05:03:09] QWEN_FINAL_DONE 05:03:09 =====

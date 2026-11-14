@@ -1,0 +1,4 @@
+[2026-11-09T15:26:48+08:00] TREC-DL G at K'=25/50 for P11 and P14 (measure-only; the d3 replays carry the other eight)
+[2026-11-09T15:26:48+08:00] threads: 2 job(s) x 7 of 224 cores
+[2026-11-09T15:46:59+08:00] trecdl: 2 output file(s)
+[2026-11-09T15:46:59+08:00] trecdl done

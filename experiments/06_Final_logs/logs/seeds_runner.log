@@ -1,0 +1,16 @@
+/root/seeds_run.sh: line 8: unexpected EOF while looking for matching `"'
+/root/seeds_run.sh: line 9: syntax error: unexpected end of file
+=== 22:18:45 seeds start ===
+[2026-11-10T22:18:45+08:00] seeds: P2 P3 P4 P5 P9 P10 P12 P13 at seeds 1 2 3 4, 4 at a time (per-run logs: logs/seed_<P>_<s>.log)
+[2026-11-10T22:18:45+08:00] threads: 4 replay(s) x 3 of 16 cores
+=== SEEDS_EXIT rc=1 23:07:12 ===
+=== 00:41:07 seeds start ===
+[2026-11-11T00:41:07+08:00] seeds: P2 P3 P4 P5 P9 P10 P12 P13 at seeds 1 2 3 4, 4 at a time (per-run logs: logs/seed_<P>_<s>.log)
+[2026-11-11T00:41:07+08:00] threads: 4 replay(s) x 3 of 16 cores
+=== SEEDS_EXIT rc=1 00:41:09 ===
+=== 00:42:19 seeds start ===
+[2026-11-11T00:42:19+08:00] seeds: P2 P3 P4 P5 P9 P10 P12 P13 at seeds 1 2 3 4, 4 at a time (per-run logs: logs/seed_<P>_<s>.log)
+[2026-11-11T00:42:19+08:00] threads: 4 replay(s) x 3 of 16 cores
+[2026-11-11T00:59:28+08:00] seeds: 32 of 32 replays present (8 started now)
+[2026-11-11T00:59:28+08:00] seeds done
+=== SEEDS_EXIT rc=0 00:59:28 ===

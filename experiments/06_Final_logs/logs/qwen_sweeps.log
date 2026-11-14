@@ -1,0 +1,41 @@
+
+=== P5p  N=1000000  n_eval=3490  n_servable=6980  kappa=0.1552  M_S=0.8335  M_T=0.9069
+ K-prime      rho         G  coverage  ceiling  G<=0.005  G<=0.01  G<=0.02
+      10   0.5120   +0.0735    0.0647   0.9353   False   False   False
+      25   0.3407   +0.0279    0.1486   0.8514   False   False   False
+      50   0.2478   +0.0118    0.2643   0.7357   False   False    True
+     100   0.1809   +0.0064    0.4353   0.5647   False    True    True
+     200   0.1346   +0.0058    0.6438   0.3562   False    True    True
+     500   0.0897   +0.0024    0.8779   0.1221    True    True    True
+  timing: precompute 1406.7s  rho 0.6s  G 51.1s  coverage 2.0s  total 1463.0s
+
+=== P5q  N=1000000  n_eval=3490  n_servable=6980  kappa=0.3027  M_S=0.8805  M_T=0.9069
+ K-prime      rho         G  coverage  ceiling  G<=0.005  G<=0.01  G<=0.02
+      10   0.4505   +0.0264    0.0650   0.9350   False   False   False
+      25   0.2711   +0.0084    0.1490   0.8510   False    True    True
+      50   0.1829   +0.0027    0.2637   0.7363    True    True    True
+     100   0.1256   +0.0027    0.4307   0.5693    True    True    True
+     200   0.0878   +0.0014    0.6323   0.3677    True    True    True
+     500   0.0551   +0.0003    0.8612   0.1388    True    True    True
+  timing: precompute 1006.0s  rho 0.4s  G 27.3s  coverage 0.6s  total 1037.0s
+
+
+=== frontier: smallest admissible depth per pair, and what it would save ===
+pair           eps   K* (min K: G<=eps)  ceiling at K*   G at K*  rho at K*
+P5p          0.005                  500         0.1221   +0.0024     0.0897
+P5p           0.01                  100         0.5647   +0.0064     0.1809
+P5p           0.02                   50         0.7357   +0.0118     0.2478
+P5q          0.005                   50         0.7363   +0.0027     0.1829
+P5q           0.01                   25         0.8510   +0.0084     0.2711
+P5q           0.02                   25         0.8510   +0.0084     0.2711
+
+=== cross-pair rho spread per depth (a result, NOT a criterion for picking K') ===
+ K-prime  n_pairs   rho min   rho max   spread     G max  all admissible at eps=0.005
+      10        2    0.4505    0.5120   0.0615   +0.0735                        False
+      25        2    0.2711    0.3407   0.0696   +0.0279                        False
+      50        2    0.1829    0.2478   0.0649   +0.0118                        False
+     100        2    0.1256    0.1809   0.0553   +0.0064                        False
+     200        2    0.0878    0.1346   0.0468   +0.0058                        False
+     500        2    0.0551    0.0897   0.0346   +0.0024                         True
+
+wrote 2 sweep file(s) and frontier.json to sweeps_qwen

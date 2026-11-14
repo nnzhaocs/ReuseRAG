@@ -1,0 +1,64 @@
+[2026-11-12T05:07:44+08:00] ===== lane 1: union
+[2026-11-12T05:07:44+08:00] threads: 3 job(s) x 1 of 2 cores
+[2026-11-12T05:07:44+08:00] union: P2 present
+[2026-11-12T05:07:44+08:00] union: P3 present
+[2026-11-12T05:07:44+08:00] union: P4 present
+[2026-11-12T05:07:44+08:00] union: P5 present
+[2026-11-12T05:07:44+08:00] union: P9 present
+[2026-11-12T05:07:44+08:00] union: P10 present
+[2026-11-12T05:07:44+08:00] union: P11 present
+[2026-11-12T05:07:44+08:00] union: P12 present
+[2026-11-12T05:07:44+08:00] union: P13 present
+[2026-11-12T05:07:44+08:00] union: P14 present
+[2026-11-12T05:07:55+08:00] union done: 10 text pairs
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S4/demand_then_rand  static S4 (margin S4)  agree True
+   replay at 50: S4/demand_then_rand  static S4 (margin S4)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S0/rand  static S0 (margin S0)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S4/demand_then_rand  static S4 (margin S4)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S0/rand  static S0 (margin S0)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 25: S2/demand_then_rand  static S4 (margin S4)  agree False
+   replay at 25: S4/demand_then_rand  static S4 (margin S4)  agree True
+   replay at 25: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 25: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 25: S4/demand_then_rand  static S4 (margin S4)  agree True
+   replay at 25: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 25: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 25: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 25: S4/demand_then_rand  static S4 (margin S4)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S4/demand_then_rand  static S4 (margin S4)  agree True
+   replay at 50: S4/demand_then_rand  static S4 (margin S4)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S0/rand  static S0 (margin S0)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S4/demand_then_rand  static S4 (margin S4)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S0/rand  static S0 (margin S0)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 25: S2/demand_then_rand  static S4 (margin S4)  agree False
+   replay at 25: S4/demand_then_rand  static S4 (margin S4)  agree True
+   replay at 25: S2/demand_then_rand  static S2 (margin S2)  agree True
+[2026-11-12T05:07:55+08:00] union recorded one or more failed sub-jobs
+[2026-11-12T05:07:55+08:00] ===== lane 1: prereg
+[2026-11-12T05:07:55+08:00] prereg: PREREG_ZIPF2.md already committed
+[2026-11-12T05:07:55+08:00] ===== lane 1: zipf
+[2026-11-12T05:07:55+08:00] threads: 3 job(s) x 1 of 2 cores
+36 of 36 replays; identity holds on 36; D1-D3 family right on 32; priced winner right on 34 (34 with the margin)
+1120 realised points; model not compared (--bound-only); 0 points above the independent bound (0 more at full coverage, where the bound is within 1e-9 of 1); 0 series with an ambiguous start round (scored at their worst case); 0 settings skipped for having no S2/demand trajectory
+[2026-11-12T05:07:58+08:00] zipf done
+[2026-11-12T05:07:58+08:00] ===== lane 1: p5r
+[2026-11-12T05:07:58+08:00] p5r: present
+[2026-11-12T05:07:58+08:00] lane 1 finished with failures: union_nq:N0 union_nq:N2 union_nq:N3 union_nq:N4 union_nq:N5 union_nq:N9 union_nq:N10 union_nq:N11 union_nq:N12 union_nq:N13 union_nq:N14

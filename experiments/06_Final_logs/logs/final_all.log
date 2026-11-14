@@ -1,0 +1,173 @@
+
+===== [10:42:08] 补 zipf 的 P5（单进程，避免 OOM） =====
+  rc=1
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'pairs/P5/doc_src.npy'
+3
+
+1566 realised points; model not compared (--bound-only); 0 points above the independent bound (0 more at full coverage, where the bound is within 1e-9 of 1); 0 series with an ambiguous start round (scored at their worst case); 0 settings skipped for having no S2/demand trajectory
+
+===== [10:42:11] extension check =====
+  rc=0
+| pair | planned | K' | verdict | timing | family | cost (bound) | quality |
+11 pairs scorable, 11 pre-committed; 3 pre-committed claims failed
+all 5 tables describe these results
+K* = 50
+
+===== [10:42:13] extension collect =====
+  rc=0
+[2026-11-10T10:42:13+08:00] not produced: throughput_qwen8b.json
+[2026-11-10T10:42:13+08:00] wrote extension_outputs_20261110_1042.zip (2.2M) -- send this file back
+
+===== [10:42:13] submission check =====
+  rc=0
+8 pairs scorable, 8 pre-committed; 1 pre-committed claims failed
+all 6 tables describe these results
+K* = 50
+
+===== [10:42:18] submission collect =====
+  rc=0
+[2026-11-10T10:42:18+08:00] collect
+[2026-11-10T10:42:19+08:00] wrote submission_outputs_20261110_1042.zip (4.6M) -- send this file
+
+===== [10:42:19] qwen collect（重出，确保含最新） =====
+[2026-11-10T10:42:19+08:00] wrote qwen_rerun_outputs_20261110_1042.zip (636K) -- send this file
+
+===== [10:42:19] 全部 zip =====
+47K extension_outputs_20261109_2320.zip
+52K extension_outputs_20261109_2322.zip
+63K extension_outputs_20261110_0053.zip
+831K extension_outputs_20261110_0122.zip
+832K extension_outputs_20261110_0123.zip
+2.1M extension_outputs_20261110_0305.zip
+2.2M extension_outputs_20261110_0336.zip
+2.2M extension_outputs_20261110_1042.zip
+300K qwen_rerun_outputs_20261109_2322.zip
+303K qwen_rerun_outputs_20261110_0336.zip
+323K qwen_rerun_outputs_20261110_0503.zip
+326K qwen_rerun_outputs_20261110_0505.zip
+635K qwen_rerun_outputs_20261110_0637.zip
+635K qwen_rerun_outputs_20261110_1042.zip
+3.6M submission_outputs_20261109_1607.zip
+4.2M submission_outputs_20261109_1802.zip
+4.2M submission_outputs_20261109_1822.zip
+4.5M submission_outputs_20261109_2320.zip
+4.5M submission_outputs_20261109_2322.zip
+4.5M submission_outputs_20261110_0123.zip
+4.6M submission_outputs_20261110_0336.zip
+4.6M submission_outputs_20261110_1042.zip
+
+===== [10:42:19] FINAL_ALL_DONE 10:42:19 =====
+=== 00:44:22 final_runs all start ===
+[2026-11-11T00:44:46+08:00] cores: 16 (nproc says 128); set NCORES=<n> to override
+[2026-11-11T00:44:46+08:00] seeds: inputs present
+[2026-11-11T00:44:47+08:00] disk: 78 GB free in /root/autodl-tmp/enc_full, ~63 GB needed; MS MARCO files in /root/autodl-tmp/raw
+GPU: NVIDIA GeForce RTX 5090
+[2026-11-11T00:44:49+08:00] preflight ok
+PREREG_SCALE.md committed b74039a23e4e2eb41bb8a717c6708c140e3f183b 2026-11-10T20:47:07+08:00; recorded 2026-11-11T00:44:49+08:00
+[2026-11-11T00:44:49+08:00] seeds running in the background (pid 17987, logs/seeds_all.log)
+[2026-11-11T00:44:49+08:00] ===== build
+[2026-11-11T00:44:49+08:00] build: subfull present
+[2026-11-11T00:44:49+08:00] build: queries identical to sub1m (7077); build done
+[2026-11-11T00:44:49+08:00] ===== encode
+[2026-11-11T00:44:50+08:00] encode: all-MiniLM-L6-v2 documents (8841823 passages, chunks of 500000)
+[2026-11-11T00:45:08+08:00] encode: all-MiniLM-L6-v2 failed -- see logs/encode_full_all-MiniLM-L6-v2.log
+[2026-11-11T00:45:08+08:00] encode failed: the later scale stages need it, stopping the scale part
+[2026-11-11T00:45:08+08:00] waiting for the seeds
+[2026-11-11T00:59:28+08:00] threads: 4 replay(s) x 3 of 16 cores
+[2026-11-11T00:59:28+08:00] seeds: 32 of 32 replays present (0 started now)
+[2026-11-11T00:59:28+08:00] seeds done
+9 pairs, 45 replays; the D2-admitted winner equals the plan's family in 45 of 45; S2's orders tie within tau in 45 of 45
+[2026-11-11T00:59:29+08:00] summary: no 1M sweeps in 'sweeps sweeps_fine' (set ONE_M_SWEEPS) or no full sweeps: SCALE_CHECK.md skipped (it is recomputed from the zip)
+[2026-11-11T00:59:30+08:00] wrote final_outputs_20261111_0059.zip (5.7M) -- send this file
+[2026-11-11T00:59:30+08:00] done with failures: encode
+=== ALL_EXIT rc=1 00:59:30 ===
+=== 02:21:08 final_runs all start ===
+[2026-11-11T02:21:31+08:00] cores: 16 (nproc says 128); set NCORES=<n> to override
+[2026-11-11T02:21:31+08:00] seeds: inputs present
+[2026-11-11T02:21:32+08:00] disk: 73 GB free in /root/autodl-tmp/enc_full, ~63 GB needed; MS MARCO files in /root/autodl-tmp/raw
+GPU: NVIDIA GeForce RTX 5090
+[2026-11-11T02:21:33+08:00] preflight ok
+PREREG_SCALE.md committed b74039a23e4e2eb41bb8a717c6708c140e3f183b 2026-11-10T20:47:07+08:00; recorded 2026-11-11T00:44:49+08:00
+[2026-11-11T02:21:33+08:00] seeds running in the background (pid 24407, logs/seeds_all.log)
+[2026-11-11T02:21:33+08:00] ===== build
+[2026-11-11T02:21:33+08:00] build: subfull present
+[2026-11-11T02:21:33+08:00] build: queries identical to sub1m (7077); build done
+[2026-11-11T02:21:33+08:00] ===== encode
+[2026-11-11T02:21:35+08:00] encode: all-MiniLM-L6-v2 documents (8841823 passages, chunks of 500000)
+self-retrieval check: top1 1.0 over 256 documents in a pool of 10256 (chance 9.75e-05) -> ok
+wrote /root/autodl-tmp/enc_full/all-MiniLM-L6-v2/doc.npy (8841823, 384)
+
+25 passed, 2 warning(s), 0 failure(s)
+[2026-11-11T03:08:42+08:00] encode: bge-small-en-v1.5 documents (8841823 passages, chunks of 500000)
+self-retrieval check: top1 1.0 over 256 documents in a pool of 10256 (chance 9.75e-05) -> ok
+wrote /root/autodl-tmp/enc_full/bge-small-en-v1.5/doc.npy (8841823, 384)
+
+25 passed, 2 warning(s), 0 failure(s)
+[2026-11-11T04:04:41+08:00] encode: bge-base-en-v1.5 documents (8841823 passages, chunks of 500000)
+self-retrieval check: top1 1.0 over 256 documents in a pool of 10256 (chance 9.75e-05) -> ok
+wrote /root/autodl-tmp/enc_full/bge-base-en-v1.5/doc.npy (8841823, 768)
+
+25 passed, 2 warning(s), 0 failure(s)
+[2026-11-11T05:50:25+08:00] encode done
+[2026-11-11T05:50:25+08:00] ===== pairs
+assembled pairs_full/P2f
+assembled pairs_full/P3f
+assembled pairs_full/P9f
+[2026-11-11T05:50:48+08:00] pairs done
+[2026-11-11T05:50:48+08:00] ===== sweep
+[2026-11-11T05:50:48+08:00] threads: 1 job(s) x 16 of 16 cores
+=== cross-pair rho spread per depth (a result, NOT a criterion for picking K') ===
+ K-prime  n_pairs   rho min   rho max   spread     G max  all admissible at eps=0.005
+      10        1    0.4788    0.4788   0.0000   +0.0644                        False
+      25        1    0.2780    0.2780   0.0000   +0.0223                        False
+      50        1    0.1759    0.1759   0.0000   +0.0078                        False
+     100        1    0.1093    0.1093   0.0000   +0.0033                         True
+     200        1    0.0678    0.0678   0.0000   -0.0005                         True
+     350        1    0.0452    0.0452   0.0000   -0.0012                         True
+     500        1    0.0362    0.0362   0.0000   -0.0009                         True
+    1000        1    0.0225    0.0225   0.0000   -0.0021                         True
+
+wrote 1 sweep file(s) and frontier.json to sweeps_full
+=== cross-pair rho spread per depth (a result, NOT a criterion for picking K') ===
+ K-prime  n_pairs   rho min   rho max   spread     G max  all admissible at eps=0.005
+      10        1    0.3771    0.3771   0.0000   +0.0099                        False
+      25        1    0.1686    0.1686   0.0000   +0.0016                         True
+      50        1    0.0892    0.0892   0.0000   -0.0037                         True
+     100        1    0.0480    0.0480   0.0000   +0.0003                         True
+     200        1    0.0265    0.0265   0.0000   +0.0000                         True
+     350        1    0.0174    0.0174   0.0000   +0.0003                         True
+     500        1    0.0131    0.0131   0.0000   +0.0000                         True
+    1000        1    0.0071    0.0071   0.0000   -0.0003                         True
+
+wrote 1 sweep file(s) and frontier.json to sweeps_full
+=== cross-pair rho spread per depth (a result, NOT a criterion for picking K') ===
+ K-prime  n_pairs   rho min   rho max   spread     G max  all admissible at eps=0.005
+      10        1    0.4637    0.4637   0.0000   +0.0545                        False
+      25        1    0.2600    0.2600   0.0000   +0.0175                        False
+      50        1    0.1622    0.1622   0.0000   +0.0081                        False
+     100        1    0.0976    0.0976   0.0000   +0.0045                         True
+     200        1    0.0595    0.0595   0.0000   +0.0001                         True
+     350        1    0.0404    0.0404   0.0000   +0.0002                         True
+     500        1    0.0321    0.0321   0.0000   -0.0001                         True
+    1000        1    0.0194    0.0194   0.0000   -0.0003                         True
+
+wrote 1 sweep file(s) and frontier.json to sweeps_full
+[2026-11-11T07:20:23+08:00] sweep done
+[2026-11-11T07:20:23+08:00] ===== mass
+[2026-11-11T07:20:23+08:00] threads: 1 job(s) x 16 of 16 cores
+[2026-11-11T07:39:19+08:00] mass done
+[2026-11-11T07:39:19+08:00] waiting for the seeds
+[2026-11-11T02:21:33+08:00] threads: 4 replay(s) x 3 of 16 cores
+[2026-11-11T02:21:33+08:00] seeds: 32 of 32 replays present (0 started now)
+[2026-11-11T02:21:33+08:00] seeds done
+9 pairs, 45 replays; the D2-admitted winner equals the plan's family in 45 of 45; S2's orders tie within tau in 45 of 45
+|---|---|---|---|---|---|---|---|
+| P2f | 1,000,000 -> 8,841,823 | +0.0471 -> +0.0644 | +0.0094 / +0.0223 | +0.0022 / +0.0078 | S2@25 -> S2@50 | 264,274 -> 331,388 | pass pass pass pass |
+| P3f | 1,000,000 -> 8,841,823 | +0.0154 -> +0.0099 | -0.0032 / +0.0016 | -0.0029 / -0.0037 | S2@25 -> S2@25 | 261,214 -> 332,874 | FAIL FAIL pass pass |
+| P9f | 1,000,000 -> 8,841,823 | +0.0317 -> +0.0545 | +0.0050 / +0.0175 | -0.0010 / +0.0081 | S2@25 -> S2@50 | 264,274 -> 331,388 | pass pass pass pass |
+
+10 of 12 pre-registered checks pass; failures: S1 on P3f, S2 on P3f
+[2026-11-11T07:39:22+08:00] wrote final_outputs_20261111_0739.zip (5.9M) -- send this file
+[2026-11-11T07:39:22+08:00] ALL DONE
+=== ALL_EXIT rc=0 07:39:22 ===

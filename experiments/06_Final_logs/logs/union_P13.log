@@ -1,0 +1,15 @@
+P13 [uniform]: gap +0.0144  K'=25: S2 S2 G-0.0018 cov0.148 S3 G+0.3095 cov0.099 S4 G-0.0006 cov0.841 S5 G+0.0007 cov0.851  K'=50: S2 S2 G+0.0008 cov0.261 S3 G+0.2375 cov0.164 S4 G-0.0009 cov0.855 S5 G-0.0001 cov0.869  K'=100: S2 S2 G-0.0006 cov0.426 S3 G+0.1793 cov0.257 S4 G-0.0006 cov0.879 S5 G-0.0007 cov0.895
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+     S2: candidate-union cov 0.2612; replay C_serve 0.2612 (at_last_arrival), inline repairs 0.2612; G +0.0008 vs debt +0.0011
+     S3: candidate-union cov 0.1643; replay C_serve 1.0000 (never_reached_target), inline repairs 0.1643; G +0.2375 vs debt +0.2316
+     S4: candidate-union cov 0.8547; replay C_serve 0.8546 (at_last_arrival), inline repairs 0.8547; G -0.0009 vs debt +0.0001
+     S5: candidate-union cov 0.8689; replay C_serve 0.8688 (at_last_arrival), inline repairs 0.8689; G -0.0001 vs debt +0.0001
+P13 [zipf:0.3]: gap +0.0162  K'=25: S2 S2 G-0.0013 cov0.148 S3 G+0.3090 cov0.099 S4 G+0.0000 cov0.841 S5 G+0.0008 cov0.851  K'=50: S2 S2 G+0.0012 cov0.261 S3 G+0.2382 cov0.164 S4 G-0.0006 cov0.855 S5 G+0.0001 cov0.869  K'=100: S2 S2 G-0.0003 cov0.426 S3 G+0.1814 cov0.257 S4 G-0.0002 cov0.879 S5 G-0.0004 cov0.895
+P13 [zipf:0.6]: gap +0.0189  K'=25: S2 S2 G-0.0011 cov0.148 S3 G+0.2983 cov0.099 S4 G+0.0007 cov0.841 S5 G+0.0009 cov0.851  K'=50: S2 S2 G+0.0017 cov0.261 S3 G+0.2341 cov0.164 S4 G-0.0001 cov0.855 S5 G+0.0004 cov0.869  K'=100: S2 S2 G+0.0001 cov0.426 S3 G+0.1818 cov0.257 S4 G+0.0002 cov0.879 S5 G+0.0001 cov0.895
+P13 [zipf:0.9]: gap +0.0215  K'=25: S2 S2 G-0.0014 cov0.148 S3 G+0.2610 cov0.099 S4 G+0.0010 cov0.841 S5 G+0.0009 cov0.851  K'=50: S2 S2 G+0.0018 cov0.261 S3 G+0.2139 cov0.164 S4 G+0.0004 cov0.855 S5 G+0.0005 cov0.869  K'=100: S2 S2 G+0.0003 cov0.426 S3 G+0.1728 cov0.257 S4 G+0.0005 cov0.879 S5 G+0.0004 cov0.895
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+     S2: candidate-union cov 0.2612; replay C_serve 0.2612 (at_last_arrival), inline repairs 0.2612; G +0.0018 vs debt +0.0022
+     S3: candidate-union cov 0.1643; replay C_serve 1.0000 (never_reached_target), inline repairs 0.1643; G +0.2139 vs debt +0.2112
+     S4: candidate-union cov 0.8547; replay C_serve 0.8547 (at_last_arrival), inline repairs 0.8547; G +0.0004 vs debt -0.0003
+     S5: candidate-union cov 0.8689; replay C_serve 0.8689 (at_last_arrival), inline repairs 0.8689; G +0.0005 vs debt -0.0004
+P13 [zipf:1.2]: gap +0.0191  K'=25: S2 S2 G-0.0012 cov0.148 S3 G+0.1940 cov0.099 S4 G+0.0007 cov0.841 S5 G+0.0006 cov0.851  K'=50: S2 S2 G+0.0012 cov0.261 S3 G+0.1700 cov0.164 S4 G+0.0004 cov0.855 S5 G+0.0003 cov0.869  K'=100: S2 S2 G+0.0003 cov0.426 S3 G+0.1452 cov0.257 S4 G+0.0004 cov0.879 S5 G+0.0003 cov0.895

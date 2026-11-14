@@ -1,0 +1,6 @@
+[2026-11-10T02:15:30+08:00] measure: coverage, sweeps, measure-only runs (per-pair logs: logs/nq_*_N*.log)
+[2026-11-10T02:15:30+08:00] threads: 15 job(s) x 14 of 224 cores
+[2026-11-10T02:16:06+08:00] measure: 4 output file(s)
+[2026-11-10T02:16:06+08:00] measure: 10 output file(s)
+[2026-11-10T02:16:06+08:00] measure: 11 output file(s)
+[2026-11-10T02:16:06+08:00] measure done

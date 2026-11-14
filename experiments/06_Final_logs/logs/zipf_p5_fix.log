@@ -1,0 +1,58 @@
+
+===== [11:06:54] zipf P5（bge-m3→bge-small，单进程） =====
+  rc=2
+refused: code tree is dirty (a0d2eec90e40-dirty:ffd17084). Commit first, or --allow-dirty for scratc
+  zipf 文件数: 3
+
+1566 realised points; model not compared (--bound-only); 0 points above the independent bound (0 more at full coverage, where the bound is within 1e-9 of 1); 0 series with an ambiguous start round (scored at their worst case); 0 settings skipped for having no S2/demand trajectory
+
+===== [11:06:56] extension check + collect =====
+  check rc=0
+| pair | planned | K' | verdict | timing | family | cost (bound) | quality |
+11 pairs scorable, 11 pre-committed; 3 pre-committed claims failed
+all 5 tables describe these results
+  collect rc=0
+[2026-11-10T11:06:58+08:00] not produced: throughput_qwen8b.json
+[2026-11-10T11:06:59+08:00] wrote extension_outputs_20261110_1106.zip (2.2M) -- send this file back
+
+===== [11:06:59] ZIPF_P5_DONE 11:06:59 =====
+
+===== [11:07:56] zipf P5（bge-m3→bge-small，单进程） =====
+  rc=1
+    fid = stack.enter_context(open(os.fspath(file), "rb"))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'pairs/P5/q_src.npy'
+  zipf 文件数: 3
+
+1566 realised points; model not compared (--bound-only); 0 points above the independent bound (0 more at full coverage, where the bound is within 1e-9 of 1); 0 series with an ambiguous start round (scored at their worst case); 0 settings skipped for having no S2/demand trajectory
+
+===== [11:07:59] extension check + collect =====
+  check rc=0
+| pair | planned | K' | verdict | timing | family | cost (bound) | quality |
+11 pairs scorable, 11 pre-committed; 3 pre-committed claims failed
+all 5 tables describe these results
+  collect rc=0
+[2026-11-10T11:08:01+08:00] not produced: throughput_qwen8b.json
+[2026-11-10T11:08:02+08:00] wrote extension_outputs_20261110_1108.zip (2.2M) -- send this file back
+
+===== [11:08:02] ZIPF_P5_DONE 11:08:02 =====
+
+===== [11:09:12] zipf P5（bge-m3→bge-small，单进程） =====
+  rc=0
+   I5' [ratio=4.0] S0/rand skipped: 43 arrival(s) happened after the migration completed
+   I4'/I5'/I7/I8/I9 (replay v3): ok
+   I6 evaluation queries are measured at first service only, never re-scored after their own repair:
+  zipf 文件数: 4
+
+2088 realised points; model not compared (--bound-only); 0 points above the independent bound (0 more at full coverage, where the bound is within 1e-9 of 1); 0 series with an ambiguous start round (scored at their worst case); 0 settings skipped for having no S2/demand trajectory
+
+===== [11:27:18] extension check + collect =====
+  check rc=0
+| pair | planned | K' | verdict | timing | family | cost (bound) | quality |
+11 pairs scorable, 11 pre-committed; 3 pre-committed claims failed
+all 5 tables describe these results
+  collect rc=0
+[2026-11-10T11:27:21+08:00] not produced: throughput_qwen8b.json
+[2026-11-10T11:27:21+08:00] wrote extension_outputs_20261110_1127.zip (2.4M) -- send this file back
+
+===== [11:27:21] ZIPF_P5_DONE 11:27:21 =====

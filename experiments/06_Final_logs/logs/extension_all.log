@@ -1,0 +1,11 @@
+tracked files differ from HEAD (run_pair.py would refuse): FREEZE_CHECK.md curve_check.md 
+tracked files differ from HEAD (run_pair.py would refuse): FREEZE_CHECK.md 
+NQ encodings: all five present
+P5r: enc/Qwen3-Embedding-0.6B encoded and checked
+[2026-11-10T01:23:11+08:00] preflight ok
+NQ encodings: all five present
+P5r: enc/Qwen3-Embedding-0.6B encoded and checked
+[2026-11-10T02:15:25+08:00] preflight ok
+[2026-11-10T03:04:59+08:00] 3 stage(s) failed: read logs/nq_replay.log, logs/seeds.log, logs/zipf.log, logs/qsweep.log, logs/p5r.log
+[2026-11-10T03:05:00+08:00] not produced: curve_check_zipf.md throughput_qwen8b.json results_llm coverage_llm
+[2026-11-10T03:05:01+08:00] wrote extension_outputs_20261110_0305.zip (2.1M) -- send this file back

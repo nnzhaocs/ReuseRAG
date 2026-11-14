@@ -1,0 +1,37 @@
+[2026-11-12T03:50:30+08:00] threads: 3 job(s) x 2 of 7 cores
+[2026-11-12T03:50:30+08:00] union: P2 present
+[2026-11-12T03:50:30+08:00] union: P3 present
+[2026-11-12T03:50:30+08:00] union: P4 present
+[2026-11-12T03:50:30+08:00] union: P5 present
+[2026-11-12T03:50:30+08:00] union: P9 present
+[2026-11-12T03:50:30+08:00] union: P10 present
+[2026-11-12T03:50:30+08:00] union: P11 present
+[2026-11-12T03:50:30+08:00] union: P12 present
+[2026-11-12T03:50:30+08:00] union: P13 present
+[2026-11-12T03:50:30+08:00] union: P14 present
+[2026-11-12T04:12:06+08:00] union done: 10 text pairs
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S4/demand_then_rand  static S4 (margin S4)  agree True
+   replay at 50: S4/demand_then_rand  static S4 (margin S4)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S0/rand  static S0 (margin S0)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S4/demand_then_rand  static S4 (margin S4)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 50: S0/rand  static S0 (margin S0)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 25: S2/demand_then_rand  static S4 (margin S4)  agree False
+   replay at 25: S4/demand_then_rand  static S4 (margin S4)  agree True
+   replay at 25: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 25: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 25: S4/demand_then_rand  static S4 (margin S4)  agree True
+   replay at 25: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 25: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 25: S2/demand_then_rand  static S2 (margin S2)  agree True
+   replay at 25: S4/demand_then_rand  static S4 (margin S4)  agree True
+   replay at 50: S4/demand_then_rand  static S4 (margin S4)  agree True
+   replay at 50: S2/demand_then_rand  static S2 (margin S2)  agree True
